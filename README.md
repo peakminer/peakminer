@@ -4,6 +4,12 @@ High-performance NVIDIA GPU miner for **Pearl (PRL)** — built for high hashrat
 
 This repository hosts the official release packages. Download the latest build from the [**Releases**](../../releases) page.
 
+## Links
+
+- 💬 Telegram: [t.me/peakminer_official](https://t.me/peakminer_official)
+- 📢 Announcements: [t.me/peakminer_announcements](https://t.me/peakminer_announcements)
+- 🐙 GitHub: [github.com/peakminer/peakminer](https://github.com/peakminer/peakminer)
+
 ## Highlights
 
 - **Pearl (PRL)** support over Stratum V1, with TLS and failover pools
