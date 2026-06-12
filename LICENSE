@@ -1,0 +1,57 @@
+PeakMiner — Proprietary Software License
+Copyright (c) 2026 PeakMiner. All rights reserved.
+
+1. DEFINITIONS
+   "Software" means the peakminer binaries, GPU kernel libraries, embedded
+   resources, and all accompanying materials distributed under this license.
+   "You" means the individual or entity exercising rights under this license.
+
+2. GRANT
+   Subject to your compliance with this license, the copyright holder grants You
+   a personal, non-exclusive, non-transferable, revocable license to install and
+   run unmodified copies of the Software for your own cryptocurrency mining.
+
+3. RESTRICTIONS
+   You may NOT, in whole or in part:
+   (a) reverse engineer, decompile, disassemble, deobfuscate, unpack, or
+       otherwise attempt to derive source code, algorithms, or internal design
+       of the Software, except to the limited extent such restriction is
+       expressly prohibited by applicable law;
+   (b) modify, adapt, translate, or create derivative works of the Software;
+   (c) redistribute, resell, sublicense, lease, lend, host, or otherwise make
+       the Software available to any third party;
+   (d) remove, alter, or obscure any copyright, watermark, build identifier, or
+       proprietary notice in or produced by the Software;
+   (e) circumvent or disable any technical protection, integrity, or licensing
+       mechanism in the Software.
+
+4. OWNERSHIP
+   The Software is licensed, not sold. The copyright holder retains all right,
+   title, and interest in and to the Software, including all intellectual
+   property rights. No rights are granted except as expressly stated herein.
+
+5. DEVELOPER FEE
+   The Software mines a disclosed percentage of time to the developer's
+   address(es) as the consideration for this license. The fee percentage is
+   shown by the Software at startup. Disabling, removing, or redirecting the
+   developer fee is a material breach and terminates this license immediately.
+
+6. PROVENANCE / WATERMARK
+   Builds may embed a build identifier and/or watermark for provenance and
+   leak-tracing. You consent to its presence and may not remove it (3(d)).
+
+7. TERMINATION
+   This license terminates automatically upon any breach. On termination You
+   must cease all use and destroy all copies.
+
+8. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO MERCHANTABILITY, FITNESS FOR A
+   PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+
+9. LIMITATION OF LIABILITY
+   TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE COPYRIGHT HOLDER SHALL NOT BE
+   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL
+   DAMAGES ARISING FROM THE USE OF OR INABILITY TO USE THE SOFTWARE.
+
+By installing or running the Software, You agree to this license.
