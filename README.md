@@ -1,6 +1,6 @@
 # peakminer
 
-High-performance NVIDIA GPU miner for **Pearl (PRL)** — built for high hashrate, low power draw, and low VRAM usage, with the best optimization on **RTX 50xx (Blackwell)** and **RTX 30xx (Ampere)** cards.
+High-performance NVIDIA GPU miner for **Pearl (PRL)** — built for high hashrate, low power draw, and low VRAM usage, with the best optimization on **RTX 50xx (Blackwell)**, **RTX 40xx (Ada)**, and **RTX 30xx (Ampere)** cards.
 
 This repository hosts the official release packages. Download the latest build from the [**Releases**](../../releases) page.
 
@@ -14,7 +14,7 @@ This repository hosts the official release packages. Download the latest build f
 ## Highlights
 
 - **Pearl (PRL)** support over Stratum V1, with TLS and failover pools
-- Tuned CUDA kernels per GPU generation — **best efficiency on RTX 50xx and RTX 30xx**: high hash, low watt, low VRAM
+- Tuned CUDA kernels per GPU generation — **best efficiency on RTX 50xx, 40xx and 30xx**: high hash, low watt, low VRAM
 - **HiveOS** package out of the box (`peakminer-<version>-linux-x86_64-hiveos.tar.gz`), Linux-first
 - Built-in HTTP stats API: per-GPU hashrate, temperature, fan, shares, and uptime on the HiveOS dashboard
 
@@ -31,7 +31,7 @@ This repository hosts the official release packages. Download the latest build f
 | sm_70 | volta | V100 |
 | sm_75 | turing | RTX 20xx / T4 / CMP 30HX |
 | sm_80 / sm_86 | ampere | A100 / **RTX 30xx (optimized)** |
-| sm_89 | ada | RTX 40xx |
+| sm_89 | ada | **RTX 40xx (optimized)** |
 | sm_90 | h100 | H100 / H200 |
 | sm_100 | b200 | B200 / B300 |
 | sm_120 | blackwell | **RTX 50xx (optimized)** |
