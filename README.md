@@ -1,20 +1,21 @@
 # peakminer
 
-High-performance NVIDIA GPU miner for **Pearl (PRL)** — built for high hashrate, low power draw, and low VRAM usage, with the best optimization on **RTX 50xx (Blackwell)** cards.
+High-performance NVIDIA GPU miner for **Pearl (PRL)** — built for high hashrate, low power draw, and low VRAM usage, with the best optimization on **RTX 50xx (Blackwell)** and **RTX 30xx (Ampere)** cards.
 
 This repository hosts the official release packages. Download the latest build from the [**Releases**](../../releases) page.
 
 ## Links
 
 - 💬 Telegram: [t.me/peakminer_official](https://t.me/peakminer_official)
+- 🎮 Discord: [discord.gg/d5gVybewQ9](https://discord.gg/d5gVybewQ9)
 - 📢 Announcements: [t.me/peakminer_announcements](https://t.me/peakminer_announcements)
 - 🐙 GitHub: [github.com/peakminer/peakminer](https://github.com/peakminer/peakminer)
 
 ## Highlights
 
 - **Pearl (PRL)** support over Stratum V1, with TLS and failover pools
-- Tuned CUDA kernels per GPU generation — **best efficiency on RTX 50xx**: high hash, low watt, low VRAM
-- **HiveOS** package out of the box (`peakminer-<version>-hiveos.tar.gz`), Linux-first
+- Tuned CUDA kernels per GPU generation — **best efficiency on RTX 50xx and RTX 30xx**: high hash, low watt, low VRAM
+- **HiveOS** package out of the box (`peakminer-<version>-linux-x86_64-hiveos.tar.gz`), Linux-first
 - Built-in HTTP stats API: per-GPU hashrate, temperature, fan, shares, and uptime on the HiveOS dashboard
 
 ## Dev fee
@@ -29,11 +30,11 @@ This repository hosts the official release packages. Download the latest build f
 |---|---|---|
 | sm_70 | volta | V100 |
 | sm_75 | turing | RTX 20xx / T4 / CMP 30HX |
-| sm_80 / sm_86 | ampere | A100 / RTX 30xx |
+| sm_80 / sm_86 | ampere | A100 / **RTX 30xx (optimized)** |
 | sm_89 | ada | RTX 40xx |
 | sm_90 | h100 | H100 / H200 |
 | sm_100 | b200 | B200 / B300 |
-| sm_120 | blackwell | **RTX 50xx (recommended)** |
+| sm_120 | blackwell | **RTX 50xx (optimized)** |
 
 **Requirements:** Linux, NVIDIA driver with CUDA 12 runtime support.
 
@@ -43,7 +44,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v<version>/peakminer-<version>-hiveos.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v<version>/peakminer-<version>-linux-x86_64-hiveos.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
