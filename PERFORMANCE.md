@@ -35,11 +35,16 @@ Measured head-to-head on the **same GPU, same pool, back-to-back**:
 | GPU | PeakMiner | Other popular miners | PeakMiner advantage |
 |---|---|---|---|
 | RTX 4070 Ti | **143.5 TH/s** | ~123 TH/s | **+16.7%** |
+| RTX 5060 | **69.9 TH/s** | ~67.5 TH/s | **+3.6%** |
 | RTX 4060 Ti | **79.8 TH/s** | ~77.4 TH/s | **+3.1%** |
+| RTX 3060 | **41.6 TH/s** | ~40.5 TH/s | **+2.7%** |
 
-PeakMiner is now the **fastest Pearl miner** we've measured on 40-series cards.
+PeakMiner is the **fastest Pearl miner** we've measured — leading across the
+30-, 40-, and 50-series. Figures are sustained 10-minute averages (not
+short-window peaks), so they reflect what the pool actually credits.
 
 ---
+
 ## Notes
 
 - Results are identical-output verified — every share is mathematically correct

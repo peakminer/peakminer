@@ -20,15 +20,27 @@ This repository hosts the official release packages. Download the latest build f
 
 ## Performance
 
-Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic:
+Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic.
+Figures are sustained 10-minute averages (what the pool actually credits).
+
+**Generation-over-generation** — same card, same power:
 
 | GPU | PeakMiner | vs previous | Efficiency |
 |---|---|---|---|
 | RTX 4070 Ti | **143.5 TH/s** | **+24% faster** | 505 GH/W |
 | RTX 4060 Ti | **79.8 TH/s** | **+14% faster** | 488 GH/W |
 
-Same card, same power — the fastest Pearl miner we've measured on 40-series cards.
-Full methodology and head-to-head comparison: [**PERFORMANCE.md**](PERFORMANCE.md).
+**Head-to-head vs other popular miners** — same GPU, same pool, back-to-back:
+
+| GPU | PeakMiner | Other miners | Advantage |
+|---|---|---|---|
+| RTX 4070 Ti | **143.5 TH/s** | ~123 TH/s | **+16.7%** |
+| RTX 5060 | **69.9 TH/s** | ~67.5 TH/s | **+3.6%** |
+| RTX 4060 Ti | **79.8 TH/s** | ~77.4 TH/s | **+3.1%** |
+| RTX 3060 | **41.6 TH/s** | ~40.5 TH/s | **+2.7%** |
+
+The fastest Pearl miner we've measured, leading across the 30-, 40-, and 50-series.
+Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 
 ## Dev fee
 
