@@ -18,6 +18,18 @@ This repository hosts the official release packages. Download the latest build f
 - **HiveOS** package out of the box (`peakminer-<version>-linux-x86_64-hiveos.tar.gz`), Linux-first
 - Built-in HTTP stats API: per-GPU hashrate, temperature, fan, shares, and uptime on the HiveOS dashboard
 
+## Performance
+
+Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic:
+
+| GPU | PeakMiner | vs previous | Efficiency |
+|---|---|---|---|
+| RTX 4070 Ti | **143.5 TH/s** | **+24% faster** | 505 GH/W |
+| RTX 4060 Ti | **79.8 TH/s** | **+14% faster** | 488 GH/W |
+
+Same card, same power — the fastest Pearl miner we've measured on 40-series cards.
+Full methodology and head-to-head comparison: [**PERFORMANCE.md**](PERFORMANCE.md).
+
 ## Dev fee
 
 | Coin | Fee |
