@@ -62,6 +62,20 @@ Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 
 **Requirements:** Linux, NVIDIA driver with CUDA 12 runtime support.
 
+## Supported pools
+
+PeakMiner works with any Stratum V1 Pearl (PRL) pool. Tested and supported:
+
+| Pool | Site |
+|---|---|
+| HeroMiners | [pearl.herominers.com](https://pearl.herominers.com) |
+| BaikalMine | [baikalmine.com](https://baikalmine.com) |
+| LuckyPool | [pearl.luckypool.io](https://pearl.luckypool.io) |
+| Kryptex | [pool.kryptex.com](https://pool.kryptex.com) |
+| AlphaPool | [pearl.alphapool.tech](https://pearl.alphapool.tech) |
+
+Use each pool's own host:port in your flight sheet's **Pool URL**. Comma-separate multiple URLs for failover.
+
 ## Quick start (HiveOS)
 
 Create a flight sheet with a **Custom** miner and point the Installation URL at the release asset:
