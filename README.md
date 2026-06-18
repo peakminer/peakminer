@@ -13,9 +13,9 @@ This repository hosts the official release packages. Download the latest build f
 
 ## Highlights
 
-- **Pearl (PRL)** support over Stratum V1, with TLS and failover pools
+- **Pearl (PRL)** support over Stratum V1, with **auto-detected TLS/SSL** and failover pools
 - Tuned CUDA kernels per GPU generation — **best efficiency on RTX 50xx, 40xx and 30xx**: high hash, low watt, low VRAM
-- **HiveOS** package out of the box (`peakminer-<version>-linux-x86_64-hiveos.tar.gz`), Linux-first
+- **Windows & Linux** — standalone Windows build (`.zip`) plus a ready-to-go HiveOS package
 - Built-in HTTP stats API: per-GPU hashrate, temperature, fan, shares, and uptime on the HiveOS dashboard
 
 ## Performance
@@ -60,7 +60,7 @@ Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 | sm_100 | b200 | B200 / B300 |
 | sm_120 | blackwell | **RTX 50xx (optimized)** |
 
-**Requirements:** Linux, NVIDIA driver with CUDA 12 runtime support.
+**Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed).
 
 ## Supported pools
 
@@ -82,11 +82,11 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v1.0.4/peakminer-1.0.4.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v1.0.5/peakminer-1.0.5.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
-| Pool URL | `host:port` (plain TCP) or `stratum+ssl://host:port` (TLS); comma-separate multiple URLs for failover |
+| Pool URL | `host:port` — **TLS/SSL is auto-detected** (no prefix needed); force it with `stratum+ssl://host:port`. Comma-separate multiple URLs for failover |
 | Template | `%WAL%.%WORKER_NAME%` |
 | Pass | optional (defaults to `x`) |
 
@@ -103,6 +103,42 @@ The "Setup Miner Config" box accepts raw peakminer CLI flags, one per line or se
 --api-port 4068        # stats API port (the stats script follows it automatically)
 ```
 
+## Quick start (Windows)
+
+1. Download **`peakminer-<version>-windows-x86_64.zip`** from the [Releases](../../releases) page and extract it.
+2. Run from a terminal (PowerShell or CMD), or edit the included `start.bat`:
+
+```bat
+peakminer.exe --url eu1.alphapool.tech:5566 --user YOUR_WALLET.rig1 --password x
+```
+
+3. Leave the window open — it prints per-GPU hashrate, accepted shares, and temperatures.
+
+**TLS/SSL is auto-detected** — just pass the pool's `host:port`; no `stratum+ssl://` prefix needed (you can still force it). To pin a **static difficulty**, set the password to `x;d=N`.
+
+Example `start.bat`:
+
+```bat
+@echo off
+peakminer.exe ^
+  --url eu1.alphapool.tech:5566 ^
+  --user YOUR_WALLET.rig1 ^
+  --password x
+pause
+```
+
+Common flags (`peakminer.exe --help` for the full list):
+
+```text
+--url host:port        # pool address (TLS/SSL auto-detected)
+--user WALLET.WORKER   # your Pearl wallet + worker name
+--password x           # pool password; use x;d=N to pin static difficulty
+--devices 0,1          # mine on a GPU subset (default: all)
+--api-port 4068        # built-in HTTP stats API
+```
+
+The CUDA 12 runtime ships inside the zip — no toolkit install needed, just a recent NVIDIA driver.
+
 ## Stats & logs
 
 - Stats API: `GET http://127.0.0.1:4068/summary` on the rig (hashrate reported in kH/s)
@@ -117,8 +153,10 @@ The "Setup Miner Config" box accepts raw peakminer CLI flags, one per line or se
 ## Roadmap
 
 - [x] Pearl (PRL) — NVIDIA, HiveOS / Linux
+- [x] Windows support
+- [x] Auto-detected TLS/SSL pools
 - [ ] More coins and algorithms
-- [ ] More operating systems
+- [ ] macOS / more operating systems
 
 ## License
 
