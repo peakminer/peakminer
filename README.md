@@ -82,7 +82,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v<version>/peakminer-<version>-linux-x86_64-hiveos.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v1.0.4/peakminer-1.0.4.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
