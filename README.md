@@ -139,6 +139,29 @@ Common flags (`peakminer.exe --help` for the full list):
 
 The CUDA 12 runtime ships inside the zip — no toolkit install needed, just a recent NVIDIA driver.
 
+## Run with Docker
+
+A [`Dockerfile`](Dockerfile) (Ubuntu 24.04) is included. It downloads the Linux binary straight from GitHub Releases.
+
+GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) (the `--gpus all` flag).
+
+```bash
+# Build (defaults to the latest version; override with --build-arg)
+docker build -t peakminer .
+docker build -t peakminer:1.0.6 --build-arg PEAKMINER_VERSION=1.0.6 .
+
+# Run — -t shows the live miner output
+docker run --rm -t --gpus all peakminer \
+  --url host:port --user <WALLET>.<WORKER> --password x
+```
+
+Pass any miner flags after the image name. Map the stats API to the host with `-p`:
+
+```bash
+docker run --rm -t --gpus all -p 4068:4068 peakminer \
+  --url host:port --user <WALLET>.<WORKER> --password x --api-port 4068
+```
+
 ## Stats & logs
 
 - Stats API: `GET http://127.0.0.1:4068/summary` on the rig (hashrate reported in kH/s)
