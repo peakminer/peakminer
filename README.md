@@ -88,7 +88,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
-| Pool URL | `host:port` — **TLS/SSL is auto-detected** (no prefix needed); force it with `stratum+ssl://host:port`. Comma-separate multiple URLs for failover |
+| Pool URL | `de.pearl.herominers.com:1200` (example) — **TLS/SSL is auto-detected** (no prefix needed); force it with `stratum+ssl://host:port`. Comma-separate multiple URLs for failover |
 | Template | `%WAL%.%WORKER_NAME%` |
 | Pass | optional (defaults to `x`) |
 
@@ -111,30 +111,28 @@ The "Setup Miner Config" box accepts raw peakminer CLI flags, one per line or se
 2. Run from a terminal (PowerShell or CMD), or edit the included `start.bat`:
 
 ```bat
-peakminer.exe --url eu1.alphapool.tech:5566 --user YOUR_WALLET.rig1 --password x
+peakminer.exe --url de.pearl.herominers.com:1200 --user YOUR_WALLET.rig1
 ```
 
 3. Leave the window open — it prints per-GPU hashrate, accepted shares, and temperatures.
 
-**TLS/SSL is auto-detected** — just pass the pool's `host:port`; no `stratum+ssl://` prefix needed (you can still force it). To pin a **static difficulty**, set the password to `x;d=N`.
+**TLS/SSL is auto-detected** — just pass the pool's `host:port`; no `stratum+ssl://` prefix needed (you can still force it).
 
 Example `start.bat`:
 
 ```bat
 @echo off
 peakminer.exe ^
-  --url eu1.alphapool.tech:5566 ^
-  --user YOUR_WALLET.rig1 ^
-  --password x
+  --url de.pearl.herominers.com:1200 ^
+  --user YOUR_WALLET.rig1
 pause
 ```
 
 Common flags (`peakminer.exe --help` for the full list):
 
 ```text
---url host:port        # pool address (TLS/SSL auto-detected)
+--url de.pearl.herominers.com:1200   # pool address (TLS/SSL auto-detected)
 --user WALLET.WORKER   # your Pearl wallet + worker name
---password x           # pool password; use x;d=N to pin static difficulty
 --devices 0,1          # mine on a GPU subset (default: all)
 --api-port 4068        # built-in HTTP stats API
 ```
@@ -163,7 +161,7 @@ PeakMiner can apply clock/power offsets and protect cards with temperature limit
 Example — core +150 MHz, memory +1200 MHz, 70% power, pause at 70 °C (resume at 60 °C):
 
 ```bash
-peakminer --url host:port --user <WALLET>.<WORKER> --password x \
+peakminer --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> \
   --gpu-core 150 --gpu-mem 1200 --gpu-power 70% --gpu-temp-stop 70
 ```
 
@@ -182,7 +180,7 @@ docker pull peakminer/peakminer:1.0.6
 
 # Run — -t shows the live miner output
 docker run --rm -t --gpus all peakminer/peakminer:1.0.6 \
-  --url host:port --user <WALLET>.<WORKER> --password x
+  --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
 ### Build it yourself
@@ -193,14 +191,14 @@ docker build -t peakminer .
 docker build -t peakminer:1.0.6 --build-arg PEAKMINER_VERSION=1.0.6 .
 
 docker run --rm -t --gpus all peakminer \
-  --url host:port --user <WALLET>.<WORKER> --password x
+  --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
 Pass any miner flags after the image name. Map the stats API to the host with `-p`:
 
 ```bash
 docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:1.0.6 \
-  --url host:port --user <WALLET>.<WORKER> --password x --api-port 4068
+  --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
 ## Stats & logs
