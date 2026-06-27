@@ -3,16 +3,16 @@
 #
 # Build:
 #   docker build -t peakminer .
-#   docker build -t peakminer:1.0.6 --build-arg PEAKMINER_VERSION=1.0.6 .
+#   docker build -t peakminer:1.0.8 --build-arg PEAKMINER_VERSION=1.0.8 .
 #
 # Run (needs the NVIDIA Container Toolkit on the host):
 #   docker run --rm --gpus all peakminer \
-#     --url host:port --user <WALLET>.<WORKER> --password x
+#     --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 
 FROM ubuntu:24.04
 
 # Version of PeakMiner to pull from GitHub Releases.
-ARG PEAKMINER_VERSION=1.0.6
+ARG PEAKMINER_VERSION=1.0.8
 ARG RELEASE_URL=https://github.com/peakminer/peakminer/releases/download/v${PEAKMINER_VERSION}/peakminer-${PEAKMINER_VERSION}-linux-x86_64
 
 # ca-certificates: TLS/SSL pool connections. curl: fetch the release binary.

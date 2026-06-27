@@ -39,6 +39,17 @@ benchmark.
 
 ---
 
+## RTX 5060
+
+| | Hashrate | Power | Efficiency |
+|---|---|---|---|
+| Previous PeakMiner | 68.0 TH/s | 103 W | 660 GH/W |
+| **PeakMiner (latest)** | **70.2 TH/s** | 103 W | **682 GH/W** |
+
+### ⚡ **+3.2% faster** · **+3.2% more efficient** — same card, same power.
+
+---
+
 ## How we compare
 
 Measured head-to-head on the **same GPU, same pool, back-to-back**:
@@ -47,7 +58,7 @@ Measured head-to-head on the **same GPU, same pool, back-to-back**:
 |---|---|---|---|
 | RTX 4070 Ti | **143.5 TH/s** | ~123 TH/s | **+16.7%** |
 | RTX 2060 SUPER | **28.8 TH/s** | ~25.1 TH/s | **+14.7%** |
-| RTX 5060 | **69.9 TH/s** | ~67.5 TH/s | **+3.6%** |
+| RTX 5060 | **70.2 TH/s** | ~67.5 TH/s | **+4.0%** |
 | RTX 4060 Ti | **79.8 TH/s** | ~77.4 TH/s | **+3.1%** |
 | RTX 3060 | **41.6 TH/s** | ~40.5 TH/s | **+2.7%** |
 

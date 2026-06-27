@@ -30,6 +30,7 @@ Figures are sustained 10-minute averages (what the pool actually credits).
 |---|---|---|---|
 | RTX 4070 Ti | **143.5 TH/s** | **+24% faster** | 505 GH/W |
 | RTX 4060 Ti | **79.8 TH/s** | **+14% faster** | 488 GH/W |
+| RTX 5060 | **70.2 TH/s** | **+3.2% faster** | 682 GH/W |
 
 **Head-to-head vs other popular miners** — same GPU, same pool, back-to-back:
 
@@ -37,7 +38,7 @@ Figures are sustained 10-minute averages (what the pool actually credits).
 |---|---|---|---|
 | RTX 4070 Ti | **143.5 TH/s** | ~123 TH/s | **+16.7%** |
 | RTX 2060 SUPER | **28.8 TH/s** | ~25.1 TH/s | **+14.7%** |
-| RTX 5060 | **69.9 TH/s** | ~67.5 TH/s | **+3.6%** |
+| RTX 5060 | **70.2 TH/s** | ~67.5 TH/s | **+4.0%** |
 | RTX 4060 Ti | **79.8 TH/s** | ~77.4 TH/s | **+3.1%** |
 | RTX 3060 | **41.6 TH/s** | ~40.5 TH/s | **+2.7%** |
 
@@ -84,7 +85,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v1.0.6/peakminer-1.0.6.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v1.0.8/peakminer-1.0.8.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -176,10 +177,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:1.0.6
+docker pull peakminer/peakminer:1.0.8
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:1.0.6 \
+docker run --rm -t --gpus all peakminer/peakminer:1.0.8 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -188,7 +189,7 @@ docker run --rm -t --gpus all peakminer/peakminer:1.0.6 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:1.0.6 --build-arg PEAKMINER_VERSION=1.0.6 .
+docker build -t peakminer:1.0.8 --build-arg PEAKMINER_VERSION=1.0.8 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -197,7 +198,7 @@ docker run --rm -t --gpus all peakminer \
 Pass any miner flags after the image name. Map the stats API to the host with `-p`:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:1.0.6 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:1.0.8 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
