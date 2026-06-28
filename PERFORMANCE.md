@@ -50,6 +50,28 @@ benchmark.
 
 ---
 
+## RTX 3090 (Ampere)
+
+| | Hashrate | Power | Efficiency |
+|---|---|---|---|
+| Previous PeakMiner | 103.4 TH/s | 319 W | 324 GH/W |
+| **PeakMiner (latest)** | **116.8 TH/s** | 317 W | **368 GH/W** |
+
+### ⚡ **+13.0% faster** · **+13.6% more efficient** — at slightly lower power.
+
+---
+
+## RTX 4090 (Ada)
+
+| | Hashrate | Power | Efficiency |
+|---|---|---|---|
+| Previous PeakMiner | 269.2 TH/s | 448 W | 601 GH/W |
+| **PeakMiner (latest)** | **288.9 TH/s** | 448 W | **645 GH/W** |
+
+### ⚡ **+7.3% faster** · **+7.4% more efficient** — same card, same power.
+
+---
+
 ## How we compare
 
 Measured head-to-head on the **same GPU, same pool, back-to-back**:
