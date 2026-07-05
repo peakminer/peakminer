@@ -1,7 +1,7 @@
 # PeakMiner — Pearl Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)**, measured live on LuckyPool.
-Latest full sweep: **v1.0.12** — 20 GPUs across Ampere / Ada / Blackwell, **0 invalid shares** on every card.
+Latest full sweep: **v1.0.13** — 20 GPUs across Ampere / Ada / Blackwell, **0 invalid shares** on every card.
 
 > **How these were measured:** rented single-GPU instances on **vast.ai** (3080 Ti on a local rig),
 > each card at its **default clocks (no manual OC)**. With manual overclocking — core/memory offsets
@@ -11,7 +11,7 @@ Latest full sweep: **v1.0.12** — 20 GPUs across Ampere / Ada / Blackwell, **0 
 
 ---
 
-## Current performance (v1.0.12 · default OC)
+## Current performance (v1.0.13 · default OC)
 
 ### RTX 30-series — Ampere
 
