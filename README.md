@@ -85,6 +85,7 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 | HeroMiners | [pearl.herominers.com](https://pearl.herominers.com) |
 | LuckyPool | [pearl.luckypool.io](https://pearl.luckypool.io) |
 | Kryptex | [pool.kryptex.com](https://pool.kryptex.com) |
+| unMineable | [unmineable.com](https://www.unmineable.com/?mode=advanced&algorithm=pearlpow) |
 | AlphaPool | [pearl.alphapool.tech](https://pearl.alphapool.tech) |
 
 **BTX**
