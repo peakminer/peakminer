@@ -1,6 +1,6 @@
 # peakminer
 
-High-performance NVIDIA GPU miner for **Pearl (PRL)** — built for high hashrate, low power draw, and low VRAM usage, with the best optimization on **RTX 50xx (Blackwell)**, **RTX 40xx (Ada)**, **RTX 30xx (Ampere)**, and **RTX 20xx (Turing)** cards.
+High-performance NVIDIA GPU miner for **Pearl (PRL)** and **BTX** — built for high hashrate, low power draw, and low VRAM usage, with the best optimization on **RTX 50xx (Blackwell)**, **RTX 40xx (Ada)**, **RTX 30xx (Ampere)**, and **RTX 20xx (Turing)** cards, plus data-center **H100 / H200 (Hopper)**.
 
 This repository hosts the official release packages. Download the latest build from the [**Releases**](../../releases) page.
 
@@ -13,7 +13,8 @@ This repository hosts the official release packages. Download the latest build f
 
 ## Highlights
 
-- **Pearl (PRL)** support over Stratum V1, with **auto-detected TLS/SSL** and failover pools
+- **Multi-coin** — mine **Pearl (PRL)** or **BTX** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
+- 🍀 **Luck & effort stats** — see the % of expected effort used to find each share, plus running luck
 - Tuned CUDA kernels per GPU generation — **best efficiency on RTX 50xx, 40xx, 30xx and 20xx**: high hash, low watt, low VRAM
 - **Overclocking & thermal limits** — per-GPU core/memory clocks, power limit, and automatic temperature pause/resume
 - **Windows, Linux & Docker** — standalone Windows build (`.zip`), a ready-to-go HiveOS package, and a prebuilt image (`peakminer/peakminer`)
@@ -22,7 +23,7 @@ This repository hosts the official release packages. Download the latest build f
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic.
-Latest full sweep: **v1.0.13**, 20 GPUs, 0 invalid shares. Measured on vast.ai at **default OC** —
+Latest full sweep: **v1.0.14**, 20 GPUs, 0 invalid shares. Measured on vast.ai at **default OC** —
 manual overclocking typically yields more.
 
 **Current hashrate (default OC, sample):**
@@ -57,6 +58,7 @@ Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 | Coin | Fee |
 |---|---|
 | Pearl (PRL) | 3% |
+| BTX | 3% |
 
 ## Supported GPUs
 
@@ -66,7 +68,7 @@ Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 | sm_75 | turing | T4 / CMP 30HX / **RTX 20xx (optimized)** |
 | sm_80 / sm_86 | ampere | A100 / **RTX 30xx (optimized)** |
 | sm_89 | ada | **RTX 40xx (optimized)** |
-| sm_90 | h100 | H100 / H200 |
+| sm_90 | hopper | **H100 / H200** |
 | sm_100 | b200 | B200 / B300 |
 | sm_120 | blackwell | **RTX 50xx (optimized)** |
 
@@ -74,7 +76,9 @@ Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 
 ## Supported pools
 
-PeakMiner works with any Stratum V1 Pearl (PRL) pool. Tested and supported:
+PeakMiner works with any Stratum V1 pool. Tested and supported:
+
+**Pearl (PRL)**
 
 | Pool | Site |
 |---|---|
@@ -82,6 +86,12 @@ PeakMiner works with any Stratum V1 Pearl (PRL) pool. Tested and supported:
 | LuckyPool | [pearl.luckypool.io](https://pearl.luckypool.io) |
 | Kryptex | [pool.kryptex.com](https://pool.kryptex.com) |
 | AlphaPool | [pearl.alphapool.tech](https://pearl.alphapool.tech) |
+
+**BTX**
+
+| Pool | Example endpoint |
+|---|---|
+| LPRoute | `btx-sg.lproute.com:8660` |
 
 Use each pool's own host:port in your flight sheet's **Pool URL**. Comma-separate multiple URLs for failover.
 
@@ -91,7 +101,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v1.0.13/peakminer-1.0.13.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v1.0.14/peakminer-1.0.14.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -103,37 +113,13 @@ Apply the flight sheet — HiveOS downloads the package, installs it, and starts
 
 ### Flight sheet as JSON
 
-Prefer to import? Paste this into HiveOS (Flight Sheets → import), then set your wallet. Update
-`install_url` to the version you want:
+Ready-made flight sheets live in [`hiveos/`](hiveos/) — open the file, click **Raw**, copy the JSON,
+then import it into HiveOS (Flight Sheets → import) and set your wallet:
 
-```json
-{
-  "name": "PEAKMINER_PEARL",
-  "isFavorite": false,
-  "items": [
-    {
-      "coin": "PEARL",
-      "pool_ssl": false,
-      "pool_urls": [
-        "de.pearl.herominers.com:1200"
-      ],
-      "dpool_ssl": false,
-      "miner": "custom",
-      "miner_alt": "peakminer",
-      "miner_config": {
-        "url": "de.pearl.herominers.com:1200",
-        "algo": "pearl",
-        "pass": "x",
-        "miner": "peakminer",
-        "template": "%WAL%.%WORKER_NAME%",
-        "install_url": "https://github.com/peakminer/peakminer/releases/download/v1.0.13/peakminer-1.0.13.tar.gz",
-        "user_config": ""
-      },
-      "pool_geo": []
-    }
-  ]
-}
-```
+- **Pearl (PRL)** → [`hiveos/pearl.json`](hiveos/pearl.json)
+- **BTX** → [`hiveos/btx.json`](hiveos/btx.json)
+
+Update `install_url` in the JSON to the release you want.
 
 ### Extra miner config (optional)
 
@@ -145,6 +131,17 @@ The "Setup Miner Config" box accepts raw peakminer CLI flags, one per line or se
 --slice-secs 0.25      # fresher jobs at slightly higher CPU
 --api-port 4068        # stats API port (the stats script follows it automatically)
 ```
+
+## Mining BTX (CLI)
+
+Add `--coin btx` and point at a BTX pool:
+
+```bash
+peakminer --coin btx -u WALLET[.WORKER] -o btx-sg.lproute.com:8660
+```
+
+Replace `WALLET[.WORKER]` with your BTX address (worker optional). Same flags work on Windows
+(`peakminer.exe …`) and Docker. TLS/SSL is auto-detected; **3% dev fee**.
 
 ## Quick start (Windows)
 
@@ -217,10 +214,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:1.0.13
+docker pull peakminer/peakminer:1.0.14
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:1.0.13 \
+docker run --rm -t --gpus all peakminer/peakminer:1.0.14 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -229,7 +226,7 @@ docker run --rm -t --gpus all peakminer/peakminer:1.0.13 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:1.0.13 --build-arg PEAKMINER_VERSION=1.0.13 .
+docker build -t peakminer:1.0.14 --build-arg PEAKMINER_VERSION=1.0.14 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -238,7 +235,7 @@ docker run --rm -t --gpus all peakminer \
 Pass any miner flags after the image name. Map the stats API to the host with `-p`:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:1.0.13 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:1.0.14 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
