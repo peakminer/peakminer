@@ -90,9 +90,10 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 
 **BTX**
 
-| Pool | Example endpoint |
+| Pool | Site |
 |---|---|
-| LPRoute | `btx-sg.lproute.com:8660` |
+| NinjaRaider | [ninjaraider.com/btx-pplns](https://ninjaraider.com/btx-pplns) |
+| LuckyPool | [btx.luckypool.io](https://btx.luckypool.io) |
 
 Use each pool's own host:port in your flight sheet's **Pool URL**. Comma-separate multiple URLs for failover.
 
