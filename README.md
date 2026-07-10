@@ -23,7 +23,7 @@ This repository hosts the official release packages. Download the latest build f
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic.
-Latest full sweep: **v1.0.16**, 20 GPUs, 0 invalid shares. Measured on vast.ai at **default OC** —
+Latest full sweep: **v1.0.17**, 20 GPUs, 0 invalid shares. Measured on vast.ai at **default OC** —
 manual overclocking typically yields more.
 
 **Current hashrate (default OC, sample):**
@@ -111,7 +111,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v1.0.16/peakminer-1.0.16.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v1.0.17/peakminer-1.0.17.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -229,10 +229,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:1.0.16
+docker pull peakminer/peakminer:1.0.17
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:1.0.16 \
+docker run --rm -t --gpus all peakminer/peakminer:1.0.17 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -241,7 +241,7 @@ docker run --rm -t --gpus all peakminer/peakminer:1.0.16 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:1.0.16 --build-arg PEAKMINER_VERSION=1.0.16 .
+docker build -t peakminer:1.0.17 --build-arg PEAKMINER_VERSION=1.0.17 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -250,7 +250,7 @@ docker run --rm -t --gpus all peakminer \
 Pass any miner flags after the image name. Map the stats API to the host with `-p`:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:1.0.16 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:1.0.17 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
