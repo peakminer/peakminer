@@ -1,19 +1,19 @@
 {
-  "name": "PEAKMINER_BTX",
+  "name": "PEAKMINER_CSD",
   "isFavorite": false,
   "items": [
     {
-      "coin": "BTX",
+      "coin": "CSD",
       "pool_ssl": false,
       "pool_urls": [
-        "btx-sg.lproute.com:8660"
+        "csd-ca.lproute.com:8760"
       ],
       "dpool_ssl": false,
       "miner": "custom",
       "miner_alt": "peakminer",
       "miner_config": {
-        "url": "btx-sg.lproute.com:8660",
-        "algo": "btx",
+        "url": "csd-ca.lproute.com:8760",
+        "algo": "csd",
         "pass": "x",
         "miner": "peakminer",
         "template": "%WAL%.%WORKER_NAME%",
