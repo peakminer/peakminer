@@ -1,6 +1,6 @@
 # peakminer
 
-High-performance NVIDIA GPU miner for **Pearl (PRL)**, **BTX** and **CSD** — built for high hashrate, low power draw, and low VRAM usage, with the best optimization on **RTX 50xx (Blackwell)**, **RTX 40xx (Ada)**, **RTX 30xx (Ampere)**, and **RTX 20xx (Turing)** cards, plus data-center **H100 / H200 (Hopper)**.
+High-performance GPU miner for **Pearl (PRL)**, **BTX** and **CSD** — built for high hashrate, low power draw, and low VRAM usage, with the best optimization on **RTX 50xx (Blackwell)**, **RTX 40xx (Ada)**, **RTX 30xx (Ampere)**, and **RTX 20xx (Turing)** cards, plus data-center **H100 / H200 (Hopper)**. **AMD GPUs are supported for CSD (Linux only)** — from **Vega** through **RDNA 4**, including **Instinct (CDNA)** accelerators.
 
 This repository hosts the official release packages. Download the latest build from the [**Releases**](../../releases) page.
 
@@ -57,11 +57,13 @@ Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 
 | Coin | Fee |
 |---|---|
-| Pearl (PRL) | 3% |
+| Pearl (PRL) | 2% |
 | BTX | 3% |
 | CSD | 3% |
 
 ## Supported GPUs
+
+**NVIDIA** — all coins, Windows & Linux:
 
 | Compute cap | Profile | Cards |
 |---|---|---|
@@ -75,7 +77,30 @@ Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 | sm_100 | b200 | B200 / B300 |
 | sm_120 | blackwell | **RTX 50xx (optimized)** |
 
-**Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed).
+**AMD** — CSD only, Linux only:
+
+| LLVM target | Architecture | Cards |
+|---|---|---|
+| gfx900 | Vega 10 | RX Vega 56 / 64 / Frontier Edition / Instinct MI25 |
+| gfx906 | Vega 20 | Radeon VII / Pro VII / Instinct MI50 / MI60 |
+| gfx908 | CDNA | Instinct MI100 |
+| gfx90a | CDNA 2 | Instinct MI210 / MI250 / MI250X |
+| gfx942 | CDNA 3 | Instinct MI300A / MI300X / MI325X |
+| gfx950 | CDNA 4 | Instinct MI350X / MI355X |
+| gfx1010 | RDNA 1 | RX 5700 XT / 5700 / 5600 XT |
+| gfx1012 | RDNA 1 | RX 5500 XT / 5500 |
+| gfx1030 | RDNA 2 | RX 6950 XT / 6900 XT / 6800 XT / 6800 |
+| gfx1031 | RDNA 2 | RX 6750 XT / 6700 XT / 6700 |
+| gfx1032 | RDNA 2 | RX 6650 XT / 6600 XT / 6600 |
+| gfx1100 | RDNA 3 | **RX 7900 XTX / 7900 XT / 7900 GRE** |
+| gfx1101 | RDNA 3 | RX 7800 XT / 7700 XT |
+| gfx1102 | RDNA 3 | RX 7600 XT / 7600 |
+| gfx1150 | RDNA 3.5 (APU) | Radeon 890M / 880M (Strix Point) |
+| gfx1151 | RDNA 3.5 (APU) | Radeon 8060S / 8050S (Strix Halo / Ryzen AI Max) |
+| gfx1200 | RDNA 4 | RX 9060 XT / 9060 |
+| gfx1201 | RDNA 4 | **RX 9070 XT / 9070 GRE / 9070** |
+
+**Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed). For AMD cards (CSD, Linux): a recent `amdgpu` driver with ROCm support.
 
 ## Supported pools
 
@@ -113,7 +138,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.1.4/peakminer-2.1.4.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.2.0/peakminer-2.2.0.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -231,10 +256,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.1.4
+docker pull peakminer/peakminer:2.2.0
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.1.4 \
+docker run --rm -t --gpus all peakminer/peakminer:2.2.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -243,7 +268,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.1.4 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.1.4 --build-arg PEAKMINER_VERSION=2.1.4 .
+docker build -t peakminer:2.2.0 --build-arg PEAKMINER_VERSION=2.2.0 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -252,7 +277,7 @@ docker run --rm -t --gpus all peakminer \
 Pass any miner flags after the image name. Map the stats API to the host with `-p`:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.1.4 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.2.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
