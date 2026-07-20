@@ -100,7 +100,11 @@ Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 | gfx1200 | RDNA 4 | RX 9060 XT / 9060 |
 | gfx1201 | RDNA 4 | **RX 9070 XT / 9070 GRE / 9070** |
 
-**Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed). For AMD cards (CSD, Linux): a recent `amdgpu` driver with ROCm support.
+**Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed). For AMD cards (CSD, Linux): a recent `amdgpu` driver with ROCm support, plus the AMD runtime — install it once before mining:
+
+```bash
+curl -fsSL https://gist.githubusercontent.com/devpeakminer/9bfd2744a535a93a99ce1b078f778ff6/raw/be9732a5caed5d5c0a6a9614166d455e6e077506/install-csd-amd-runtime.sh | sudo bash
+```
 
 ## Supported pools
 
@@ -184,6 +188,9 @@ peakminer --coin csd -u WALLET[.WORKER] -o csd-ca.lproute.com:8760
 
 Replace `WALLET[.WORKER]` with your coin address (worker optional). Same flags work on Windows
 (`peakminer.exe …`) and Docker. TLS/SSL is auto-detected; **3% dev fee**.
+
+Mining CSD on an AMD card (Linux)? Install the AMD runtime first — see the one-line installer
+under [Supported GPUs](#supported-gpus).
 
 ## Quick start (Windows)
 
