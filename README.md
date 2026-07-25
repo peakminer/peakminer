@@ -1,10 +1,17 @@
-# PeakMiner
+# PeakMiner — Multi-Coin GPU Miner for NVIDIA & AMD
 
 [![Latest release](https://img.shields.io/github/v/release/peakminer/peakminer)](https://github.com/peakminer/peakminer/releases)
 [![Docker pulls](https://img.shields.io/docker/pulls/peakminer/peakminer)](https://hub.docker.com/r/peakminer/peakminer)
 [![License](https://img.shields.io/badge/license-proprietary-lightgrey)](LICENSE)
 
-High-performance GPU miner for **Pearl (PRL)**, **BTX** and **CSD** — built for high hashrate, low power draw, and low VRAM usage, with the best optimization on **RTX 50xx (Blackwell)**, **RTX 40xx (Ada)**, **RTX 30xx (Ampere)**, and **RTX 20xx (Turing)** cards, plus data-center **H100 / H200 (Hopper)**. **AMD GPUs are supported for CSD (Linux only)** — from **Vega** through **RDNA 4**, including **Instinct (CDNA)** accelerators.
+PeakMiner is a high-performance, multi-coin cryptocurrency GPU miner engineered for
+maximum hashrate, low power draw, and low VRAM usage — with mining kernels tuned for each
+NVIDIA and AMD GPU generation. Runs on Windows, Linux, HiveOS and Docker over
+Stratum V1, with auto-detected TLS/SSL and pool failover.
+
+> ⛏️ [See all supported coins, algorithms & dev fees →](#supported-coins--dev-fees)
+> · [Supported GPUs →](#supported-gpus)
+> New coins are added regularly — [follow announcements](https://t.me/peakminer_announcements).
 
 This repository hosts the official release packages. Download the latest build from the [**Releases**](../../releases) page.
 
@@ -14,7 +21,7 @@ This repository hosts the official release packages. Download the latest build f
 - [Highlights](#highlights)
 - [CLI reference](#cli-reference)
 - [Performance](#performance)
-- [Dev fee](#dev-fee)
+- [Supported coins & dev fees](#supported-coins--dev-fees)
 - [Supported GPUs](#supported-gpus)
 - [Supported pools](#supported-pools)
 - [Quick start (HiveOS)](#quick-start-hiveos)
@@ -217,13 +224,15 @@ from a dedicated comparison run (an earlier sweep), so they can differ slightly 
 The fastest Pearl miner we've measured, leading across the 20-, 30-, 40-, and 50-series.
 Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 
-## Dev fee
+## Supported coins & dev fees
 
-| Coin | Fee |
-|---|---|
-| Pearl (PRL) | 2% |
-| BTX | 3% |
-| CSD | 3% |
+| Coin | Algorithm | Dev fee |
+|---|---|---|
+| Pearl (PRL) | pearlhash | 2% |
+| BTX | MatMul PoW | 3% |
+| CSD | SHA-256d | 3% |
+
+New coins are added regularly — [follow announcements](https://t.me/peakminer_announcements).
 
 ## Supported GPUs
 
