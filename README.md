@@ -76,8 +76,7 @@ Every flag also has a `PEAK_*` environment-variable equivalent (shown in the hel
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
 [Overclocking & temperature limits](#overclocking--temperature-limits).
 
-<details>
-<summary>Full <code>--help</code> output (v2.3.0)</summary>
+Full `--help` output (v2.3.0):
 
 ```text
  ____            _    __  __ _
@@ -182,8 +181,6 @@ GPU thermal parameters:
                              (°C). Override per GPU with --gpu-temp-startN. Must be strictly less
                              than stop
 ```
-
-</details>
 
 ## Performance
 
