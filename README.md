@@ -3,6 +3,9 @@
 [![Latest release](https://img.shields.io/github/v/release/peakminer/peakminer)](https://github.com/peakminer/peakminer/releases)
 [![Docker pulls](https://img.shields.io/docker/pulls/peakminer/peakminer)](https://hub.docker.com/r/peakminer/peakminer)
 [![License](https://img.shields.io/badge/license-proprietary-lightgrey)](LICENSE)
+[![Telegram](https://img.shields.io/badge/Telegram-peakminer__official-26A5E4?logo=telegram&logoColor=white)](https://t.me/peakminer_official)
+[![Discord](https://img.shields.io/badge/Discord-join-5865F2?logo=discord&logoColor=white)](https://discord.gg/d5gVybewQ9)
+[![Announcements](https://img.shields.io/badge/Announcements-channel-26A5E4?logo=telegram&logoColor=white)](https://t.me/peakminer_announcements)
 
 PeakMiner is a high-performance, multi-coin cryptocurrency GPU miner engineered for
 maximum hashrate, low power draw, and low VRAM usage — with mining kernels tuned for each
@@ -17,7 +20,6 @@ This repository hosts the official release packages. Download the latest build f
 
 ## Table of contents
 
-- [Links](#links)
 - [Highlights](#highlights)
 - [CLI reference](#cli-reference)
 - [Performance](#performance)
@@ -33,13 +35,6 @@ This repository hosts the official release packages. Download the latest build f
 - [Troubleshooting](#troubleshooting)
 - [Roadmap](#roadmap)
 - [License](#license)
-
-## Links
-
-- 💬 Telegram: [t.me/peakminer_official](https://t.me/peakminer_official)
-- 🎮 Discord: [discord.gg/d5gVybewQ9](https://discord.gg/d5gVybewQ9)
-- 📢 Announcements: [t.me/peakminer_announcements](https://t.me/peakminer_announcements)
-- 🐙 GitHub: [github.com/peakminer/peakminer](https://github.com/peakminer/peakminer)
 
 ## Highlights
 
