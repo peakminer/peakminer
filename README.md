@@ -33,7 +33,6 @@ This repository hosts the official release packages. Download the latest build f
 - [Overclocking & temperature limits](#overclocking--temperature-limits)
 - [Stats & logs](#stats--logs)
 - [Troubleshooting](#troubleshooting)
-- [Roadmap](#roadmap)
 - [License](#license)
 
 ## Highlights
@@ -482,17 +481,6 @@ peakminer --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> \
 
 - **Miner runs but dashboard stats are blank (HiveOS)** — run `curl 127.0.0.1:4068/summary` on the rig. If it answers, verify `/run/hive/MINER_RUN` exists (the HiveOS agent skips stats collection without it).
 - **All shares rejected after a pool hiccup** — the built-in job watchdog (`--job-timeout`, default 180 s) reconnects automatically; lower it if your pool wedges often.
-
-## Roadmap
-
-- [x] Pearl (PRL) — NVIDIA, HiveOS / Linux
-- [x] Windows support
-- [x] Auto-detected TLS/SSL pools
-- [x] Overclocking & temperature limits
-- [x] Docker image
-- [x] AMD GPU support for CSD (Linux)
-- [ ] More coins and algorithms
-- [ ] macOS / more operating systems
 
 ## License
 
