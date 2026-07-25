@@ -12,6 +12,7 @@ This repository hosts the official release packages. Download the latest build f
 
 - [Links](#links)
 - [Highlights](#highlights)
+- [CLI reference](#cli-reference)
 - [Performance](#performance)
 - [Dev fee](#dev-fee)
 - [Supported GPUs](#supported-gpus)
@@ -21,7 +22,6 @@ This repository hosts the official release packages. Download the latest build f
 - [Run with Docker](#run-with-docker)
 - [Mining BTX / CSD (CLI)](#mining-btx--csd-cli)
 - [Overclocking & temperature limits](#overclocking--temperature-limits)
-- [CLI reference](#cli-reference)
 - [Stats & logs](#stats--logs)
 - [Troubleshooting](#troubleshooting)
 - [Roadmap](#roadmap)
@@ -42,6 +42,134 @@ This repository hosts the official release packages. Download the latest build f
 - **Overclocking & thermal limits** — per-GPU core/memory clocks, power limit, and automatic temperature pause/resume
 - **Windows, Linux & Docker** — standalone Windows build (`.zip`), a ready-to-go HiveOS package, and a prebuilt image (`peakminer/peakminer`)
 - **Built-in HTTP stats API** — per-GPU hashrate, temperature, fan, shares, and uptime on the HiveOS dashboard
+
+## CLI reference
+
+The flags you'll actually reach for:
+
+| Flag | What it does |
+|---|---|
+| `-o, --url <url>` | Pool URL, repeatable for failover (tried in order). TLS/SSL auto-detected |
+| `-u, --user <wallet[.worker]>` | Wallet address, optional `.worker` suffix |
+| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx` or `csd` (required) |
+| `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
+| `-a, --api-port <port>` | HTTP stats API on localhost (default 4068, `0` disables) |
+| `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
+| `-L, --legacy-auth` | Pin standard Stratum V1 array authorize (auto-detected by default) |
+| `-f, --log-file <path>` | Also write logs to a file (`--log-append` to keep them across restarts) |
+
+Every flag also has a `PEAK_*` environment-variable equivalent (shown in the help text) — handy
+for Docker and scripts. Overclocking, fan and thermal flags are covered in
+[Overclocking & temperature limits](#overclocking--temperature-limits).
+
+<details>
+<summary>Full <code>--help</code> output (v2.3.0)</summary>
+
+```text
+ ____            _    __  __ _
+|  _ \ ___  __ _| | _|  \/  (_)_ __   ___ _ __
+| |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
+|  __/  __/ (_| |   <| |  | | | | | |  __/ |
+|_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
+# high-performance GPU miner · v2.3.0
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260725-e8e9cb
+Multi-algorithm Stratum V1 miner
+
+Usage: peakminer [OPTIONS] --url <url> --user <wallet[.worker]> --coin <name>
+
+Options:
+  -h, --help     Print help
+  -V, --version  Print version
+
+Connection:
+  -o, --url <url>               Pool URL. Repeatable for failover (tried in order).
+                                stratum+tcp://host:port or stratum+ssl://host:port (the PEAK_POOL
+                                env form takes a comma-separated list) [env: PEAK_POOL]
+  -u, --user <wallet[.worker]>  Wallet address with optional worker suffix: wallet[.worker] [env:
+                                PEAK_WALLET]
+  -p, --password <PASSWORD>     Password (passed verbatim to the pool, e.g. "x" or "x;d=524288")
+                                [env: PEAK_PASSWORD] [default: x]
+  -w, --worker <name>           Worker name (overrides suffix in -u) [env: PEAK_WORKER]
+  -c, --coin <name>             Coin / algorithm to mine, e.g. pearl or btx (required) [env:
+                                PEAK_COIN]
+
+Mining:
+  -d, --devices <list>  GPU device indices: all or comma-separated list [env: PEAK_DEVICES]
+                        [default: all]
+
+Behavior:
+  -i, --status-interval <secs>  Print status every N seconds [env: PEAK_STATUS_INTERVAL] [default:
+                                60]
+  -j, --job-timeout <secs>      Force a reconnect if the pool pushes no new job for this many
+                                seconds. A live-but-wedged pool keeps the TCP alive (it answers our
+                                pings) while silently never sending a new job, leaving the GPU
+                                grinding a stale job whose shares all get rejected. Reconnecting
+                                makes the pool re-push a fresh job. Unset uses the coin's own
+                                default (180 s for Pearl and BTX); 0 disables [env:
+                                PEAK_JOB_TIMEOUT]
+  -n, --dry-run                 Mine without submitting proofs (dry run) [env: PEAK_DRY_RUN]
+      --keepalive               Send periodic mining.ping keepalives to the pool (every 30 s). Off
+                                by default — TCP-level keepalive already detects dead links, and
+                                some pools reject mining.ping. Enable for pools that close idle
+                                connections [env: PEAK_KEEPALIVE]
+      --send-stales             Submit shares even when the job rotated while the share was queued
+                                (stale). By default such shares are dropped (they'd only earn a "job
+                                not found" reject); enable to submit every share and let the pool be
+                                the sole judge (some pools still accept a just-rotated job). Applies
+                                to every coin [env: PEAK_SEND_STALES]
+  -L, --legacy-auth             Force standard Stratum V1 array-format authorize:
+                                ["user","password"]. Override only — by default the auth dialect is
+                                AUTO-DETECTED (named params {"wallet","worker","agent"} first,
+                                falling back to the array form on the first authorize failure, then
+                                locked). Pass this to pin the array form up front and skip detection
+                                (e.g. a pool that hangs instead of rejecting) [env:
+                                PEAK_LEGACY_AUTH]
+  -a, --api-port <port>         HTTP stats API port, bound to 127.0.0.1 (localhost only). 0 =
+                                disabled. Default 4068  →  GET http://127.0.0.1:4068/summary [env:
+                                PEAK_API_PORT] [default: 4068]
+      --report-stats            Report rig telemetry to the pool via a periodic `mining.stats` push
+                                (total/per-GPU hashrate, uptime, GPU model/temp/power) for its
+                                dashboard. Sent over the EXISTING stratum connection to the pool
+                                you're mining — nowhere else. OFF by default: it's cosmetic (no
+                                effect on shares/payouts) and a pool that rejects unknown methods
+                                could drop the connection, so enable it only for pools that display
+                                these stats [env: PEAK_REPORT_STATS]
+
+Logging:
+  -l, --log-level <level>  Log level [env: PEAK_LOG_LEVEL] [default: info]
+  -f, --log-file <path>    Also stream logs to this file (no ANSI colors) in addition to stderr. The
+                           file is created if missing and TRUNCATED on start unless --log-append is
+                           given [env: PEAK_LOG_FILE]
+      --log-append         Append to --log-file instead of truncating it on start. Use to preserve
+                           logs across restarts. No effect without --log-file [env: PEAK_LOG_APPEND]
+
+GPU OC parameters:
+      --gpu-core <MHz>       Core clock offset (MHz). Override per GPU with --gpu-coreN
+      --gpu-lcore <MHz>      Core clock lock (MHz). Override per GPU with --gpu-lcoreN
+      --gpu-mem <MHz>        Memory clock offset (MHz). Override per GPU with --gpu-memN
+      --gpu-lmem <MHz>       Memory clock lock (MHz). Override per GPU with --gpu-lmemN
+      --gpu-power <W|%>      Power limit: watts (e.g. 230) or percent of default (e.g. 80%).
+                             Override per GPU with --gpu-powerN
+      --gpu-fan <%>          Fan speed (0–100%), held fixed. Without --gpu-fan-target it pins the
+                             fan; with it, it's the starting duty. Override per GPU with --gpu-fanN
+      --gpu-fan-target <°C>  Target temperature (°C) for closed-loop fan control: the fan steps ±3%
+                             every 10 s to hold this temp, within --gpu-fan-min/max. Override per
+                             GPU with --gpu-fan-targetN
+      --gpu-fan-min <%>      Minimum fan duty (0–100%) for closed-loop control (default 30).
+                             Override per GPU with --gpu-fan-minN
+      --gpu-fan-max <%>      Maximum fan duty (0–100%) for closed-loop control (default 100).
+                             Override per GPU with --gpu-fan-maxN
+
+GPU thermal parameters:
+      --gpu-temp-stop <°C>   Pause a GPU when its temperature reaches this value (°C). Override per
+                             GPU with --gpu-temp-stopN. When only this flag is given,
+                             --gpu-temp-start defaults to stop-10
+      --gpu-temp-start <°C>  Resume a paused GPU when its temperature drops to or below this value
+                             (°C). Override per GPU with --gpu-temp-startN. Must be strictly less
+                             than stop
+```
+
+</details>
 
 ## Performance
 
@@ -319,134 +447,6 @@ Example — core +150 MHz, memory +1200 MHz, 70% power, pause at 70 °C (resume 
 peakminer --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> \
   --gpu-core 150 --gpu-mem 1200 --gpu-power 70% --gpu-temp-stop 70
 ```
-
-## CLI reference
-
-The flags you'll actually reach for:
-
-| Flag | What it does |
-|---|---|
-| `-o, --url <url>` | Pool URL, repeatable for failover (tried in order). TLS/SSL auto-detected |
-| `-u, --user <wallet[.worker]>` | Wallet address, optional `.worker` suffix |
-| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx` or `csd` (required) |
-| `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
-| `-a, --api-port <port>` | HTTP stats API on localhost (default 4068, `0` disables) |
-| `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
-| `-L, --legacy-auth` | Pin standard Stratum V1 array authorize (auto-detected by default) |
-| `-f, --log-file <path>` | Also write logs to a file (`--log-append` to keep them across restarts) |
-
-Every flag also has a `PEAK_*` environment-variable equivalent (shown in the help text) — handy
-for Docker and scripts. Overclocking, fan and thermal flags are covered in
-[Overclocking & temperature limits](#overclocking--temperature-limits).
-
-<details>
-<summary>Full <code>--help</code> output (v2.3.0)</summary>
-
-```text
- ____            _    __  __ _
-|  _ \ ___  __ _| | _|  \/  (_)_ __   ___ _ __
-| |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
-|  __/  __/ (_| |   <| |  | | | | | |  __/ |
-|_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.3.0
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260725-e8e9cb
-Multi-algorithm Stratum V1 miner
-
-Usage: peakminer [OPTIONS] --url <url> --user <wallet[.worker]> --coin <name>
-
-Options:
-  -h, --help     Print help
-  -V, --version  Print version
-
-Connection:
-  -o, --url <url>               Pool URL. Repeatable for failover (tried in order).
-                                stratum+tcp://host:port or stratum+ssl://host:port (the PEAK_POOL
-                                env form takes a comma-separated list) [env: PEAK_POOL]
-  -u, --user <wallet[.worker]>  Wallet address with optional worker suffix: wallet[.worker] [env:
-                                PEAK_WALLET]
-  -p, --password <PASSWORD>     Password (passed verbatim to the pool, e.g. "x" or "x;d=524288")
-                                [env: PEAK_PASSWORD] [default: x]
-  -w, --worker <name>           Worker name (overrides suffix in -u) [env: PEAK_WORKER]
-  -c, --coin <name>             Coin / algorithm to mine, e.g. pearl or btx (required) [env:
-                                PEAK_COIN]
-
-Mining:
-  -d, --devices <list>  GPU device indices: all or comma-separated list [env: PEAK_DEVICES]
-                        [default: all]
-
-Behavior:
-  -i, --status-interval <secs>  Print status every N seconds [env: PEAK_STATUS_INTERVAL] [default:
-                                60]
-  -j, --job-timeout <secs>      Force a reconnect if the pool pushes no new job for this many
-                                seconds. A live-but-wedged pool keeps the TCP alive (it answers our
-                                pings) while silently never sending a new job, leaving the GPU
-                                grinding a stale job whose shares all get rejected. Reconnecting
-                                makes the pool re-push a fresh job. Unset uses the coin's own
-                                default (180 s for Pearl and BTX); 0 disables [env:
-                                PEAK_JOB_TIMEOUT]
-  -n, --dry-run                 Mine without submitting proofs (dry run) [env: PEAK_DRY_RUN]
-      --keepalive               Send periodic mining.ping keepalives to the pool (every 30 s). Off
-                                by default — TCP-level keepalive already detects dead links, and
-                                some pools reject mining.ping. Enable for pools that close idle
-                                connections [env: PEAK_KEEPALIVE]
-      --send-stales             Submit shares even when the job rotated while the share was queued
-                                (stale). By default such shares are dropped (they'd only earn a "job
-                                not found" reject); enable to submit every share and let the pool be
-                                the sole judge (some pools still accept a just-rotated job). Applies
-                                to every coin [env: PEAK_SEND_STALES]
-  -L, --legacy-auth             Force standard Stratum V1 array-format authorize:
-                                ["user","password"]. Override only — by default the auth dialect is
-                                AUTO-DETECTED (named params {"wallet","worker","agent"} first,
-                                falling back to the array form on the first authorize failure, then
-                                locked). Pass this to pin the array form up front and skip detection
-                                (e.g. a pool that hangs instead of rejecting) [env:
-                                PEAK_LEGACY_AUTH]
-  -a, --api-port <port>         HTTP stats API port, bound to 127.0.0.1 (localhost only). 0 =
-                                disabled. Default 4068  →  GET http://127.0.0.1:4068/summary [env:
-                                PEAK_API_PORT] [default: 4068]
-      --report-stats            Report rig telemetry to the pool via a periodic `mining.stats` push
-                                (total/per-GPU hashrate, uptime, GPU model/temp/power) for its
-                                dashboard. Sent over the EXISTING stratum connection to the pool
-                                you're mining — nowhere else. OFF by default: it's cosmetic (no
-                                effect on shares/payouts) and a pool that rejects unknown methods
-                                could drop the connection, so enable it only for pools that display
-                                these stats [env: PEAK_REPORT_STATS]
-
-Logging:
-  -l, --log-level <level>  Log level [env: PEAK_LOG_LEVEL] [default: info]
-  -f, --log-file <path>    Also stream logs to this file (no ANSI colors) in addition to stderr. The
-                           file is created if missing and TRUNCATED on start unless --log-append is
-                           given [env: PEAK_LOG_FILE]
-      --log-append         Append to --log-file instead of truncating it on start. Use to preserve
-                           logs across restarts. No effect without --log-file [env: PEAK_LOG_APPEND]
-
-GPU OC parameters:
-      --gpu-core <MHz>       Core clock offset (MHz). Override per GPU with --gpu-coreN
-      --gpu-lcore <MHz>      Core clock lock (MHz). Override per GPU with --gpu-lcoreN
-      --gpu-mem <MHz>        Memory clock offset (MHz). Override per GPU with --gpu-memN
-      --gpu-lmem <MHz>       Memory clock lock (MHz). Override per GPU with --gpu-lmemN
-      --gpu-power <W|%>      Power limit: watts (e.g. 230) or percent of default (e.g. 80%).
-                             Override per GPU with --gpu-powerN
-      --gpu-fan <%>          Fan speed (0–100%), held fixed. Without --gpu-fan-target it pins the
-                             fan; with it, it's the starting duty. Override per GPU with --gpu-fanN
-      --gpu-fan-target <°C>  Target temperature (°C) for closed-loop fan control: the fan steps ±3%
-                             every 10 s to hold this temp, within --gpu-fan-min/max. Override per
-                             GPU with --gpu-fan-targetN
-      --gpu-fan-min <%>      Minimum fan duty (0–100%) for closed-loop control (default 30).
-                             Override per GPU with --gpu-fan-minN
-      --gpu-fan-max <%>      Maximum fan duty (0–100%) for closed-loop control (default 100).
-                             Override per GPU with --gpu-fan-maxN
-
-GPU thermal parameters:
-      --gpu-temp-stop <°C>   Pause a GPU when its temperature reaches this value (°C). Override per
-                             GPU with --gpu-temp-stopN. When only this flag is given,
-                             --gpu-temp-start defaults to stop-10
-      --gpu-temp-start <°C>  Resume a paused GPU when its temperature drops to or below this value
-                             (°C). Override per GPU with --gpu-temp-startN. Must be strictly less
-                             than stop
-```
-
-</details>
 
 ## Stats & logs
 
