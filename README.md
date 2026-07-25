@@ -48,16 +48,23 @@ This repository hosts the official release packages. Download the latest build f
 ## CLI reference
 
 **Copy-paste test runs** — one per coin, ready to go (they mine to our test wallets; swap in your
-own wallet to keep the proceeds). On Windows use `peakminer.exe` with the same arguments:
+own wallet to keep the proceeds). On Windows use `peakminer.exe` with the same arguments.
+
+**Pearl (PRL):**
 
 ```bash
-# Pearl (PRL)
 peakminer --coin pearl -o de.pearl.herominers.com:1200 -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
+```
 
-# BTX
+**BTX:**
+
+```bash
 peakminer --coin btx -o btx-sg.lproute.com:8660 -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
+```
 
-# CSD
+**CSD:**
+
+```bash
 peakminer --coin csd -o csd-ca.lproute.com:8760 -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
 ```
 
