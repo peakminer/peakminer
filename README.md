@@ -46,7 +46,7 @@ This repository hosts the official release packages. Download the latest build f
 
 ## CLI reference
 
-**Copy-paste test runs (Linux)** — one line per coin: downloads the binary, makes it executable
+**Copy-paste test runs (Linux)** — one block per coin: downloads the binary, makes it executable
 and starts mining right away. They mine to our test wallets — swap in your own wallet to keep the
 proceeds. On Windows, grab the zip from [Releases](../../releases) and run `peakminer.exe` with
 the same `--coin` / `-o` / `-u` flags.
@@ -54,19 +54,28 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.0/peakminer-2.3.0-linux-x86_64 -O peakminer && chmod +x peakminer && ./peakminer --coin pearl -o de.pearl.herominers.com:1200 -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.0/peakminer-2.3.0-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
+./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
+  -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
 ```
 
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.0/peakminer-2.3.0-linux-x86_64 -O peakminer && chmod +x peakminer && ./peakminer --coin btx -o btx-sg.lproute.com:8660 -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.0/peakminer-2.3.0-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
+./peakminer --coin btx -o btx-sg.lproute.com:8660 \
+  -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
 ```
 
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.0/peakminer-2.3.0-linux-x86_64 -O peakminer && chmod +x peakminer && ./peakminer --coin csd -o csd-ca.lproute.com:8760 -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.0/peakminer-2.3.0-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
+./peakminer --coin csd -o csd-ca.lproute.com:8760 \
+  -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
 ```
 
 The flags you'll actually reach for:
