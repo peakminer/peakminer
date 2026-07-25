@@ -1,8 +1,31 @@
-# peakminer
+# PeakMiner
+
+[![Latest release](https://img.shields.io/github/v/release/peakminer/peakminer)](https://github.com/peakminer/peakminer/releases)
+[![Docker pulls](https://img.shields.io/docker/pulls/peakminer/peakminer)](https://hub.docker.com/r/peakminer/peakminer)
+[![License](https://img.shields.io/badge/license-proprietary-lightgrey)](LICENSE)
 
 High-performance GPU miner for **Pearl (PRL)**, **BTX** and **CSD** — built for high hashrate, low power draw, and low VRAM usage, with the best optimization on **RTX 50xx (Blackwell)**, **RTX 40xx (Ada)**, **RTX 30xx (Ampere)**, and **RTX 20xx (Turing)** cards, plus data-center **H100 / H200 (Hopper)**. **AMD GPUs are supported for CSD (Linux only)** — from **Vega** through **RDNA 4**, including **Instinct (CDNA)** accelerators.
 
 This repository hosts the official release packages. Download the latest build from the [**Releases**](../../releases) page.
+
+## Table of contents
+
+- [Links](#links)
+- [Highlights](#highlights)
+- [Performance](#performance)
+- [Dev fee](#dev-fee)
+- [Supported GPUs](#supported-gpus)
+- [Supported pools](#supported-pools)
+- [Quick start (HiveOS)](#quick-start-hiveos)
+- [Quick start (Windows)](#quick-start-windows)
+- [Run with Docker](#run-with-docker)
+- [Mining BTX / CSD (CLI)](#mining-btx--csd-cli)
+- [Overclocking & temperature limits](#overclocking--temperature-limits)
+- [CLI reference](#cli-reference)
+- [Stats & logs](#stats--logs)
+- [Troubleshooting](#troubleshooting)
+- [Roadmap](#roadmap)
+- [License](#license)
 
 ## Links
 
@@ -14,33 +37,35 @@ This repository hosts the official release packages. Download the latest build f
 ## Highlights
 
 - **Multi-coin** — mine **Pearl (PRL)**, **BTX** or **CSD** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
-- 🍀 **Luck & effort stats** — see the % of expected effort used to find each share, plus running luck
-- Tuned CUDA kernels per GPU generation — **best efficiency on RTX 50xx, 40xx, 30xx and 20xx**: high hash, low watt, low VRAM
+- **Luck & effort stats** — see the % of expected effort used to find each share, plus running luck
+- **Tuned CUDA kernels per GPU generation** — best efficiency on RTX 50xx, 40xx, 30xx and 20xx: high hash, low watt, low VRAM
 - **Overclocking & thermal limits** — per-GPU core/memory clocks, power limit, and automatic temperature pause/resume
 - **Windows, Linux & Docker** — standalone Windows build (`.zip`), a ready-to-go HiveOS package, and a prebuilt image (`peakminer/peakminer`)
-- Built-in HTTP stats API: per-GPU hashrate, temperature, fan, shares, and uptime on the HiveOS dashboard
+- **Built-in HTTP stats API** — per-GPU hashrate, temperature, fan, shares, and uptime on the HiveOS dashboard
 
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic.
-Latest full sweep: **v2.1.1**, 20 GPUs, 0 invalid shares. Measured on vast.ai at **default OC** —
-manual overclocking typically yields more.
+Latest full sweep: **v2.3.0**, 23 GPUs, 0 invalid shares. Measured on vast.ai at **default OC**,
+best full-power measurement per card (power-capped hosts excluded) — manual overclocking typically
+yields more.
 
 **Current hashrate (default OC, sample):**
 
 | GPU | Hashrate | Efficiency |
 |---|---|---|
-| RTX 5090 | 354.3 TH/s | 617 GH/W |
+| RTX 5090 | 362.9 TH/s | 606 GH/W |
 | RTX 4090 | 288.8 TH/s | 643 GH/W |
-| RTX 5080 | 206.1 TH/s | 574 GH/W |
-| RTX 4080 | 179.1 TH/s | 563 GH/W |
-| RTX 5070 Ti | 174.0 TH/s | 581 GH/W |
+| RTX 5080 | 215.0 TH/s | 616 GH/W |
+| RTX 4080 | 180.8 TH/s | 567 GH/W |
+| RTX 5070 Ti | 175.2 TH/s | 586 GH/W |
 | RTX 4070 Ti | 151.1 TH/s | 535 GH/W |
-| RTX 3090 Ti | 139.5 TH/s | 312 GH/W |
+| RTX 3090 Ti | 141.7 TH/s | 316 GH/W |
 
-Full table for all measured cards (30/40/50-series): [**PERFORMANCE.md**](PERFORMANCE.md).
+Full table for all measured cards (20/30/40/50-series): [**PERFORMANCE.md**](PERFORMANCE.md).
 
-**Head-to-head vs other popular miners** — same GPU, same pool, back-to-back:
+**Head-to-head vs other popular miners** — same GPU, same pool, back-to-back. These numbers come
+from a dedicated comparison run (an earlier sweep), so they can differ slightly from the table above:
 
 | GPU | PeakMiner | Other miners | Advantage |
 |---|---|---|---|
@@ -124,6 +149,7 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 
 | Pool | Site |
 |---|---|
+| LProute | [lproute.com](https://lproute.com) |
 | NinjaRaider | [ninjaraider.com/btx-pplns](https://ninjaraider.com/btx-pplns) |
 | LuckyPool | [btx.luckypool.io](https://btx.luckypool.io) |
 
@@ -131,6 +157,7 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 
 | Pool | Site |
 |---|---|
+| LProute | [lproute.com](https://lproute.com) |
 | Yamaduo | [pool.yamaduo.no](https://pool.yamaduo.no) |
 | LuckyPool | [csd.luckypool.io](https://csd.luckypool.io) |
 
@@ -170,27 +197,11 @@ The "Setup Miner Config" box accepts raw peakminer CLI flags, one per line or se
 ```text
 --devices 0,1          # mine on a GPU subset (default: all)
 --legacy-auth          # standard Stratum V1 array authorize, for pools that need it
---slice-secs 0.25      # fresher jobs at slightly higher CPU
+--job-timeout 60       # reconnect sooner when the pool stops sending new jobs
 --api-port 4068        # stats API port (the stats script follows it automatically)
 ```
 
-## Mining BTX / CSD (CLI)
-
-Set `--coin` and point at the matching pool:
-
-```bash
-# BTX
-peakminer --coin btx -u WALLET[.WORKER] -o btx-sg.lproute.com:8660
-
-# CSD
-peakminer --coin csd -u WALLET[.WORKER] -o csd-ca.lproute.com:8760
-```
-
-Replace `WALLET[.WORKER]` with your coin address (worker optional). Same flags work on Windows
-(`peakminer.exe …`) and Docker. TLS/SSL is auto-detected; **3% dev fee**.
-
-Mining CSD on an AMD card (Linux)? Install the AMD runtime first — see the one-line installer
-under [Supported GPUs](#supported-gpus).
+The full flag list is in the [CLI reference](#cli-reference).
 
 ## Quick start (Windows)
 
@@ -215,7 +226,7 @@ peakminer.exe ^
 pause
 ```
 
-Common flags (`peakminer.exe --help` for the full list):
+Common flags (full list in the [CLI reference](#cli-reference), or `peakminer.exe --help`):
 
 ```text
 --url de.pearl.herominers.com:1200   # pool address (TLS/SSL auto-detected)
@@ -226,37 +237,9 @@ Common flags (`peakminer.exe --help` for the full list):
 
 The CUDA 12 runtime ships inside the zip — no toolkit install needed, just a recent NVIDIA driver.
 
-## Overclocking & temperature limits
-
-PeakMiner can apply clock/power offsets and protect cards with temperature limits — no external OC tool needed. Apply a value to all GPUs, or override a single card with the `N` suffix (e.g. `--gpu-core0`, `--gpu-mem1`).
-
-```text
---gpu-core <MHz>          Core clock offset (MHz). Override per GPU with --gpu-coreN
---gpu-lcore <MHz>         Core clock lock (MHz). Override per GPU with --gpu-lcoreN
---gpu-mem <MHz>           Memory clock offset (MHz). Override per GPU with --gpu-memN
---gpu-lmem <MHz>          Memory clock lock (MHz). Override per GPU with --gpu-lmemN
---gpu-power <W|%>         Power limit: watts (e.g. 230) or percent of default (e.g. 80%).
-                          Override per GPU with --gpu-powerN
---gpu-temp-stop <°C>      Pause a GPU when its temperature reaches this value (°C). Override
-                          per GPU with --gpu-temp-stopN. When only this flag is given,
-                          --gpu-temp-start defaults to stop-10
---gpu-temp-start <°C>     Resume a paused GPU when its temperature drops to or below this
-                          value (°C). Override per GPU with --gpu-temp-startN. Must be
-                          strictly less than stop
-```
-
-Example — core +150 MHz, memory +1200 MHz, 70% power, pause at 70 °C (resume at 60 °C):
-
-```bash
-peakminer --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> \
-  --gpu-core 150 --gpu-mem 1200 --gpu-power 70% --gpu-temp-stop 70
-```
-
 ## Run with Docker
 
 A [`Dockerfile`](Dockerfile) (Ubuntu 24.04) is included, and a **prebuilt image** is published on Docker Hub.
-
-GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) (the `--gpus all` flag).
 
 GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) (the `--gpus all` flag).
 
@@ -288,15 +271,192 @@ docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.3.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
+## Mining BTX / CSD (CLI)
+
+Set `--coin` and point at the matching pool (see [Supported pools](#supported-pools)):
+
+```bash
+# BTX
+peakminer --coin btx -u WALLET[.WORKER] -o btx-sg.lproute.com:8660
+
+# CSD
+peakminer --coin csd -u WALLET[.WORKER] -o csd-ca.lproute.com:8760
+```
+
+Replace `WALLET[.WORKER]` with your coin address (worker optional). Same flags work on Windows
+(`peakminer.exe …`) and Docker. TLS/SSL is auto-detected; **3% dev fee**.
+
+Mining CSD on an AMD card (Linux)? Install the AMD runtime first — see the one-line installer
+under [Supported GPUs](#supported-gpus).
+
+## Overclocking & temperature limits
+
+PeakMiner can apply clock/power offsets, drive the fans (fixed duty or closed-loop on a target temperature), and protect cards with temperature limits — no external OC tool needed. Apply a value to all GPUs, or override a single card with the `N` suffix (e.g. `--gpu-core0`, `--gpu-mem1`).
+
+```text
+--gpu-core <MHz>          Core clock offset (MHz). Override per GPU with --gpu-coreN
+--gpu-lcore <MHz>         Core clock lock (MHz). Override per GPU with --gpu-lcoreN
+--gpu-mem <MHz>           Memory clock offset (MHz). Override per GPU with --gpu-memN
+--gpu-lmem <MHz>          Memory clock lock (MHz). Override per GPU with --gpu-lmemN
+--gpu-power <W|%>         Power limit: watts (e.g. 230) or percent of default (e.g. 80%).
+                          Override per GPU with --gpu-powerN
+--gpu-fan <%>             Fan speed (0–100%), held fixed. With --gpu-fan-target it's the
+                          starting duty instead. Override per GPU with --gpu-fanN
+--gpu-fan-target <°C>     Closed-loop fan control: the fan steps ±3% every 10 s to hold this
+                          temperature, within --gpu-fan-min / --gpu-fan-max (defaults 30/100).
+                          Override per GPU with --gpu-fan-targetN
+--gpu-temp-stop <°C>      Pause a GPU when its temperature reaches this value (°C). Override
+                          per GPU with --gpu-temp-stopN. When only this flag is given,
+                          --gpu-temp-start defaults to stop-10
+--gpu-temp-start <°C>     Resume a paused GPU when its temperature drops to or below this
+                          value (°C). Override per GPU with --gpu-temp-startN. Must be
+                          strictly less than stop
+```
+
+Example — core +150 MHz, memory +1200 MHz, 70% power, pause at 70 °C (resume at 60 °C):
+
+```bash
+peakminer --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> \
+  --gpu-core 150 --gpu-mem 1200 --gpu-power 70% --gpu-temp-stop 70
+```
+
+## CLI reference
+
+The flags you'll actually reach for:
+
+| Flag | What it does |
+|---|---|
+| `-o, --url <url>` | Pool URL, repeatable for failover (tried in order). TLS/SSL auto-detected |
+| `-u, --user <wallet[.worker]>` | Wallet address, optional `.worker` suffix |
+| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx` or `csd` (required) |
+| `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
+| `-a, --api-port <port>` | HTTP stats API on localhost (default 4068, `0` disables) |
+| `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
+| `-L, --legacy-auth` | Pin standard Stratum V1 array authorize (auto-detected by default) |
+| `-f, --log-file <path>` | Also write logs to a file (`--log-append` to keep them across restarts) |
+
+Every flag also has a `PEAK_*` environment-variable equivalent (shown in the help text) — handy
+for Docker and scripts. Overclocking, fan and thermal flags are covered in
+[Overclocking & temperature limits](#overclocking--temperature-limits).
+
+<details>
+<summary>Full <code>--help</code> output (v2.3.0)</summary>
+
+```text
+ ____            _    __  __ _
+|  _ \ ___  __ _| | _|  \/  (_)_ __   ___ _ __
+| |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
+|  __/  __/ (_| |   <| |  | | | | | |  __/ |
+|_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
+# high-performance GPU miner · v2.3.0
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260725-e8e9cb
+Multi-algorithm Stratum V1 miner
+
+Usage: peakminer [OPTIONS] --url <url> --user <wallet[.worker]> --coin <name>
+
+Options:
+  -h, --help     Print help
+  -V, --version  Print version
+
+Connection:
+  -o, --url <url>               Pool URL. Repeatable for failover (tried in order).
+                                stratum+tcp://host:port or stratum+ssl://host:port (the PEAK_POOL
+                                env form takes a comma-separated list) [env: PEAK_POOL]
+  -u, --user <wallet[.worker]>  Wallet address with optional worker suffix: wallet[.worker] [env:
+                                PEAK_WALLET]
+  -p, --password <PASSWORD>     Password (passed verbatim to the pool, e.g. "x" or "x;d=524288")
+                                [env: PEAK_PASSWORD] [default: x]
+  -w, --worker <name>           Worker name (overrides suffix in -u) [env: PEAK_WORKER]
+  -c, --coin <name>             Coin / algorithm to mine, e.g. pearl or btx (required) [env:
+                                PEAK_COIN]
+
+Mining:
+  -d, --devices <list>  GPU device indices: all or comma-separated list [env: PEAK_DEVICES]
+                        [default: all]
+
+Behavior:
+  -i, --status-interval <secs>  Print status every N seconds [env: PEAK_STATUS_INTERVAL] [default:
+                                60]
+  -j, --job-timeout <secs>      Force a reconnect if the pool pushes no new job for this many
+                                seconds. A live-but-wedged pool keeps the TCP alive (it answers our
+                                pings) while silently never sending a new job, leaving the GPU
+                                grinding a stale job whose shares all get rejected. Reconnecting
+                                makes the pool re-push a fresh job. Unset uses the coin's own
+                                default (180 s for Pearl and BTX); 0 disables [env:
+                                PEAK_JOB_TIMEOUT]
+  -n, --dry-run                 Mine without submitting proofs (dry run) [env: PEAK_DRY_RUN]
+      --keepalive               Send periodic mining.ping keepalives to the pool (every 30 s). Off
+                                by default — TCP-level keepalive already detects dead links, and
+                                some pools reject mining.ping. Enable for pools that close idle
+                                connections [env: PEAK_KEEPALIVE]
+      --send-stales             Submit shares even when the job rotated while the share was queued
+                                (stale). By default such shares are dropped (they'd only earn a "job
+                                not found" reject); enable to submit every share and let the pool be
+                                the sole judge (some pools still accept a just-rotated job). Applies
+                                to every coin [env: PEAK_SEND_STALES]
+  -L, --legacy-auth             Force standard Stratum V1 array-format authorize:
+                                ["user","password"]. Override only — by default the auth dialect is
+                                AUTO-DETECTED (named params {"wallet","worker","agent"} first,
+                                falling back to the array form on the first authorize failure, then
+                                locked). Pass this to pin the array form up front and skip detection
+                                (e.g. a pool that hangs instead of rejecting) [env:
+                                PEAK_LEGACY_AUTH]
+  -a, --api-port <port>         HTTP stats API port, bound to 127.0.0.1 (localhost only). 0 =
+                                disabled. Default 4068  →  GET http://127.0.0.1:4068/summary [env:
+                                PEAK_API_PORT] [default: 4068]
+      --report-stats            Report rig telemetry to the pool via a periodic `mining.stats` push
+                                (total/per-GPU hashrate, uptime, GPU model/temp/power) for its
+                                dashboard. Sent over the EXISTING stratum connection to the pool
+                                you're mining — nowhere else. OFF by default: it's cosmetic (no
+                                effect on shares/payouts) and a pool that rejects unknown methods
+                                could drop the connection, so enable it only for pools that display
+                                these stats [env: PEAK_REPORT_STATS]
+
+Logging:
+  -l, --log-level <level>  Log level [env: PEAK_LOG_LEVEL] [default: info]
+  -f, --log-file <path>    Also stream logs to this file (no ANSI colors) in addition to stderr. The
+                           file is created if missing and TRUNCATED on start unless --log-append is
+                           given [env: PEAK_LOG_FILE]
+      --log-append         Append to --log-file instead of truncating it on start. Use to preserve
+                           logs across restarts. No effect without --log-file [env: PEAK_LOG_APPEND]
+
+GPU OC parameters:
+      --gpu-core <MHz>       Core clock offset (MHz). Override per GPU with --gpu-coreN
+      --gpu-lcore <MHz>      Core clock lock (MHz). Override per GPU with --gpu-lcoreN
+      --gpu-mem <MHz>        Memory clock offset (MHz). Override per GPU with --gpu-memN
+      --gpu-lmem <MHz>       Memory clock lock (MHz). Override per GPU with --gpu-lmemN
+      --gpu-power <W|%>      Power limit: watts (e.g. 230) or percent of default (e.g. 80%).
+                             Override per GPU with --gpu-powerN
+      --gpu-fan <%>          Fan speed (0–100%), held fixed. Without --gpu-fan-target it pins the
+                             fan; with it, it's the starting duty. Override per GPU with --gpu-fanN
+      --gpu-fan-target <°C>  Target temperature (°C) for closed-loop fan control: the fan steps ±3%
+                             every 10 s to hold this temp, within --gpu-fan-min/max. Override per
+                             GPU with --gpu-fan-targetN
+      --gpu-fan-min <%>      Minimum fan duty (0–100%) for closed-loop control (default 30).
+                             Override per GPU with --gpu-fan-minN
+      --gpu-fan-max <%>      Maximum fan duty (0–100%) for closed-loop control (default 100).
+                             Override per GPU with --gpu-fan-maxN
+
+GPU thermal parameters:
+      --gpu-temp-stop <°C>   Pause a GPU when its temperature reaches this value (°C). Override per
+                             GPU with --gpu-temp-stopN. When only this flag is given,
+                             --gpu-temp-start defaults to stop-10
+      --gpu-temp-start <°C>  Resume a paused GPU when its temperature drops to or below this value
+                             (°C). Override per GPU with --gpu-temp-startN. Must be strictly less
+                             than stop
+```
+
+</details>
+
 ## Stats & logs
 
-- Stats API: `GET http://127.0.0.1:4068/summary` on the rig (hashrate reported in kH/s)
-- Miner log: `/var/log/miner/custom/peakminer/peakminer.log`
-- Generated command line: `/hive/miners/custom/peakminer/peakminer.conf`
+- Stats API (all platforms): `GET http://127.0.0.1:4068/summary` — hashrate reported in kH/s
+- Miner log (HiveOS): `/var/log/miner/custom/peakminer/peakminer.log`
+- Generated command line (HiveOS): `/hive/miners/custom/peakminer/peakminer.conf`
 
 ## Troubleshooting
 
-- **Miner runs but dashboard stats are blank** — run `curl 127.0.0.1:4068/summary` on the rig. If it answers, verify `/run/hive/MINER_RUN` exists (the HiveOS agent skips stats collection without it).
+- **Miner runs but dashboard stats are blank (HiveOS)** — run `curl 127.0.0.1:4068/summary` on the rig. If it answers, verify `/run/hive/MINER_RUN` exists (the HiveOS agent skips stats collection without it).
 - **All shares rejected after a pool hiccup** — the built-in job watchdog (`--job-timeout`, default 180 s) reconnects automatically; lower it if your pool wedges often.
 
 ## Roadmap
@@ -306,6 +466,7 @@ docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.3.0 \
 - [x] Auto-detected TLS/SSL pools
 - [x] Overclocking & temperature limits
 - [x] Docker image
+- [x] AMD GPU support for CSD (Linux)
 - [ ] More coins and algorithms
 - [ ] macOS / more operating systems
 
