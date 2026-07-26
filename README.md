@@ -54,7 +54,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.0/peakminer-2.3.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.1/peakminer-2.3.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -63,7 +63,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.0/peakminer-2.3.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.1/peakminer-2.3.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o btx-sg.lproute.com:8660 \
   -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
@@ -72,7 +72,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.0/peakminer-2.3.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.1/peakminer-2.3.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -95,7 +95,7 @@ Every flag also has a `PEAK_*` environment-variable equivalent (shown in the hel
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
 [Overclocking & temperature limits](#overclocking--temperature-limits).
 
-Full `--help` output (v2.3.0):
+Full `--help` output (v2.3.1):
 
 ```text
  ____            _    __  __ _
@@ -103,8 +103,8 @@ Full `--help` output (v2.3.0):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.3.0
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260725-e8e9cb
+# high-performance GPU miner · v2.3.1
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260726-d0a9bd
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet[.worker]> --coin <name>
@@ -204,7 +204,7 @@ GPU thermal parameters:
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic.
-Latest full sweep: **v2.3.0**, 23 GPUs, 0 invalid shares. Measured on vast.ai at **default OC**,
+Latest full sweep: **v2.3.1**, 27 GPUs, 0 invalid shares. Measured on vast.ai at **default OC**,
 best full-power measurement per card (power-capped hosts excluded) — manual overclocking typically
 yields more.
 
@@ -213,27 +213,27 @@ yields more.
 | GPU | Hashrate | Efficiency |
 |---|---|---|
 | RTX 5090 | 362.9 TH/s | 606 GH/W |
-| RTX 4090 | 288.8 TH/s | 643 GH/W |
+| RTX 4090 | 291.3 TH/s | 650 GH/W |
 | RTX 5080 | 215.0 TH/s | 616 GH/W |
-| RTX 4080 | 180.8 TH/s | 567 GH/W |
-| RTX 5070 Ti | 175.2 TH/s | 586 GH/W |
-| RTX 4070 Ti | 151.1 TH/s | 535 GH/W |
+| RTX 4080 SUPER | 196.8 TH/s | 615 GH/W |
+| RTX 5070 Ti | 176.9 TH/s | 592 GH/W |
+| RTX 4070 Ti | 153.3 TH/s | 540 GH/W |
 | RTX 3090 Ti | 141.7 TH/s | 316 GH/W |
 
 Full table for all measured cards (20/30/40/50-series): [**PERFORMANCE.md**](PERFORMANCE.md).
 
 **Head-to-head vs other popular miners** — same GPU, same pool, back-to-back. These numbers come
-from a dedicated comparison run (an earlier sweep), so they can differ slightly from the table above:
+from the v2.3.1 three-way comparison run (2026-07-26), so they can differ slightly from the table above:
 
 | GPU | PeakMiner | Other miners | Advantage |
 |---|---|---|---|
-| RTX 4070 Ti | **143.5 TH/s** | ~123 TH/s | **+16.7%** |
-| RTX 2060 SUPER | **28.8 TH/s** | ~25.1 TH/s | **+14.7%** |
-| RTX 5060 | **70.2 TH/s** | ~67.5 TH/s | **+4.0%** |
-| RTX 4060 Ti | **79.8 TH/s** | ~77.4 TH/s | **+3.1%** |
-| RTX 3060 | **41.6 TH/s** | ~40.5 TH/s | **+2.7%** |
+| RTX 2080 Ti | **63.4 TH/s** | ~51.8 TH/s | **+22.4%** |
+| RTX 4070 | **113.6 TH/s** | ~93.2 TH/s | **+21.8%** |
+| RTX 2060 SUPER | **38.9 TH/s** | ~33.5 TH/s | **+16.1%** |
+| RTX 4080 SUPER | **196.8 TH/s** | ~186.2 TH/s | **+5.7%** |
+| RTX 4090 | **291.3 TH/s** | ~281.2 TH/s | **+3.6%** |
 
-The fastest Pearl miner we've measured, leading across the 20-, 30-, 40-, and 50-series.
+Leading on the 20- and 40-series at equal power, at parity on the 30- and 50-series.
 Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 
 ## Supported coins & dev fees
@@ -329,7 +329,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.3.0/peakminer-2.3.0.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.3.1/peakminer-2.3.1.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -406,10 +406,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.3.0
+docker pull peakminer/peakminer:2.3.1
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.3.0 \
+docker run --rm -t --gpus all peakminer/peakminer:2.3.1 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -418,7 +418,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.3.0 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.3.0 --build-arg PEAKMINER_VERSION=2.3.0 .
+docker build -t peakminer:2.3.1 --build-arg PEAKMINER_VERSION=2.3.1 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -427,7 +427,7 @@ docker run --rm -t --gpus all peakminer \
 Pass any miner flags after the image name. Map the stats API to the host with `-p`:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.3.0 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.3.1 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
