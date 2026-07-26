@@ -42,7 +42,7 @@ Latest full sweep: **v2.3.1** (2026-07-26) — 27 GPUs across Turing / Ampere / 
 
 | GPU | Hashrate | Power | Efficiency |
 |---|---|---|---|
-| RTX 4060¹ | 57.2 TH/s | — | — |
+| RTX 4060¹ | 60.9 TH/s | — | — |
 | RTX 4060 Ti | 85.3 TH/s | 164 W | 520 GH/W |
 | RTX 4070 | 113.6 TH/s | 199 W | 571 GH/W |
 | RTX 4070 SUPER | 139.6 TH/s | 219 W | 637 GH/W |
