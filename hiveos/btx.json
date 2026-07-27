@@ -17,7 +17,7 @@
         "pass": "x",
         "miner": "peakminer",
         "template": "%WAL%.%WORKER_NAME%",
-        "install_url": "https://github.com/peakminer/peakminer/releases/download/v2.4.0/peakminer-2.4.0.tar.gz",
+        "install_url": "https://github.com/peakminer/peakminer/releases/download/v2.4.1/peakminer-2.4.1.tar.gz",
         "user_config": ""
       },
       "pool_geo": []
