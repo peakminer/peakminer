@@ -1,19 +1,19 @@
 {
-  "name": "PEAKMINER_CSD",
+  "name": "PEAKMINER_MIDSTATE",
   "isFavorite": false,
   "items": [
     {
-      "coin": "CSD",
+      "coin": "MDS",
       "pool_ssl": false,
       "pool_urls": [
-        "csd-ca.lproute.com:8760"
+        "eu.lproute.com:8960"
       ],
       "dpool_ssl": false,
       "miner": "custom",
       "miner_alt": "peakminer",
       "miner_config": {
-        "url": "csd-ca.lproute.com:8760",
-        "algo": "csd",
+        "url": "eu.lproute.com:8960",
+        "algo": "midstate",
         "pass": "x",
         "miner": "peakminer",
         "template": "%WAL%.%WORKER_NAME%",

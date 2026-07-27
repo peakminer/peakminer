@@ -30,7 +30,7 @@ This repository hosts the official release packages. Download the latest build f
 - [Quick start (HiveOS)](#quick-start-hiveos)
 - [Quick start (Windows)](#quick-start-windows)
 - [Run with Docker](#run-with-docker)
-- [Mining BTX / CSD (CLI)](#mining-btx--csd-cli)
+- [Mining BTX / CSD / Midstate (CLI)](#mining-btx--csd--midstate-cli)
 - [Overclocking & temperature limits](#overclocking--temperature-limits)
 - [Stats & logs](#stats--logs)
 - [Troubleshooting](#troubleshooting)
@@ -38,7 +38,7 @@ This repository hosts the official release packages. Download the latest build f
 
 ## Highlights
 
-- **Multi-coin** — mine **Pearl (PRL)**, **BTX** or **CSD** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
+- **Multi-coin** — mine **Pearl (PRL)**, **BTX**, **CSD** or **Midstate (MDS)** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
 - **Luck & effort stats** — see the % of expected effort used to find each share, plus running luck
 - **Tuned CUDA kernels per GPU generation** — best efficiency on RTX 50xx, 40xx, 30xx and 20xx: high hash, low watt, low VRAM
 - **Overclocking & thermal limits** — per-GPU core/memory clocks, power limit, and automatic temperature pause/resume
@@ -55,7 +55,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.1/peakminer-2.3.1-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.4.0/peakminer-2.4.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -64,7 +64,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.1/peakminer-2.3.1-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.4.0/peakminer-2.4.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o btx-sg.lproute.com:8660 \
   -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
@@ -73,10 +73,19 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.3.1/peakminer-2.3.1-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.4.0/peakminer-2.4.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
+```
+
+**Midstate (MDS):**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.4.0/peakminer-2.4.0-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
+./peakminer --coin midstate -o eu.lproute.com:8960 \
+  -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
 ```
 
 The flags you'll actually reach for:
@@ -85,7 +94,7 @@ The flags you'll actually reach for:
 |---|---|
 | `-o, --url <url>` | Pool URL, repeatable for failover (tried in order). TLS/SSL auto-detected |
 | `-u, --user <wallet[.worker]>` | Wallet address, optional `.worker` suffix |
-| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx` or `csd` (required) |
+| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd` or `midstate` (required) |
 | `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
 | `-a, --api-port <port>` | HTTP stats API on localhost (default 4068, `0` disables) |
 | `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
@@ -96,7 +105,7 @@ Every flag also has a `PEAK_*` environment-variable equivalent (shown in the hel
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
 [Overclocking & temperature limits](#overclocking--temperature-limits).
 
-Full `--help` output (v2.3.1):
+Full `--help` output (v2.4.0):
 
 ```text
  ____            _    __  __ _
@@ -104,8 +113,8 @@ Full `--help` output (v2.3.1):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.3.1
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260726-d0a9bd
+# high-performance GPU miner · v2.4.0
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260727-568ccc
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet[.worker]> --coin <name>
@@ -205,7 +214,7 @@ GPU thermal parameters:
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic.
-Latest full sweep: **v2.3.1**, 27 GPUs, 0 invalid shares. Measured on vast.ai at **default OC**,
+Latest full sweep: **v2.4.0**, 27 GPUs, 0 invalid shares. Measured on vast.ai at **default OC**,
 best full-power measurement per card (power-capped hosts excluded) — manual overclocking typically
 yields more.
 
@@ -224,7 +233,7 @@ yields more.
 Full table for all measured cards (20/30/40/50-series): [**PERFORMANCE.md**](PERFORMANCE.md).
 
 **Head-to-head vs other popular miners** — same GPU, same pool, back-to-back. These numbers come
-from the v2.3.1 three-way comparison run (2026-07-26), so they can differ slightly from the table above:
+from the v2.4.0 three-way comparison run (2026-07-26), so they can differ slightly from the table above:
 
 | GPU | PeakMiner | Other miners | Advantage |
 |---|---|---|---|
@@ -244,6 +253,7 @@ Full methodology: [**PERFORMANCE.md**](PERFORMANCE.md).
 | Pearl (PRL) | pearlhash | 2% |
 | BTX | MatMul PoW | 3% |
 | CSD | SHA-256d | 3% |
+| Midstate (MDS) | midstate | 2% |
 
 New coins are added regularly — [follow announcements](https://t.me/peakminer_announcements).
 
@@ -322,6 +332,12 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 | Yamaduo | [pool.yamaduo.no](https://pool.yamaduo.no) |
 | LuckyPool | [csd.luckypool.io](https://csd.luckypool.io) |
 
+**Midstate (MDS)**
+
+| Pool | Site |
+|---|---|
+| LProute | [lproute.com](https://lproute.com) — `eu.lproute.com:8960` |
+
 Use each pool's own host:port in your flight sheet's **Pool URL**. Comma-separate multiple URLs for failover.
 
 ## Quick start (HiveOS)
@@ -330,7 +346,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.3.1/peakminer-2.3.1.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.4.0/peakminer-2.4.0.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -348,6 +364,7 @@ then import it into HiveOS (Flight Sheets → import) and set your wallet:
 - **Pearl (PRL)** → [`hiveos/pearl.json`](hiveos/pearl.json)
 - **BTX** → [`hiveos/btx.json`](hiveos/btx.json)
 - **CSD** → [`hiveos/csd.json`](hiveos/csd.json)
+- **Midstate (MDS)** → [`hiveos/midstate.json`](hiveos/midstate.json)
 
 Update `install_url` in the JSON to the release you want.
 
@@ -407,10 +424,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.3.1
+docker pull peakminer/peakminer:2.4.0
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.3.1 \
+docker run --rm -t --gpus all peakminer/peakminer:2.4.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -419,7 +436,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.3.1 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.3.1 --build-arg PEAKMINER_VERSION=2.3.1 .
+docker build -t peakminer:2.4.0 --build-arg PEAKMINER_VERSION=2.4.0 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -428,11 +445,11 @@ docker run --rm -t --gpus all peakminer \
 Pass any miner flags after the image name. Map the stats API to the host with `-p`:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.3.1 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.4.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
-## Mining BTX / CSD (CLI)
+## Mining BTX / CSD / Midstate (CLI)
 
 Set `--coin` and point at the matching pool (see [Supported pools](#supported-pools)):
 
@@ -442,10 +459,17 @@ peakminer --coin btx -u WALLET[.WORKER] -o btx-sg.lproute.com:8660
 
 # CSD
 peakminer --coin csd -u WALLET[.WORKER] -o csd-ca.lproute.com:8760
+
+# Midstate (MDS)
+peakminer --coin midstate -u WALLET[.WORKER] -o eu.lproute.com:8960
 ```
 
 Replace `WALLET[.WORKER]` with your coin address (worker optional). Same flags work on Windows
-(`peakminer.exe …`) and Docker. TLS/SSL is auto-detected; **3% dev fee**.
+(`peakminer.exe …`) and Docker. TLS/SSL is auto-detected. Dev fee is **3%** on BTX and CSD,
+**2%** on Midstate.
+
+On Windows the zip ships a ready-made launcher per coin — `peakminer-btx.bat`, `peakminer-csd.bat`
+and `peakminer-midstate.bat`: edit the wallet / worker / pool lines, then double-click.
 
 Mining CSD on an AMD card (Linux)? Install the AMD runtime first — see the one-line installer
 under [Supported GPUs](#supported-gpus).
