@@ -1,6 +1,7 @@
 # PeakMiner — Multi-Coin GPU Miner for NVIDIA & AMD
 
 [![Latest release](https://img.shields.io/github/v/release/peakminer/peakminer)](https://github.com/peakminer/peakminer/releases)
+[![GitHub downloads](https://img.shields.io/github/downloads/peakminer/peakminer/total?label=downloads&logo=github)](https://github.com/peakminer/peakminer/releases)
 [![Docker pulls](https://img.shields.io/docker/pulls/peakminer/peakminer)](https://hub.docker.com/r/peakminer/peakminer)
 [![License](https://img.shields.io/badge/license-proprietary-lightgrey)](LICENSE)
 [![Telegram](https://img.shields.io/badge/Telegram-peakminer__official-26A5E4?logo=telegram&logoColor=white)](https://t.me/peakminer_official)
