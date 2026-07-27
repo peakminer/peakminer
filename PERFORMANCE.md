@@ -2,11 +2,10 @@
 
 Head-to-head against another popular miner on the **same GPU, same pool, back-to-back** —
 rented single-GPU rigs on vast.ai at **default clocks (no manual OC)**.
-Latest full sweep: **v2.4.1** (2026-07-28) — 23 GPUs, **0 invalid shares** on every card.
+Latest full sweep: **v2.4.1** (2026-07-28) — 22 GPUs, **0 invalid shares** on every card.
 
 | GPU | Hashrate @ Power | vs other popular miners |
 |---|---|---|
-| GTX 1660 Ti | 1.3 TH/s @ 90 W | **+13.5%** |
 | RTX 2060 | 24.4 TH/s @ 143 W | **+28.8%** |
 | RTX 2060 SUPER | 39.0 TH/s @ 179 W | **+15.8%** |
 | RTX 2080 SUPER | 48.0 TH/s @ 215 W | **+11.3%** |
@@ -30,7 +29,7 @@ Latest full sweep: **v2.4.1** (2026-07-28) — 23 GPUs, **0 invalid shares** on 
 | RTX 5080 | 215.2 TH/s @ 350 W | parity |
 | RTX 5090 | 376.2 TH/s @ 575 W | parity |
 
-PeakMiner **leads on the GTX 16, RTX 20, 30 and 40-series** at equal power, and runs at
+PeakMiner **leads on the RTX 20, 30 and 40-series** at equal power, and runs at
 **parity on the 50-series**. Figures are sustained averages at default OC — manual tuning
 (`--gpu-core`, `--gpu-mem`, `--gpu-power`) typically yields more. Your numbers will vary with
 GPU model, cooling, power limit, overclock, and pool.

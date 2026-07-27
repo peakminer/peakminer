@@ -214,7 +214,7 @@ GPU thermal parameters:
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic.
-Latest full sweep: **v2.4.1**, 23 GPUs, 0 invalid shares. Measured on vast.ai at **default OC** —
+Latest full sweep: **v2.4.1**, 22 GPUs, 0 invalid shares. Measured on vast.ai at **default OC** —
 manual overclocking typically yields more.
 
 **Current hashrate (default OC, sample):**
@@ -229,7 +229,7 @@ manual overclocking typically yields more.
 | RTX 4070 Ti | 153.1 TH/s | 539 GH/W |
 | RTX 3090 Ti | 144.3 TH/s | 321 GH/W |
 
-Full table for all 23 measured cards: [**PERFORMANCE.md**](PERFORMANCE.md).
+Full table for all 22 measured cards: [**PERFORMANCE.md**](PERFORMANCE.md).
 
 **Head-to-head vs other popular miners** — same GPU, same pool, back-to-back (v2.4.1 comparison run):
 
@@ -242,7 +242,7 @@ Full table for all 23 measured cards: [**PERFORMANCE.md**](PERFORMANCE.md).
 | RTX 4080 | **187.8 TH/s** | **+6.5%** |
 | RTX 4090 | **291.2 TH/s** | **+3.0%** |
 
-Leading on the GTX 16, RTX 20, 30 and 40-series at equal power, at parity on the 50-series.
+Leading on the RTX 20, 30 and 40-series at equal power, at parity on the 50-series.
 Full table: [**PERFORMANCE.md**](PERFORMANCE.md).
 
 ## Supported coins & dev fees
