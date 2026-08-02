@@ -1,19 +1,19 @@
 {
-  "name": "PEAKMINER_BTX",
+  "name": "PEAKMINER_ALPHANUMERIC",
   "isFavorite": false,
   "items": [
     {
-      "coin": "BTX",
+      "coin": "ALP",
       "pool_ssl": false,
       "pool_urls": [
-        "btx-sg.lproute.com:8660"
+        "sg.lproute.com:4260"
       ],
       "dpool_ssl": false,
       "miner": "custom",
       "miner_alt": "peakminer",
       "miner_config": {
-        "url": "btx-sg.lproute.com:8660",
-        "algo": "btx",
+        "url": "sg.lproute.com:4260",
+        "algo": "alphanumeric",
         "pass": "x",
         "miner": "peakminer",
         "template": "%WAL%.%WORKER_NAME%",

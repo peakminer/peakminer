@@ -30,7 +30,7 @@ This repository hosts the official release packages. Download the latest build f
 - [Quick start (HiveOS)](#quick-start-hiveos)
 - [Quick start (Windows)](#quick-start-windows)
 - [Run with Docker](#run-with-docker)
-- [Mining BTX / CSD / Midstate (CLI)](#mining-btx--csd--midstate-cli)
+- [Mining BTX / CSD / Midstate / Alphanumeric (CLI)](#mining-btx--csd--midstate--alphanumeric-cli)
 - [Overclocking & temperature limits](#overclocking--temperature-limits)
 - [Stats & logs](#stats--logs)
 - [Troubleshooting](#troubleshooting)
@@ -38,7 +38,7 @@ This repository hosts the official release packages. Download the latest build f
 
 ## Highlights
 
-- **Multi-coin** — mine **Pearl (PRL)**, **BTX**, **CSD** or **Midstate (MDS)** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
+- **Multi-coin** — mine **Pearl (PRL)**, **BTX**, **CSD**, **Midstate (MDS)** or **Alphanumeric (ALP)** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
 - **Luck & effort stats** — see the % of expected effort used to find each share, plus running luck
 - **Tuned CUDA kernels per GPU generation** — best efficiency on RTX 50xx, 40xx, 30xx and 20xx: high hash, low watt, low VRAM
 - **Overclocking & thermal limits** — per-GPU core/memory clocks, power limit, and automatic temperature pause/resume
@@ -55,7 +55,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.4.2/peakminer-2.4.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -64,7 +64,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.4.2/peakminer-2.4.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o btx-sg.lproute.com:8660 \
   -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
@@ -73,7 +73,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.4.2/peakminer-2.4.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -82,10 +82,19 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.4.2/peakminer-2.4.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
+```
+
+**Alphanumeric (ALP):**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
+./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
+  -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
 ```
 
 The flags you'll actually reach for:
@@ -94,7 +103,7 @@ The flags you'll actually reach for:
 |---|---|
 | `-o, --url <url>` | Pool URL, repeatable for failover (tried in order). TLS/SSL auto-detected |
 | `-u, --user <wallet[.worker]>` | Wallet address, optional `.worker` suffix |
-| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd` or `midstate` (required) |
+| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd`, `midstate` or `alphanumeric` (required) |
 | `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
 | `-a, --api-port <port>` | HTTP stats API on localhost (default 4068, `0` disables) |
 | `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
@@ -105,7 +114,7 @@ Every flag also has a `PEAK_*` environment-variable equivalent (shown in the hel
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
 [Overclocking & temperature limits](#overclocking--temperature-limits).
 
-Full `--help` output (v2.4.2):
+Full `--help` output (v2.5.0):
 
 ```text
  ____            _    __  __ _
@@ -113,8 +122,8 @@ Full `--help` output (v2.4.2):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.4.2
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260729-96f752
+# high-performance GPU miner · v2.5.0
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260802-cb0625
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet[.worker]> --coin <name>
@@ -186,35 +195,46 @@ Logging:
                            logs across restarts. No effect without --log-file [env: PEAK_LOG_APPEND]
 
 GPU OC parameters:
-      --gpu-core <MHz>       Core clock offset (MHz). Override per GPU with --gpu-coreN
-      --gpu-lcore <MHz>      Core clock lock (MHz). Override per GPU with --gpu-lcoreN
-      --gpu-mem <MHz>        Memory clock offset (MHz). Override per GPU with --gpu-memN
-      --gpu-lmem <MHz>       Memory clock lock (MHz). Override per GPU with --gpu-lmemN
-      --gpu-power <W|%>      Power limit: watts (e.g. 230) or percent of default (e.g. 80%).
-                             Override per GPU with --gpu-powerN
-      --gpu-fan <%>          Fan speed (0–100%), held fixed. Without --gpu-fan-target it pins the
-                             fan; with it, it's the starting duty. Override per GPU with --gpu-fanN
-      --gpu-fan-target <°C>  Target temperature (°C) for closed-loop fan control: the fan steps ±3%
-                             every 10 s to hold this temp, within --gpu-fan-min/max. Override per
-                             GPU with --gpu-fan-targetN
-      --gpu-fan-min <%>      Minimum fan duty (0–100%) for closed-loop control (default 30).
-                             Override per GPU with --gpu-fan-minN
-      --gpu-fan-max <%>      Maximum fan duty (0–100%) for closed-loop control (default 100).
-                             Override per GPU with --gpu-fan-maxN
+      --gpu-core <MHz>       Core clock offset (MHz), applied to ALL GPUs. Per-GPU: --gpu-coreN,
+                             e.g. --gpu-core0 150 sets only GPU 0 (N is the GPU index: --gpu-core1 →
+                             GPU 1, …)
+      --gpu-lcore <MHz>      Core clock lock (MHz), applied to ALL GPUs. Per-GPU: --gpu-lcoreN, e.g.
+                             --gpu-lcore0 1800 locks only GPU 0
+      --gpu-mem <MHz>        Memory clock offset (MHz), applied to ALL GPUs. Per-GPU: --gpu-memN,
+                             e.g. --gpu-mem0 1200 sets only GPU 0
+      --gpu-lmem <MHz>       Memory clock lock (MHz), applied to ALL GPUs. Per-GPU: --gpu-lmemN,
+                             e.g. --gpu-lmem1 5001 locks only GPU 1
+      --gpu-power <W|%>      Power limit: watts (e.g. 230) or percent of default (e.g. 80%), applied
+                             to ALL GPUs. Per-GPU: --gpu-powerN, e.g. --gpu-power0 80% caps only GPU
+                             0
+      --gpu-fan <%>          Fan speed (0–100%), held fixed, applied to ALL GPUs. Without
+                             --gpu-fan-target it pins the fan; with it, it's the starting duty.
+                             Per-GPU: --gpu-fanN, e.g. --gpu-fan0 70 sets only GPU 0
+      --gpu-fan-target <°C>  Target temperature (°C) for closed-loop fan control, applied to ALL
+                             GPUs: the fan steps ±3% every 10 s to hold this temp, within
+                             --gpu-fan-min/max. Per-GPU: --gpu-fan-targetN, e.g. --gpu-fan-target0
+                             65 for GPU 0
+      --gpu-fan-min <%>      Minimum fan duty (0–100%) for closed-loop control (default 30), applied
+                             to ALL GPUs. Per-GPU: --gpu-fan-minN, e.g. --gpu-fan-min0 40 for GPU 0
+      --gpu-fan-max <%>      Maximum fan duty (0–100%) for closed-loop control (default 100),
+                             applied to ALL GPUs. Per-GPU: --gpu-fan-maxN, e.g. --gpu-fan-max0 90
+                             for GPU 0
 
 GPU thermal parameters:
-      --gpu-temp-stop <°C>   Pause a GPU when its temperature reaches this value (°C). Override per
-                             GPU with --gpu-temp-stopN. When only this flag is given,
-                             --gpu-temp-start defaults to stop-10
+      --gpu-temp-stop <°C>   Pause a GPU when its temperature reaches this value (°C). The bare flag
+                             applies to ALL GPUs; append the GPU index N to target one, e.g.
+                             --gpu-temp-stop0 80 pauses only GPU 0 at 80°C (--gpu-temp-stop1 for GPU
+                             1, and so on). When only this flag is given, --gpu-temp-start defaults
+                             to stop-10
       --gpu-temp-start <°C>  Resume a paused GPU when its temperature drops to or below this value
-                             (°C). Override per GPU with --gpu-temp-startN. Must be strictly less
-                             than stop
+                             (°C). Bare flag = all GPUs; per-GPU: --gpu-temp-startN, e.g.
+                             --gpu-temp-start0 65 (must be strictly less than that GPU's stop)
 ```
 
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic, at
-**default OC** on rented single-GPU rigs. Latest run: **v2.4.2** (RTX 20xx / 30xx re-measured),
+**default OC** on rented single-GPU rigs. Latest run: **v2.5.0** (RTX 20xx / 30xx re-measured),
 0 invalid shares.
 
 **Current hashrate (default OC, sample):**
@@ -226,10 +246,10 @@ Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not syn
 | RTX 4090 | 291.2 TH/s | 649 GH/W |
 | RTX 5080 | 215.2 TH/s | 615 GH/W |
 | RTX 4080 SUPER | 203.0 TH/s | 636 GH/W |
-| RTX 3090 Ti | 144.9 TH/s | 323 GH/W |
-| RTX 2080 Ti | 59.5 TH/s | 261 GH/W |
+| RTX 3090 Ti | 150.6 TH/s | 336 GH/W |
+| RTX 3070 Ti | 98.4 TH/s | 318 GH/W |
 
-Full table for all 27 measured cards: [**PERFORMANCE.md**](PERFORMANCE.md).
+Full table for all 28 measured cards: [**PERFORMANCE.md**](PERFORMANCE.md).
 
 **Head-to-head vs other popular miners** — same GPU, same pool, back-to-back (v2.4.1 comparison run):
 
@@ -252,6 +272,7 @@ Leading on the RTX 20, 30 and 40-series at equal power, at parity on the 50-seri
 | BTX | MatMul PoW | 2% |
 | CSD | SHA-256d | 2% |
 | Midstate (MDS) | midstate | 2% |
+| Alphanumeric (ALP) | alphanumeric | 2% |
 
 New coins are added regularly — [follow announcements](https://t.me/peakminer_announcements).
 
@@ -336,6 +357,13 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 |---|---|
 | LProute | [lproute.com](https://lproute.com) — `eu.lproute.com:8960` |
 
+**Alphanumeric (ALP)**
+
+| Pool | Site |
+|---|---|
+| LProute | [lproute.com](https://lproute.com) — `sg.lproute.com:4260` |
+| LuckyPool | [alp.luckypool.io](https://alp.luckypool.io) |
+
 Use each pool's own host:port in your flight sheet's **Pool URL**. Comma-separate multiple URLs for failover.
 
 ## Quick start (HiveOS)
@@ -344,7 +372,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.4.2/peakminer-2.4.2.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -363,6 +391,7 @@ then import it into HiveOS (Flight Sheets → import) and set your wallet:
 - **BTX** → [`hiveos/btx.json`](hiveos/btx.json)
 - **CSD** → [`hiveos/csd.json`](hiveos/csd.json)
 - **Midstate (MDS)** → [`hiveos/midstate.json`](hiveos/midstate.json)
+- **Alphanumeric (ALP)** → [`hiveos/alphanumeric.json`](hiveos/alphanumeric.json)
 
 Update `install_url` in the JSON to the release you want.
 
@@ -422,10 +451,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.4.2
+docker pull peakminer/peakminer:2.5.0
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.4.2 \
+docker run --rm -t --gpus all peakminer/peakminer:2.5.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -434,7 +463,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.4.2 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.4.2 --build-arg PEAKMINER_VERSION=2.4.2 .
+docker build -t peakminer:2.5.0 --build-arg PEAKMINER_VERSION=2.5.0 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -443,11 +472,11 @@ docker run --rm -t --gpus all peakminer \
 Pass any miner flags after the image name. Map the stats API to the host with `-p`:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.4.2 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.5.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
-## Mining BTX / CSD / Midstate (CLI)
+## Mining BTX / CSD / Midstate / Alphanumeric (CLI)
 
 Set `--coin` and point at the matching pool (see [Supported pools](#supported-pools)):
 
@@ -460,39 +489,43 @@ peakminer --coin csd -u WALLET[.WORKER] -o csd-ca.lproute.com:8760
 
 # Midstate (MDS)
 peakminer --coin midstate -u WALLET[.WORKER] -o eu.lproute.com:8960
+
+# Alphanumeric (ALP)
+peakminer --coin alphanumeric -u WALLET[.WORKER] -o sg.lproute.com:4260
 ```
 
 Replace `WALLET[.WORKER]` with your coin address (worker optional). Same flags work on Windows
 (`peakminer.exe …`) and Docker. TLS/SSL is auto-detected. Dev fee is **2%** on every coin.
 
-On Windows the zip ships a ready-made launcher per coin — `peakminer-btx.bat`, `peakminer-csd.bat`
-and `peakminer-midstate.bat`: edit the wallet / worker / pool lines, then double-click.
+On Windows the zip ships a ready-made launcher per coin — `peakminer-btx.bat`, `peakminer-csd.bat`,
+`peakminer-midstate.bat` and `peakminer-alphanumeric.bat`: edit the wallet / worker / pool lines,
+then double-click.
 
 Mining CSD on an AMD card (Linux)? Install the AMD runtime first — see the one-line installer
 under [Supported GPUs](#supported-gpus).
 
 ## Overclocking & temperature limits
 
-PeakMiner can apply clock/power offsets, drive the fans (fixed duty or closed-loop on a target temperature), and protect cards with temperature limits — no external OC tool needed. Apply a value to all GPUs, or override a single card with the `N` suffix (e.g. `--gpu-core0`, `--gpu-mem1`).
+PeakMiner can apply clock/power offsets, drive the fans (fixed duty or closed-loop on a target temperature), and protect cards with temperature limits — no external OC tool needed. **The bare flag applies to every GPU; append the GPU index `N` to target one card** (e.g. `--gpu-core0 150` tunes only GPU 0, `--gpu-mem1 1200` only GPU 1).
 
 ```text
---gpu-core <MHz>          Core clock offset (MHz). Override per GPU with --gpu-coreN
---gpu-lcore <MHz>         Core clock lock (MHz). Override per GPU with --gpu-lcoreN
---gpu-mem <MHz>           Memory clock offset (MHz). Override per GPU with --gpu-memN
---gpu-lmem <MHz>          Memory clock lock (MHz). Override per GPU with --gpu-lmemN
+--gpu-core <MHz>          Core clock offset (MHz).  Per-GPU: --gpu-coreN
+--gpu-lcore <MHz>         Core clock lock (MHz).    Per-GPU: --gpu-lcoreN
+--gpu-mem <MHz>           Memory clock offset (MHz). Per-GPU: --gpu-memN
+--gpu-lmem <MHz>          Memory clock lock (MHz).   Per-GPU: --gpu-lmemN
 --gpu-power <W|%>         Power limit: watts (e.g. 230) or percent of default (e.g. 80%).
-                          Override per GPU with --gpu-powerN
+                          Per-GPU: --gpu-powerN
 --gpu-fan <%>             Fan speed (0–100%), held fixed. With --gpu-fan-target it's the
-                          starting duty instead. Override per GPU with --gpu-fanN
+                          starting duty instead. Per-GPU: --gpu-fanN
 --gpu-fan-target <°C>     Closed-loop fan control: the fan steps ±3% every 10 s to hold this
                           temperature, within --gpu-fan-min / --gpu-fan-max (defaults 30/100).
-                          Override per GPU with --gpu-fan-targetN
---gpu-temp-stop <°C>      Pause a GPU when its temperature reaches this value (°C). Override
-                          per GPU with --gpu-temp-stopN. When only this flag is given,
+                          Per-GPU: --gpu-fan-targetN
+--gpu-temp-stop <°C>      Pause a GPU when its temperature reaches this value (°C).
+                          Per-GPU: --gpu-temp-stopN. When only this flag is given,
                           --gpu-temp-start defaults to stop-10
 --gpu-temp-start <°C>     Resume a paused GPU when its temperature drops to or below this
-                          value (°C). Override per GPU with --gpu-temp-startN. Must be
-                          strictly less than stop
+                          value (°C). Per-GPU: --gpu-temp-startN. Must be strictly less
+                          than that GPU's stop
 ```
 
 Example — core +150 MHz, memory +1200 MHz, 70% power, pause at 70 °C (resume at 60 °C):
