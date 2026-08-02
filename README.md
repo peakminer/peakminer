@@ -292,7 +292,7 @@ New coins are added regularly — [follow announcements](https://t.me/peakminer_
 | sm_100 | b200 | B200 / B300 |
 | sm_120 | blackwell | **RTX 50xx (optimized)** |
 
-**AMD** — CSD only, Linux only:
+**AMD** — CSD and Alphanumeric (ALP) only, Linux only:
 
 | LLVM target | Architecture | Cards |
 |---|---|---|
@@ -315,7 +315,7 @@ New coins are added regularly — [follow announcements](https://t.me/peakminer_
 | gfx1200 | RDNA 4 | RX 9060 XT / 9060 |
 | gfx1201 | RDNA 4 | **RX 9070 XT / 9070 GRE / 9070** |
 
-**Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed). For AMD cards (CSD, Linux): a recent `amdgpu` driver with ROCm support, plus the AMD runtime — install it once before mining:
+**Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed). For AMD cards (CSD and Alphanumeric, Linux): a recent `amdgpu` driver with ROCm support, plus the AMD runtime — install it once before mining:
 
 ```bash
 curl -fsSL https://gist.githubusercontent.com/devpeakminer/9bfd2744a535a93a99ce1b078f778ff6/raw/be9732a5caed5d5c0a6a9614166d455e6e077506/install-csd-amd-runtime.sh | sudo bash
@@ -501,7 +501,7 @@ On Windows the zip ships a ready-made launcher per coin — `peakminer-btx.bat`,
 `peakminer-midstate.bat` and `peakminer-alphanumeric.bat`: edit the wallet / worker / pool lines,
 then double-click.
 
-Mining CSD on an AMD card (Linux)? Install the AMD runtime first — see the one-line installer
+Mining CSD or Alphanumeric on an AMD card (Linux)? Install the AMD runtime first — see the one-line installer
 under [Supported GPUs](#supported-gpus).
 
 ## Overclocking & temperature limits
