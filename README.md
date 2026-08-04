@@ -55,7 +55,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.6.0/peakminer-2.6.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -64,7 +64,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.6.0/peakminer-2.6.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o btx-sg.lproute.com:8660 \
   -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
@@ -73,7 +73,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.6.0/peakminer-2.6.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -82,7 +82,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.6.0/peakminer-2.6.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -91,7 +91,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.6.0/peakminer-2.6.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -102,19 +102,21 @@ The flags you'll actually reach for:
 | Flag | What it does |
 |---|---|
 | `-o, --url <url>` | Pool URL, repeatable for failover (tried in order). TLS/SSL auto-detected |
-| `-u, --user <wallet[.worker]>` | Wallet address, optional `.worker` suffix |
+| `-u, --user <wallet>` | Pool login, **sent verbatim** — type exactly what your pool documents (`wallet`, `wallet.worker`, `wallet/worker`, …) |
+| `-w, --worker <name>` | Worker name as a **separate field**. Ignored when `-u` already carries a `.` or `/` |
 | `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd`, `midstate` or `alphanumeric` (required) |
 | `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
 | `-a, --api-port <port>` | HTTP stats API on localhost (default 4068, `0` disables) |
 | `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
 | `-L, --legacy-auth` | Pin standard Stratum V1 array authorize (auto-detected by default) |
 | `-f, --log-file <path>` | Also write logs to a file (`--log-append` to keep them across restarts) |
+| `--dns-over-https <on\|off\|strict>` | Resolve pool hostnames over DoH — for ISPs that hijack/filter pool domains (default `off`) |
 
 Every flag also has a `PEAK_*` environment-variable equivalent (shown in the help text) — handy
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
 [Overclocking & temperature limits](#overclocking--temperature-limits).
 
-Full `--help` output (v2.5.0):
+Full `--help` output (v2.6.0):
 
 ```text
  ____            _    __  __ _
@@ -122,69 +124,81 @@ Full `--help` output (v2.5.0):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.5.0
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260802-cb0625
+# high-performance GPU miner · v2.6.0
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260804-67db58
 Multi-algorithm Stratum V1 miner
 
-Usage: peakminer [OPTIONS] --url <url> --user <wallet[.worker]> --coin <name>
+Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
 
 Options:
   -h, --help     Print help
   -V, --version  Print version
 
 Connection:
-  -o, --url <url>               Pool URL. Repeatable for failover (tried in order).
-                                stratum+tcp://host:port or stratum+ssl://host:port (the PEAK_POOL
-                                env form takes a comma-separated list) [env: PEAK_POOL]
-  -u, --user <wallet[.worker]>  Wallet address with optional worker suffix: wallet[.worker] [env:
-                                PEAK_WALLET]
-  -p, --password <PASSWORD>     Password (passed verbatim to the pool, e.g. "x" or "x;d=524288")
-                                [env: PEAK_PASSWORD] [default: x]
-  -w, --worker <name>           Worker name (overrides suffix in -u) [env: PEAK_WORKER]
-  -c, --coin <name>             Coin / algorithm to mine, e.g. pearl or btx (required) [env:
-                                PEAK_COIN]
+  -o, --url <url>        Pool URL. Repeatable for failover (tried in order). stratum+tcp://host:port
+                         or stratum+ssl://host:port (the PEAK_POOL env form takes a comma-separated
+                         list) [env: PEAK_POOL]
+  -u, --user <wallet>    Pool login, sent VERBATIM — never split. Type exactly what your pool
+                         documents (bare address, wallet.worker, wallet/worker, wallet=diff...). Use
+                         --worker to fill the separate worker field instead [env: PEAK_WALLET]
+  -p, --password <pass>  Password (passed verbatim to the pool, e.g. "x" or "x;d=524288") [env:
+                         PEAK_PASSWORD] [default: x]
+  -w, --worker <name>    Worker name. A separate field, NOT an edit of -u: pools with a worker slot
+                         get it there, single-string logins get ".<name>" appended. Ignored when -u
+                         already carries a "." or "/" — one separator only, and the -u spelling
+                         always wins [env: PEAK_WORKER]
+  -c, --coin <name>      Coin / algorithm to mine, e.g. pearl or btx (required) [env: PEAK_COIN]
 
 Mining:
   -d, --devices <list>  GPU device indices: all or comma-separated list [env: PEAK_DEVICES]
                         [default: all]
 
 Behavior:
-  -i, --status-interval <secs>  Print status every N seconds [env: PEAK_STATUS_INTERVAL] [default:
-                                60]
-  -j, --job-timeout <secs>      Force a reconnect if the pool pushes no new job for this many
-                                seconds. A live-but-wedged pool keeps the TCP alive (it answers our
-                                pings) while silently never sending a new job, leaving the GPU
-                                grinding a stale job whose shares all get rejected. Reconnecting
-                                makes the pool re-push a fresh job. Unset uses the coin's own
-                                default (180 s for Pearl and BTX); 0 disables [env:
-                                PEAK_JOB_TIMEOUT]
-  -n, --dry-run                 Mine without submitting proofs (dry run) [env: PEAK_DRY_RUN]
-      --keepalive               Send periodic mining.ping keepalives to the pool (every 30 s). Off
-                                by default — TCP-level keepalive already detects dead links, and
-                                some pools reject mining.ping. Enable for pools that close idle
-                                connections [env: PEAK_KEEPALIVE]
-      --send-stales             Submit shares even when the job rotated while the share was queued
-                                (stale). By default such shares are dropped (they'd only earn a "job
-                                not found" reject); enable to submit every share and let the pool be
-                                the sole judge (some pools still accept a just-rotated job). Applies
-                                to every coin [env: PEAK_SEND_STALES]
-  -L, --legacy-auth             Force standard Stratum V1 array-format authorize:
-                                ["user","password"]. Override only — by default the auth dialect is
-                                AUTO-DETECTED (named params {"wallet","worker","agent"} first,
-                                falling back to the array form on the first authorize failure, then
-                                locked). Pass this to pin the array form up front and skip detection
-                                (e.g. a pool that hangs instead of rejecting) [env:
-                                PEAK_LEGACY_AUTH]
-  -a, --api-port <port>         HTTP stats API port, bound to 127.0.0.1 (localhost only). 0 =
-                                disabled. Default 4068  →  GET http://127.0.0.1:4068/summary [env:
-                                PEAK_API_PORT] [default: 4068]
-      --report-stats            Report rig telemetry to the pool via a periodic `mining.stats` push
-                                (total/per-GPU hashrate, uptime, GPU model/temp/power) for its
-                                dashboard. Sent over the EXISTING stratum connection to the pool
-                                you're mining — nowhere else. OFF by default: it's cosmetic (no
-                                effect on shares/payouts) and a pool that rejects unknown methods
-                                could drop the connection, so enable it only for pools that display
-                                these stats [env: PEAK_REPORT_STATS]
+  -i, --status-interval <secs>
+          Print status every N seconds [env: PEAK_STATUS_INTERVAL] [default: 60]
+  -j, --job-timeout <secs>
+          Force a reconnect if the pool pushes no new job for this many seconds. A live-but-wedged
+          pool keeps the TCP alive (it answers our pings) while silently never sending a new job,
+          leaving the GPU grinding a stale job whose shares all get rejected. Reconnecting makes the
+          pool re-push a fresh job. Unset uses the coin's own default (180 s for Pearl and BTX); 0
+          disables [env: PEAK_JOB_TIMEOUT]
+  -n, --dry-run
+          Mine without submitting proofs (dry run) [env: PEAK_DRY_RUN]
+      --keepalive
+          Send periodic mining.ping keepalives to the pool (every 30 s). Off by default — TCP-level
+          keepalive already detects dead links, and some pools reject mining.ping. Enable for pools
+          that close idle connections [env: PEAK_KEEPALIVE]
+      --send-stales
+          Submit shares even when the job rotated while the share was queued (stale). By default
+          such shares are dropped (they'd only earn a "job not found" reject); enable to submit
+          every share and let the pool be the sole judge (some pools still accept a just-rotated
+          job). Applies to every coin [env: PEAK_SEND_STALES]
+  -L, --legacy-auth
+          Force standard Stratum V1 array-format authorize: ["user","password"]. Override only — by
+          default the auth dialect is AUTO-DETECTED (named params {"wallet","worker","agent"} first,
+          falling back to the array form on the first authorize failure, then locked). Pass this to
+          pin the array form up front and skip detection (e.g. a pool that hangs instead of
+          rejecting) [env: PEAK_LEGACY_AUTH]
+      --dns-over-https [<on|off|strict>]
+          Resolve pool hostnames over DNS-over-HTTPS instead of the system resolver. Bare flag = on.
+          Use when an ISP hijacks/filters pool domains or the rig's own resolver is broken. `strict`
+          disables the system-resolver fallback (needed to bypass a hijack, but then a pool name
+          that only exists in /etc/hosts will NOT resolve). Off by default [env:
+          PEAK_DNS_OVER_HTTPS] [default: off]
+      --doh-url <url>
+          DoH endpoint(s), tried in order; repeatable. Replaces the built-in list (Cloudflare,
+          Google, Quad9 — all IP literals, so their certificates still verify and no bootstrap
+          lookup is needed). Prefer an IP-literal URL: a hostname here is resolved by the very
+          system resolver DoH exists to distrust [env: PEAK_DOH_URL]
+  -a, --api-port <port>
+          HTTP stats API port, bound to 127.0.0.1 (localhost only). 0 = disabled. Default 4068  →
+          GET http://127.0.0.1:4068/summary [env: PEAK_API_PORT] [default: 4068]
+      --report-stats
+          Report rig telemetry to the pool via a periodic `mining.stats` push (total/per-GPU
+          hashrate, uptime, GPU model/temp/power) for its dashboard. Sent over the EXISTING stratum
+          connection to the pool you're mining — nowhere else. OFF by default: it's cosmetic (no
+          effect on shares/payouts) and a pool that rejects unknown methods could drop the
+          connection, so enable it only for pools that display these stats [env: PEAK_REPORT_STATS]
 
 Logging:
   -l, --log-level <level>  Log level [env: PEAK_LOG_LEVEL] [default: info]
@@ -195,30 +209,34 @@ Logging:
                            logs across restarts. No effect without --log-file [env: PEAK_LOG_APPEND]
 
 GPU OC parameters:
-      --gpu-core <MHz>       Core clock offset (MHz), applied to ALL GPUs. Per-GPU: --gpu-coreN,
-                             e.g. --gpu-core0 150 sets only GPU 0 (N is the GPU index: --gpu-core1 →
-                             GPU 1, …)
-      --gpu-lcore <MHz>      Core clock lock (MHz), applied to ALL GPUs. Per-GPU: --gpu-lcoreN, e.g.
-                             --gpu-lcore0 1800 locks only GPU 0
-      --gpu-mem <MHz>        Memory clock offset (MHz), applied to ALL GPUs. Per-GPU: --gpu-memN,
-                             e.g. --gpu-mem0 1200 sets only GPU 0
-      --gpu-lmem <MHz>       Memory clock lock (MHz), applied to ALL GPUs. Per-GPU: --gpu-lmemN,
-                             e.g. --gpu-lmem1 5001 locks only GPU 1
-      --gpu-power <W|%>      Power limit: watts (e.g. 230) or percent of default (e.g. 80%), applied
-                             to ALL GPUs. Per-GPU: --gpu-powerN, e.g. --gpu-power0 80% caps only GPU
-                             0
-      --gpu-fan <%>          Fan speed (0–100%), held fixed, applied to ALL GPUs. Without
-                             --gpu-fan-target it pins the fan; with it, it's the starting duty.
-                             Per-GPU: --gpu-fanN, e.g. --gpu-fan0 70 sets only GPU 0
-      --gpu-fan-target <°C>  Target temperature (°C) for closed-loop fan control, applied to ALL
-                             GPUs: the fan steps ±3% every 10 s to hold this temp, within
-                             --gpu-fan-min/max. Per-GPU: --gpu-fan-targetN, e.g. --gpu-fan-target0
-                             65 for GPU 0
-      --gpu-fan-min <%>      Minimum fan duty (0–100%) for closed-loop control (default 30), applied
-                             to ALL GPUs. Per-GPU: --gpu-fan-minN, e.g. --gpu-fan-min0 40 for GPU 0
-      --gpu-fan-max <%>      Maximum fan duty (0–100%) for closed-loop control (default 100),
-                             applied to ALL GPUs. Per-GPU: --gpu-fan-maxN, e.g. --gpu-fan-max0 90
-                             for GPU 0
+      --gpu-core <MHz>         Core clock offset (MHz), applied to ALL GPUs. Per-GPU: --gpu-coreN,
+                               e.g. --gpu-core0 150 sets only GPU 0 (N is the GPU index: --gpu-core1
+                               → GPU 1, …)
+      --gpu-core-delay <secs>  Delay core-offset application by this many seconds after mining
+                               starts. Has no effect unless at least one selected GPU resolves a
+                               --gpu-core/--gpu-coreN value. Zero preserves immediate startup
+      --gpu-lcore <MHz>        Core clock lock (MHz), applied to ALL GPUs. Per-GPU: --gpu-lcoreN,
+                               e.g. --gpu-lcore0 1800 locks only GPU 0
+      --gpu-mem <MHz>          Memory clock offset (MHz), applied to ALL GPUs. Per-GPU: --gpu-memN,
+                               e.g. --gpu-mem0 1200 sets only GPU 0
+      --gpu-lmem <MHz>         Memory clock lock (MHz), applied to ALL GPUs. Per-GPU: --gpu-lmemN,
+                               e.g. --gpu-lmem1 5001 locks only GPU 1
+      --gpu-power <W|%>        Power limit: watts (e.g. 230) or percent of default (e.g. 80%),
+                               applied to ALL GPUs. Per-GPU: --gpu-powerN, e.g. --gpu-power0 80%
+                               caps only GPU 0
+      --gpu-fan <%>            Fan speed (0–100%), held fixed, applied to ALL GPUs. Without
+                               --gpu-fan-target it pins the fan; with it, it's the starting duty.
+                               Per-GPU: --gpu-fanN, e.g. --gpu-fan0 70 sets only GPU 0
+      --gpu-fan-target <°C>    Target temperature (°C) for closed-loop fan control, applied to ALL
+                               GPUs: the fan steps ±3% every 10 s to hold this temp, within
+                               --gpu-fan-min/max. Per-GPU: --gpu-fan-targetN, e.g. --gpu-fan-target0
+                               65 for GPU 0
+      --gpu-fan-min <%>        Minimum fan duty (0–100%) for closed-loop control (default 30),
+                               applied to ALL GPUs. Per-GPU: --gpu-fan-minN, e.g. --gpu-fan-min0 40
+                               for GPU 0
+      --gpu-fan-max <%>        Maximum fan duty (0–100%) for closed-loop control (default 100),
+                               applied to ALL GPUs. Per-GPU: --gpu-fan-maxN, e.g. --gpu-fan-max0 90
+                               for GPU 0
 
 GPU thermal parameters:
       --gpu-temp-stop <°C>   Pause a GPU when its temperature reaches this value (°C). The bare flag
@@ -234,7 +252,7 @@ GPU thermal parameters:
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic, at
-**default OC** on rented single-GPU rigs. Latest run: **v2.5.0** (RTX 20xx / 30xx re-measured),
+**default OC** on rented single-GPU rigs. Latest run: **v2.6.0** (RTX 20xx / 30xx re-measured),
 0 invalid shares.
 
 **Current hashrate (default OC, sample):**
@@ -372,7 +390,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.5.0/peakminer-2.5.0.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.6.0/peakminer-2.6.0.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -451,10 +469,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.5.0
+docker pull peakminer/peakminer:2.6.0
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.5.0 \
+docker run --rm -t --gpus all peakminer/peakminer:2.6.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -463,7 +481,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.5.0 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.5.0 --build-arg PEAKMINER_VERSION=2.5.0 .
+docker build -t peakminer:2.6.0 --build-arg PEAKMINER_VERSION=2.6.0 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -472,7 +490,7 @@ docker run --rm -t --gpus all peakminer \
 Pass any miner flags after the image name. Map the stats API to the host with `-p`:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.5.0 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.6.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
@@ -510,6 +528,8 @@ PeakMiner can apply clock/power offsets, drive the fans (fixed duty or closed-lo
 
 ```text
 --gpu-core <MHz>          Core clock offset (MHz).  Per-GPU: --gpu-coreN
+--gpu-core-delay <secs>   Wait N seconds after mining starts before applying the core
+                          offset. Only matters together with --gpu-core; 0 = apply at once
 --gpu-lcore <MHz>         Core clock lock (MHz).    Per-GPU: --gpu-lcoreN
 --gpu-mem <MHz>           Memory clock offset (MHz). Per-GPU: --gpu-memN
 --gpu-lmem <MHz>          Memory clock lock (MHz).   Per-GPU: --gpu-lmemN
@@ -545,6 +565,8 @@ peakminer --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> \
 
 - **Miner runs but dashboard stats are blank (HiveOS)** — run `curl 127.0.0.1:4068/summary` on the rig. If it answers, verify `/run/hive/MINER_RUN` exists (the HiveOS agent skips stats collection without it).
 - **All shares rejected after a pool hiccup** — the built-in job watchdog (`--job-timeout`, default 180 s) reconnects automatically; lower it if your pool wedges often.
+- **Pool hostname will not resolve, or resolves to the wrong host** — some ISPs hijack or filter mining domains. Add `--dns-over-https on` (or `strict` to drop the system-resolver fallback entirely).
+- **Rig hangs or the driver resets right after the miner starts with an overclock** — delay the core offset with `--gpu-core-delay 30` so the card is already under load when it lands.
 
 ## License
 
