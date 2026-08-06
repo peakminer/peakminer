@@ -55,7 +55,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.7.0/peakminer-2.7.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.7.1/peakminer-2.7.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -64,7 +64,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.7.0/peakminer-2.7.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.7.1/peakminer-2.7.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o btx-sg.lproute.com:8660 \
   -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
@@ -73,7 +73,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.7.0/peakminer-2.7.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.7.1/peakminer-2.7.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -82,7 +82,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.7.0/peakminer-2.7.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.7.1/peakminer-2.7.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -91,7 +91,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.7.0/peakminer-2.7.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.7.1/peakminer-2.7.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -116,7 +116,7 @@ Every flag also has a `PEAK_*` environment-variable equivalent (shown in the hel
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
 [Overclocking & temperature limits](#overclocking--temperature-limits).
 
-Full `--help` output (v2.7.0):
+Full `--help` output (v2.7.1):
 
 ```text
  ____            _    __  __ _
@@ -124,8 +124,8 @@ Full `--help` output (v2.7.0):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.7.0
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260805-c0a582
+# high-performance GPU miner · v2.7.1
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260805-9e906b
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -167,7 +167,7 @@ Behavior:
       --keepalive
           Send periodic mining.ping keepalives to the pool (every 20 s). Off by default — TCP-level
           keepalive already detects dead links, and some pools reject mining.ping. Enable for pools
-          that close idle connections (F2Pool hangs up after ~20 s of silence) [env: PEAK_KEEPALIVE]
+          that close idle connections [env: PEAK_KEEPALIVE]
       --send-stales
           Submit shares even when the job rotated while the share was queued (stale). By default
           such shares are dropped (they'd only earn a "job not found" reject); enable to submit
@@ -252,7 +252,7 @@ GPU thermal parameters:
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic, at
-**default OC** on rented single-GPU rigs. Latest run: **v2.7.0** (RTX 20xx / 30xx re-measured),
+**default OC** on rented single-GPU rigs. Latest run: **v2.7.1** (RTX 20xx / 30xx re-measured),
 0 invalid shares.
 
 **Current hashrate (default OC, sample):**
@@ -301,9 +301,9 @@ New coins are added regularly — [follow announcements](https://t.me/peakminer_
 | Compute cap | Profile | Cards |
 |---|---|---|
 | sm_50 / sm_52 | maxwell | Tesla M40 / M60 / M4 / **GTX 900 series** / GTX 750 / 750 Ti / GTX TITAN X — CSD only |
-| sm_60 / sm_61 | pascal | Tesla P100 / P40 / P4 / P104-100 / P106-100 / **GTX 10xx** — Pearl + CSD |
-| sm_70 | volta | V100 |
-| sm_75 | turing | T4 / CMP 30HX / **RTX 20xx (optimized)** |
+| sm_60 / sm_61 | pascal | Tesla P100 / P40 / P4 / P104-100 / P106-100 / **GTX 10xx** — not for Pearl |
+| sm_70 | volta | V100 / TITAN V — not for Pearl |
+| sm_75 | turing | T4 / CMP 30HX / **RTX 20xx (optimized)** · GTX 16xx — not for Pearl |
 | sm_80 / sm_86 | ampere | A100 / **CMP 170HX** (auto driver unlock — Pearl, Linux, needs root) / **RTX 30xx (optimized)** |
 | sm_89 | ada | **RTX 40xx (optimized)** |
 | sm_90 | hopper | **H100 / H200** |
@@ -332,6 +332,8 @@ New coins are added regularly — [follow announcements](https://t.me/peakminer_
 | gfx1151 | RDNA 3.5 (APU) | Radeon 8060S / 8050S (Strix Halo / Ryzen AI Max) |
 | gfx1200 | RDNA 4 | RX 9060 XT / 9060 |
 | gfx1201 | RDNA 4 | **RX 9070 XT / 9070 GRE / 9070** |
+
+**Pearl (PRL) requires RTX 20xx or newer.** Since v2.7.1 the Pearl network enforces rank-128 consensus rules, and the Maxwell / Pascal / Volta / GTX 16xx kernels cannot mine them — those cards keep working for BTX, CSD, Midstate and Alphanumeric.
 
 **Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed). For AMD cards (CSD and Alphanumeric, Linux): a recent `amdgpu` driver with ROCm support, plus the AMD runtime — install it once before mining:
 
@@ -391,7 +393,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.7.0/peakminer-2.7.0.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.7.1/peakminer-2.7.1.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -470,10 +472,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.7.0
+docker pull peakminer/peakminer:2.7.1
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.7.0 \
+docker run --rm -t --gpus all peakminer/peakminer:2.7.1 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -482,7 +484,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.7.0 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.7.0 --build-arg PEAKMINER_VERSION=2.7.0 .
+docker build -t peakminer:2.7.1 --build-arg PEAKMINER_VERSION=2.7.1 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -491,7 +493,7 @@ docker run --rm -t --gpus all peakminer \
 Pass any miner flags after the image name. Map the stats API to the host with `-p`:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.7.0 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.7.1 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
 ```
 
