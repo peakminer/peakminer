@@ -3,7 +3,7 @@
 #
 # Build:
 #   docker build -t peakminer .
-#   docker build -t peakminer:2.8.1 --build-arg PEAKMINER_VERSION=2.8.1 .
+#   docker build -t peakminer:2.8.2 --build-arg PEAKMINER_VERSION=2.8.2 .
 #
 # Run (needs the NVIDIA Container Toolkit on the host):
 #   docker run --rm --gpus all peakminer \
@@ -12,7 +12,7 @@
 FROM ubuntu:24.04
 
 # Version of PeakMiner to pull from GitHub Releases.
-ARG PEAKMINER_VERSION=2.8.1
+ARG PEAKMINER_VERSION=2.8.2
 ARG RELEASE_URL=https://github.com/peakminer/peakminer/releases/download/v${PEAKMINER_VERSION}/peakminer-${PEAKMINER_VERSION}-linux-x86_64
 
 # ca-certificates: TLS/SSL pool connections. curl: fetch the release binary.
