@@ -55,7 +55,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.9.0/peakminer-2.9.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.9.1/peakminer-2.9.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -64,7 +64,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.9.0/peakminer-2.9.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.9.1/peakminer-2.9.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o btx-sg.lproute.com:8660 \
   -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
@@ -73,7 +73,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.9.0/peakminer-2.9.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.9.1/peakminer-2.9.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -82,7 +82,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.9.0/peakminer-2.9.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.9.1/peakminer-2.9.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -91,7 +91,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.9.0/peakminer-2.9.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.9.1/peakminer-2.9.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -106,7 +106,7 @@ The flags you'll actually reach for:
 | `-w, --worker <name>` | Worker name as a **separate field**. Ignored when `-u` already carries a `.` or `/` |
 | `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd`, `midstate` or `alphanumeric` (required) |
 | `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
-| `-a, --api-port <port>` | HTTP stats API on localhost (default 4068, `0` disables) |
+| `-a, --api-port <[host:]port>` | HTTP stats API. A bare port binds localhost; `0.0.0.0:4068` exposes it to Docker / the LAN (default 4068, `0` disables) |
 | `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
 | `-L, --legacy-auth` | Pin standard Stratum V1 array authorize (auto-detected by default) |
 | `-f, --log-file <path>` | Also write logs to a file (`--log-append` to keep them across restarts) |
@@ -116,7 +116,7 @@ Every flag also has a `PEAK_*` environment-variable equivalent (shown in the hel
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
 [Overclocking & temperature limits](#overclocking--temperature-limits).
 
-Full `--help` output (v2.9.0):
+Full `--help` output (v2.9.1):
 
 ```text
  ____            _    __  __ _
@@ -124,8 +124,8 @@ Full `--help` output (v2.9.0):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.9.0
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260811-d1c3a0
+# high-performance GPU miner · v2.9.1
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260812-0a311c
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -190,9 +190,11 @@ Behavior:
           Google, Quad9 — all IP literals, so their certificates still verify and no bootstrap
           lookup is needed). Prefer an IP-literal URL: a hostname here is resolved by the very
           system resolver DoH exists to distrust [env: PEAK_DOH_URL]
-  -a, --api-port <port>
-          HTTP stats API port, bound to 127.0.0.1 (localhost only). 0 = disabled. Default 4068  →
-          GET http://127.0.0.1:4068/summary [env: PEAK_API_PORT] [default: 4068]
+  -a, --api-port <[host:]port>
+          HTTP stats API listen address. A bare port binds 127.0.0.1 (localhost only); `host:port`
+          binds that address — use `0.0.0.0:4068` (or `[::]:4068`) to reach it from Docker
+          containers / the LAN. 0 = disabled. Default 4068  →  GET http://127.0.0.1:4068/summary
+          [env: PEAK_API_PORT] [default: 4068]
       --report-stats
           Report rig telemetry to the pool via a periodic `mining.stats` push (total/per-GPU
           hashrate, uptime, GPU model/temp/power) for its dashboard. Sent over the EXISTING stratum
@@ -252,7 +254,7 @@ GPU thermal parameters:
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic, at
-**default OC** on rented single-GPU rigs. Latest run: **v2.9.0** (RTX 20xx / 30xx re-measured),
+**default OC** on rented single-GPU rigs. Latest run: **v2.9.1** (RTX 20xx / 30xx re-measured),
 0 invalid shares.
 
 **Current hashrate (default OC, sample):**
@@ -333,7 +335,7 @@ New coins are added regularly — [follow announcements](https://t.me/peakminer_
 | gfx1200 | RDNA 4 | RX 9060 XT / 9060 |
 | gfx1201 | RDNA 4 | **RX 9070 XT / 9070 GRE / 9070** |
 
-**Pearl (PRL) requires RTX 20xx or newer.** Since v2.9.0 the Pearl network enforces rank-128 consensus rules, and the Maxwell / Pascal / Volta / GTX 16xx kernels cannot mine them — those cards keep working for BTX, CSD, Midstate and Alphanumeric.
+**Pearl (PRL) requires RTX 20xx or newer.** Since v2.9.1 the Pearl network enforces rank-128 consensus rules, and the Maxwell / Pascal / Volta / GTX 16xx kernels cannot mine them — those cards keep working for BTX, CSD, Midstate and Alphanumeric.
 
 **Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed). For AMD cards (CSD and Alphanumeric, Linux): a recent `amdgpu` driver with ROCm support, plus the AMD runtime — install it once before mining:
 
@@ -393,7 +395,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.9.0/peakminer-2.9.0.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.9.1/peakminer-2.9.1.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -425,6 +427,7 @@ The "Setup Miner Config" box accepts raw peakminer CLI flags, one per line or se
 --legacy-auth          # standard Stratum V1 array authorize, for pools that need it
 --job-timeout 60       # reconnect sooner when the pool stops sending new jobs
 --api-port 4068        # stats API port (the stats script follows it automatically)
+                       # use 0.0.0.0:4068 to expose it beyond localhost
 ```
 
 The full flag list is in the [CLI reference](#cli-reference).
@@ -458,7 +461,7 @@ Common flags (full list in the [CLI reference](#cli-reference), or `peakminer.ex
 --url de.pearl.herominers.com:1200   # pool address (TLS/SSL auto-detected)
 --user WALLET.WORKER   # your Pearl wallet + worker name
 --devices 0,1          # mine on a GPU subset (default: all)
---api-port 4068        # built-in HTTP stats API
+--api-port 4068        # built-in HTTP stats API (0.0.0.0:4068 to expose it on the LAN)
 ```
 
 The CUDA 12 runtime ships inside the zip — no toolkit install needed, just a recent NVIDIA driver.
@@ -472,10 +475,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.9.0
+docker pull peakminer/peakminer:2.9.1
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.9.0 \
+docker run --rm -t --gpus all peakminer/peakminer:2.9.1 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -484,18 +487,23 @@ docker run --rm -t --gpus all peakminer/peakminer:2.9.0 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.9.0 --build-arg PEAKMINER_VERSION=2.9.0 .
+docker build -t peakminer:2.9.1 --build-arg PEAKMINER_VERSION=2.9.1 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
-Pass any miner flags after the image name. Map the stats API to the host with `-p`:
+Pass any miner flags after the image name. To reach the stats API from the host, publish the port
+**and** bind the API to `0.0.0.0` — a bare `--api-port 4068` listens on the container's own
+loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.9.0 \
-  --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 4068
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.9.1 \
+  --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
+
+Then `curl 127.0.0.1:4068/summary` on the host. Only expose it on a trusted network — the API has
+no authentication.
 
 ## Mining BTX / CSD / Midstate / Alphanumeric (CLI)
 
@@ -560,12 +568,15 @@ peakminer --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> \
 
 ## Stats & logs
 
-- Stats API (all platforms): `GET http://127.0.0.1:4068/summary` — hashrate reported in kH/s
+- Stats API (all platforms): `GET http://127.0.0.1:4068/summary` — hashrate reported in kH/s.
+  Bound to localhost by default; pass `--api-port 0.0.0.0:4068` to reach it from another machine,
+  a Docker host or a monitoring box (no authentication — keep it on a trusted network)
 - Miner log (HiveOS): `/var/log/miner/custom/peakminer/peakminer.log`
 - Generated command line (HiveOS): `/hive/miners/custom/peakminer/peakminer.conf`
 
 ## Troubleshooting
 
+- **Stats API unreachable from another machine or from the Docker host** — by default it binds `127.0.0.1` inside the miner (or inside the container), so `-p` has nothing to forward. Start the miner with `--api-port 0.0.0.0:4068`.
 - **Miner runs but dashboard stats are blank (HiveOS)** — run `curl 127.0.0.1:4068/summary` on the rig. If it answers, verify `/run/hive/MINER_RUN` exists (the HiveOS agent skips stats collection without it).
 - **All shares rejected after a pool hiccup** — the built-in job watchdog (`--job-timeout`, default 180 s) reconnects automatically; lower it if your pool wedges often.
 - **Connection keeps dropping on f2pool** — f2pool hangs up after ~20 s of silence. Add `--keepalive` so the miner pings it periodically.
