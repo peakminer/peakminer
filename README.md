@@ -55,7 +55,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.10.0/peakminer-2.10.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.11.0/peakminer-2.11.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -64,7 +64,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.10.0/peakminer-2.10.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.11.0/peakminer-2.11.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o btx-sg.lproute.com:8660 \
   -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
@@ -73,7 +73,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.10.0/peakminer-2.10.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.11.0/peakminer-2.11.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -82,7 +82,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.10.0/peakminer-2.10.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.11.0/peakminer-2.11.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -91,7 +91,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.10.0/peakminer-2.10.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.11.0/peakminer-2.11.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -111,6 +111,7 @@ The flags you'll actually reach for:
 | `-L, --legacy-auth` | Pin standard Stratum V1 array authorize (auto-detected by default) |
 | `-f, --log-file <path>` | Also write logs to a file (`--log-append` to keep them across restarts) |
 | `--dns-over-https <on\|off\|strict>` | Resolve pool hostnames over DoH — for ISPs that hijack/filter pool domains (default `off`) |
+| `--proxy <socks5://…>` | Send **all** outbound traffic through a SOCKS5 proxy — no silent direct fallback |
 
 Every flag also has a `PEAK_*` environment-variable equivalent (shown in the help text) — handy
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
@@ -134,7 +135,41 @@ HiveOS or a detached Docker container there is no keyboard attached, so failover
 
 The `PEAK_POOL` environment variable takes the same list, comma-separated.
 
-Full `--help` output (v2.10.0):
+### Mining through a SOCKS5 proxy
+
+`--proxy` routes **every** outbound connection through the proxy — pool sessions, DNS lookups and
+the metrics push. There is **no silent fallback to a direct connection**: if the proxy is
+unreachable the miner says so instead of leaking traffic around it.
+
+```bash
+peakminer --coin pearl -u <WALLET>.<WORKER> -o poolhost:port \
+  --proxy socks5://127.0.0.1:1080
+```
+
+Credentials, three ways:
+
+```bash
+# inline in the URL
+--proxy socks5://myuser:mypass@proxyhost:1080
+
+# separate flags — for passwords with characters that break a URL
+--proxy socks5://proxyhost:1080 --proxy-user myuser --proxy-pass mypass
+
+# environment variables — safest, nothing lands in the process list
+export PEAK_PROXY=socks5://proxyhost:1080
+export PEAK_PROXY_USER=myuser
+export PEAK_PROXY_PASS=mypass
+```
+
+`--proxy-user` / `--proxy-pass` win over credentials embedded in the URL. A password on the command
+line is visible to anyone who can run `ps` on the rig, so prefer the environment variables on shared
+or hosted machines.
+
+`--proxy-dns remote` (the default) lets the proxy resolve pool hostnames, so the name never touches
+the local resolver and a pool that only exists on the proxy's side of the network still works.
+`--proxy-dns local` resolves on the rig instead.
+
+Full `--help` output (v2.11.0):
 
 ```text
  ____            _    __  __ _
@@ -142,8 +177,8 @@ Full `--help` output (v2.10.0):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.10.0
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260813-3b8729
+# high-performance GPU miner · v2.11.0
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260815-f0cee0
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -209,6 +244,24 @@ Behavior:
           Google, Quad9 — all IP literals, so their certificates still verify and no bootstrap
           lookup is needed). Prefer an IP-literal URL: a hostname here is resolved by the very
           system resolver DoH exists to distrust [env: PEAK_DOH_URL]
+      --proxy <socks5://[user:pass@]host:port>
+          Route ALL outbound traffic through a SOCKS5 proxy: pool sessions (user and dev-fee), DoH
+          lookups, the metrics push and the dev-fee manifest fetch. Use when the rig can only reach
+          the pool through a jump host, or when the pool's IP is blocked. Credentials may ride in
+          the URL (`socks5://user:pass@host:1080`, percent-escapes decoded) or come from
+          --proxy-user/--proxy-pass, which win when both are given [env: PEAK_PROXY]
+      --proxy-user <user>
+          SOCKS5 proxy username. Overrides any username in --proxy — use it when the password
+          contains characters that would break the URL [env: PEAK_PROXY_USER]
+      --proxy-pass <pass>
+          SOCKS5 proxy password. Overrides any password in --proxy. Prefer the env var: a password
+          on the command line is visible in `ps` [env: PEAK_PROXY_PASS]
+      --proxy-dns <remote|local>
+          Who resolves pool hostnames when --proxy is set. `remote` (default) lets the PROXY
+          resolve, so the name never reaches the local resolver and a pool that only exists on the
+          proxy's side of the network still works. `local` resolves here (DoH if enabled, else the
+          system resolver) and keeps multi-address failover, for a proxy whose transport you trust
+          but whose resolver you don't [env: PEAK_PROXY_DNS] [default: remote]
   -a, --api-port <[host:]port>
           HTTP stats API listen address. A bare port binds 127.0.0.1 (localhost only); `host:port`
           binds that address — use `0.0.0.0:4068` (or `[::]:4068`) to reach it from Docker
@@ -228,6 +281,10 @@ Logging:
                            given [env: PEAK_LOG_FILE]
       --log-append         Append to --log-file instead of truncating it on start. Use to preserve
                            logs across restarts. No effect without --log-file [env: PEAK_LOG_APPEND]
+      --no-tips            Suppress the periodic usage tips printed under the status table. Tips
+                           only ever mention flags you are NOT already using, never repeat within a
+                           run, and stop once the catalogue is exhausted — but a log scraper that
+                           wants nothing but the table can turn them off here [env: PEAK_NO_TIPS]
 
 GPU OC parameters:
       --gpu-core <MHz>         Core clock offset (MHz), applied to ALL GPUs. Per-GPU: --gpu-coreN,
@@ -273,7 +330,7 @@ GPU thermal parameters:
 ## Performance
 
 Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic, at
-**default OC** on rented single-GPU rigs. Latest run: **v2.10.0** (RTX 20xx / 30xx re-measured),
+**default OC** on rented single-GPU rigs. Latest run: **v2.11.0** (RTX 20xx / 30xx re-measured),
 0 invalid shares.
 
 **Current hashrate (default OC, sample):**
@@ -354,7 +411,7 @@ New coins are added regularly — [follow announcements](https://t.me/peakminer_
 | gfx1200 | RDNA 4 | RX 9060 XT / 9060 |
 | gfx1201 | RDNA 4 | **RX 9070 XT / 9070 GRE / 9070** |
 
-**Pearl (PRL) requires RTX 20xx or newer.** Since v2.10.0 the Pearl network enforces rank-128 consensus rules, and the Maxwell / Pascal / Volta / GTX 16xx kernels cannot mine them — those cards keep working for BTX, CSD, Midstate and Alphanumeric.
+**Pearl (PRL) requires RTX 20xx or newer.** Since v2.11.0 the Pearl network enforces rank-128 consensus rules, and the Maxwell / Pascal / Volta / GTX 16xx kernels cannot mine them — those cards keep working for BTX, CSD, Midstate and Alphanumeric.
 
 **Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed). For AMD cards (CSD and Alphanumeric, Linux): a recent `amdgpu` driver with ROCm support, plus the AMD runtime — install it once before mining:
 
@@ -414,7 +471,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.10.0/peakminer-2.10.0.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.11.0/peakminer-2.11.0.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -494,10 +551,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.10.0
+docker pull peakminer/peakminer:2.11.0
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.10.0 \
+docker run --rm -t --gpus all peakminer/peakminer:2.11.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -506,7 +563,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.10.0 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.10.0 --build-arg PEAKMINER_VERSION=2.10.0 .
+docker build -t peakminer:2.11.0 --build-arg PEAKMINER_VERSION=2.11.0 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -517,7 +574,7 @@ Pass any miner flags after the image name. To reach the stats API from the host,
 loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.10.0 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.11.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
@@ -595,6 +652,7 @@ peakminer --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> \
 
 ## Troubleshooting
 
+- **Mining stops right after adding `--proxy`** — that is by design: there is no fallback to a direct connection. Check the proxy is reachable from the rig (`curl --socks5 <host>:<port> https://example.com`), and try `--proxy-dns local` if the proxy cannot resolve your pool.
 - **Stats API unreachable from another machine or from the Docker host** — by default it binds `127.0.0.1` inside the miner (or inside the container), so `-p` has nothing to forward. Start the miner with `--api-port 0.0.0.0:4068`.
 - **Miner runs but dashboard stats are blank (HiveOS)** — run `curl 127.0.0.1:4068/summary` on the rig. If it answers, verify `/run/hive/MINER_RUN` exists (the HiveOS agent skips stats collection without it).
 - **All shares rejected after a pool hiccup** — the built-in job watchdog (`--job-timeout`, default 180 s) reconnects automatically; lower it if your pool wedges often.
