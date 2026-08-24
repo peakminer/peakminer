@@ -23,14 +23,13 @@ This repository hosts the official release packages. Download the latest build f
 
 - [Highlights](#highlights)
 - [CLI reference](#cli-reference)
-- [Performance](#performance)
 - [Supported coins & dev fees](#supported-coins--dev-fees)
 - [Supported GPUs](#supported-gpus)
 - [Supported pools](#supported-pools)
 - [Quick start (HiveOS)](#quick-start-hiveos)
 - [Quick start (Windows)](#quick-start-windows)
 - [Run with Docker](#run-with-docker)
-- [Mining BTX / CSD / Midstate / Alphanumeric (CLI)](#mining-btx--csd--midstate--alphanumeric-cli)
+- [Mining CSD / Midstate / Alphanumeric (CLI)](#mining-csd--midstate--alphanumeric-cli)
 - [Overclocking & temperature limits](#overclocking--temperature-limits)
 - [Stats & logs](#stats--logs)
 - [Troubleshooting](#troubleshooting)
@@ -38,7 +37,7 @@ This repository hosts the official release packages. Download the latest build f
 
 ## Highlights
 
-- **Multi-coin** — mine **Pearl (PRL)**, **BTX**, **CSD**, **Midstate (MDS)** or **Alphanumeric (ALP)** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
+- **Multi-coin** — mine **Pearl (PRL)**, **CSD**, **Midstate (MDS)** or **Alphanumeric (ALP)** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
 - **Luck & effort stats** — see the % of expected effort used to find each share, plus running luck
 - **Tuned CUDA kernels per GPU generation** — best efficiency on RTX 50xx, 40xx, 30xx and 20xx: high hash, low watt, low VRAM
 - **Overclocking & thermal limits** — per-GPU core/memory clocks, power limit, and automatic temperature pause/resume
@@ -59,15 +58,6 @@ wget -q https://github.com/peakminer/peakminer/releases/download/v2.11.0/peakmin
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
-```
-
-**BTX:**
-
-```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.11.0/peakminer-2.11.0-linux-x86_64 -O peakminer && \
-chmod +x peakminer && \
-./peakminer --coin btx -o btx-sg.lproute.com:8660 \
-  -u btx1zpgn9fvv7xqhhq83n7cfv0cytr560gnpwthfgha95pvf73nppdlasz0vhy8.test
 ```
 
 **CSD:**
@@ -104,7 +94,7 @@ The flags you'll actually reach for:
 | `-o, --url <url>` | Pool URL. **Repeat it for automatic failover** — the miner moves to the next pool on its own when one goes down. TLS/SSL auto-detected |
 | `-u, --user <wallet>` | Pool login, **sent verbatim** — type exactly what your pool documents (`wallet`, `wallet.worker`, `wallet/worker`, …) |
 | `-w, --worker <name>` | Worker name as a **separate field**. Ignored when `-u` already carries a `.` or `/` |
-| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd`, `midstate` or `alphanumeric` (required) |
+| `-c, --coin <name>` | Coin / algorithm: `pearl`, `csd`, `midstate` or `alphanumeric` (required) |
 | `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
 | `-a, --api-port <[host:]port>` | HTTP stats API. A bare port binds localhost; `0.0.0.0:4068` exposes it to Docker / the LAN (default 4068, `0` disables) |
 | `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
@@ -327,45 +317,11 @@ GPU thermal parameters:
                              --gpu-temp-start0 65 (must be strictly less than that GPU's stop)
 ```
 
-## Performance
-
-Real, pool-accepted hashrate on **Pearl (pearlhash)** — measured live, not synthetic, at
-**default OC** on rented single-GPU rigs. Latest run: **v2.11.0** (RTX 20xx / 30xx re-measured),
-0 invalid shares.
-
-**Current hashrate (default OC, sample):**
-
-| GPU | Hashrate | Efficiency |
-|---|---|---|
-| H200 | 643.0 TH/s | 924 GH/W |
-| RTX 5090 | 376.2 TH/s | 654 GH/W |
-| RTX 4090 | 291.2 TH/s | 649 GH/W |
-| RTX 5080 | 215.2 TH/s | 615 GH/W |
-| RTX 4080 SUPER | 203.0 TH/s | 636 GH/W |
-| RTX 3090 Ti | 150.6 TH/s | 336 GH/W |
-| RTX 3070 Ti | 98.4 TH/s | 318 GH/W |
-
-Full table for all 28 measured cards: [**PERFORMANCE.md**](PERFORMANCE.md).
-
-**Head-to-head vs other popular miners** — same GPU, same pool, back-to-back (v2.4.1 comparison run):
-
-| GPU | vs other popular miners |
-|---|---|
-| RTX 2060 | **+28.8%** |
-| RTX 4070 | **+22.0%** |
-| RTX 2060 SUPER | **+15.8%** |
-| RTX 2080 SUPER | **+11.3%** |
-| RTX 4080 | **+6.5%** |
-| RTX 4090 | **+3.0%** |
-
-Leading on the RTX 20, 30 and 40-series at equal power, at parity on the 50-series.
-
 ## Supported coins & dev fees
 
 | Coin | Algorithm | Dev fee |
 |---|---|---|
 | Pearl (PRL) | pearlhash | 2% |
-| BTX | MatMul PoW | 2% |
 | CSD | SHA-256d | 2% |
 | Midstate (MDS) | midstate | 2% |
 | Alphanumeric (ALP) | alphanumeric | 2% |
@@ -411,7 +367,7 @@ New coins are added regularly — [follow announcements](https://t.me/peakminer_
 | gfx1200 | RDNA 4 | RX 9060 XT / 9060 |
 | gfx1201 | RDNA 4 | **RX 9070 XT / 9070 GRE / 9070** |
 
-**Pearl (PRL) requires RTX 20xx or newer.** Since v2.11.0 the Pearl network enforces rank-128 consensus rules, and the Maxwell / Pascal / Volta / GTX 16xx kernels cannot mine them — those cards keep working for BTX, CSD, Midstate and Alphanumeric.
+**Pearl (PRL) requires RTX 20xx or newer.** Since v2.11.0 the Pearl network enforces rank-128 consensus rules, and the Maxwell / Pascal / Volta / GTX 16xx kernels cannot mine them — those cards keep working for CSD, Midstate and Alphanumeric.
 
 **Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed). For AMD cards (CSD and Alphanumeric, Linux): a recent `amdgpu` driver with ROCm support, plus the AMD runtime — install it once before mining:
 
@@ -433,14 +389,6 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 | unMineable | [unmineable.com](https://www.unmineable.com/?mode=advanced&algorithm=pearlpow) |
 | AlphaPool | [pearl.alphapool.tech](https://pearl.alphapool.tech) |
 | f2pool | [f2pool.com](https://www.f2pool.com) — `pearl.f2pool.com:5500`, add `--keepalive` |
-
-**BTX**
-
-| Pool | Site |
-|---|---|
-| LProute | [lproute.com](https://lproute.com) |
-| NinjaRaider | [ninjaraider.com/btx-pplns](https://ninjaraider.com/btx-pplns) |
-| LuckyPool | [btx.luckypool.io](https://btx.luckypool.io) |
 
 **CSD**
 
@@ -487,7 +435,6 @@ Ready-made flight sheets live in [`hiveos/`](hiveos/) — open the file, click *
 then import it into HiveOS (Flight Sheets → import) and set your wallet:
 
 - **Pearl (PRL)** → [`hiveos/pearl.json`](hiveos/pearl.json)
-- **BTX** → [`hiveos/btx.json`](hiveos/btx.json)
 - **CSD** → [`hiveos/csd.json`](hiveos/csd.json)
 - **Midstate (MDS)** → [`hiveos/midstate.json`](hiveos/midstate.json)
 - **Alphanumeric (ALP)** → [`hiveos/alphanumeric.json`](hiveos/alphanumeric.json)
@@ -581,14 +528,11 @@ docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.11.0 \
 Then `curl 127.0.0.1:4068/summary` on the host. Only expose it on a trusted network — the API has
 no authentication.
 
-## Mining BTX / CSD / Midstate / Alphanumeric (CLI)
+## Mining CSD / Midstate / Alphanumeric (CLI)
 
 Set `--coin` and point at the matching pool (see [Supported pools](#supported-pools)):
 
 ```bash
-# BTX
-peakminer --coin btx -u WALLET[.WORKER] -o btx-sg.lproute.com:8660
-
 # CSD
 peakminer --coin csd -u WALLET[.WORKER] -o csd-ca.lproute.com:8760
 
@@ -602,7 +546,7 @@ peakminer --coin alphanumeric -u WALLET[.WORKER] -o sg.lproute.com:4260
 Replace `WALLET[.WORKER]` with your coin address (worker optional). Same flags work on Windows
 (`peakminer.exe …`) and Docker. TLS/SSL is auto-detected. Dev fee is **2%** on every coin.
 
-On Windows the zip ships a ready-made launcher per coin — `peakminer-btx.bat`, `peakminer-csd.bat`,
+On Windows the zip ships a ready-made launcher per coin — `peakminer-csd.bat`,
 `peakminer-midstate.bat` and `peakminer-alphanumeric.bat`: edit the wallet / worker / pool lines,
 then double-click.
 
