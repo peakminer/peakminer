@@ -39,6 +39,7 @@ This repository hosts the official release packages. Download the latest build f
 ## Highlights
 
 - **Multi-coin** — mine **Pearl (PRL)**, **CSD**, **Midstate (MDS)** or **Alphanumeric (ALP)** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
+- **Solo mining with [peakpool](https://github.com/peakminer/peakpool)** — **ParanO(1)d (NOID)** is mined against your own full node + Stratum V2 solo pool, brought up in one `docker compose`. Every block your farm finds pays **your** wallet in full — no account, no balance held by anyone, no withdrawal. **0% miner fee** on NOID
 - **Luck & effort stats** — see the % of expected effort used to find each share, plus running luck
 - **Tuned CUDA kernels per GPU generation** — best efficiency on RTX 50xx, 40xx, 30xx and 20xx: high hash, low watt, low VRAM
 - **Overclocking & thermal limits** — per-GPU core/memory clocks, power limit, and automatic temperature pause/resume
