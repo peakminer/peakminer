@@ -1,19 +1,19 @@
 {
-  "name": "PEAKMINER_CSD",
+  "name": "PEAKMINER_PARANO1D",
   "isFavorite": false,
   "items": [
     {
-      "coin": "CSD",
+      "coin": "NOID",
       "pool_ssl": false,
       "pool_urls": [
-        "csd-ca.lproute.com:8760"
+        "stratum+sv2://YOUR-POOL-HOST:34254"
       ],
       "dpool_ssl": false,
       "miner": "custom",
       "miner_alt": "peakminer",
       "miner_config": {
-        "url": "csd-ca.lproute.com:8760",
-        "algo": "csd",
+        "url": "stratum+sv2://YOUR-POOL-HOST:34254",
+        "algo": "parano1d",
         "pass": "x",
         "miner": "peakminer",
         "template": "%WAL%.%WORKER_NAME%",
