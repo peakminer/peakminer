@@ -29,7 +29,7 @@ This repository hosts the official release packages. Download the latest build f
 - [Quick start (HiveOS)](#quick-start-hiveos)
 - [Quick start (Windows)](#quick-start-windows)
 - [Run with Docker](#run-with-docker)
-- [Solo mining ParanO(1)d (NOID)](#solo-mining-parano1d-noid)
+- [Mining ParanO(1)d (NOID)](#mining-parano1d-noid)
 - [Mining CSD / Midstate / Alphanumeric (CLI)](#mining-csd--midstate--alphanumeric-cli)
 - [Overclocking & temperature limits](#overclocking--temperature-limits)
 - [Stats & logs](#stats--logs)
@@ -39,7 +39,7 @@ This repository hosts the official release packages. Download the latest build f
 ## Highlights
 
 - **Multi-coin** — mine **Pearl (PRL)**, **CSD**, **Midstate (MDS)** or **Alphanumeric (ALP)** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
-- **Solo mining with [peakpool](https://github.com/peakminer/peakpool)** — **ParanO(1)d (NOID)** is mined against your own full node + Stratum V2 solo pool, brought up in one `docker compose`. Every block your farm finds pays **your** wallet in full — no account, no balance held by anyone, no withdrawal. **0% miner fee** on NOID
+- **[ParanO(1)d (NOID)](#mining-parano1d-noid), your way** — mine it on a **public pool** with nothing to set up (**3%** miner fee), or **solo** against your own full node + Stratum V2 pool from [peakpool](https://github.com/peakminer/peakpool), brought up in one `docker compose`, where every block your farm finds pays **your** wallet in full — no account, no balance held by anyone, no withdrawal, and **0% miner fee**
 - **Luck & effort stats** — see the % of expected effort used to find each share, plus running luck
 - **Tuned CUDA kernels per GPU generation** — best efficiency on RTX 50xx, 40xx, 30xx and 20xx: high hash, low watt, low VRAM
 - **Overclocking & thermal limits** — per-GPU core/memory clocks, power limit, and automatic temperature pause/resume
@@ -56,7 +56,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.13.0/peakminer-2.13.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.14.0/peakminer-2.14.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -65,7 +65,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.13.0/peakminer-2.13.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.14.0/peakminer-2.14.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -74,7 +74,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.13.0/peakminer-2.13.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.14.0/peakminer-2.14.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -83,7 +83,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.13.0/peakminer-2.13.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.14.0/peakminer-2.14.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -104,6 +104,7 @@ The flags you'll actually reach for:
 | `-f, --log-file <path>` | Also write logs to a file (`--log-append` to keep them across restarts) |
 | `--dns-over-https <on\|off\|strict>` | Resolve pool hostnames over DoH — for ISPs that hijack/filter pool domains (default `off`) |
 | `--proxy <socks5://…>` | Send **all** outbound traffic through a SOCKS5 proxy — no silent direct fallback |
+| `--oc-profile <spec>` | Apply an overclock profile at startup: `eco`, `balanced`, `max`, or a profile id from [oc.peakminer.org](https://oc.peakminer.org). Per-GPU: `--oc-profile-gpu0 eco` (off by default) |
 
 Every flag also has a `PEAK_*` environment-variable equivalent (shown in the help text) — handy
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
@@ -161,7 +162,7 @@ or hosted machines.
 the local resolver and a pool that only exists on the proxy's side of the network still works.
 `--proxy-dns local` resolves on the rig instead.
 
-Full `--help` output (v2.13.0):
+Full `--help` output (v2.14.0):
 
 ```text
  ____            _    __  __ _
@@ -169,8 +170,8 @@ Full `--help` output (v2.13.0):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.13.0
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260826-96c3cb
+# high-performance GPU miner · v2.14.0
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260828-c6bd66
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -318,6 +319,13 @@ GPU thermal parameters:
       --gpu-temp-start <°C>  Resume a paused GPU when its temperature drops to or below this value
                              (°C). Bare flag = all GPUs; per-GPU: --gpu-temp-startN, e.g.
                              --gpu-temp-start0 65 (must be strictly less than that GPU's stop)
+
+OC bench:
+      --oc-profile <SPEC>  Apply an overclock profile from the OC bench. Takes a mode name (eco,
+                           balanced, max) or a profile id from https://oc.peakminer.org, which lists
+                           the published profiles per card. Applies to every mined GPU; to set one
+                           card use --oc-profile-gpuN, e.g. --oc-profile-gpu0 eco, which wins over
+                           this one. Off when not given [env: PEAK_OC_PROFILE]
 ```
 
 ## Supported coins & dev fees
@@ -328,9 +336,9 @@ GPU thermal parameters:
 | CSD | SHA-256d | 2% |
 | Midstate (MDS) | midstate | 2% |
 | Alphanumeric (ALP) | alphanumeric | 2% |
-| ParanO(1)d (NOID) | parano1d | **0%** |
+| ParanO(1)d (NOID) | parano1d | **0%** solo · **3%** public pool |
 
-NOID is mined **solo** against your own [peakpool](https://github.com/peakminer/peakpool) instance — see [Solo mining ParanO(1)d](#solo-mining-parano1d-noid). PeakMiner charges nothing on it; the pool carries a 5% devfee.
+NOID can be mined two ways — see [Mining ParanO(1)d](#mining-parano1d-noid). **Solo** against your own [peakpool](https://github.com/peakminer/peakpool) instance, where PeakMiner charges **nothing** and the pool build carries a 5% devfee; or on a **public NOID pool**, where PeakMiner charges **3%** and the pool sets its own terms.
 
 New coins are added regularly — [follow announcements](https://t.me/peakminer_announcements).
 
@@ -421,7 +429,8 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 
 | Pool | Site |
 |---|---|
-| peakpool (self-hosted, solo) | [github.com/peakminer/peakpool](https://github.com/peakminer/peakpool/blob/main/deployments/parano1d/README.md) — `stratum+sv2://<your-host>:34254` |
+| Any public NOID pool | its HTTP RPC endpoint, e.g. `https://<pool-host>/noid-rpc/` — miner fee **3%** |
+| peakpool (self-hosted, solo) | [github.com/peakminer/peakpool](https://github.com/peakminer/peakpool/blob/main/deployments/parano1d/README.md) — `stratum+sv2://<your-host>:34254` — miner fee **0%** |
 
 Use each pool's own host:port in your flight sheet's **Pool URL**. Comma-separate multiple URLs for failover.
 
@@ -431,7 +440,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.13.0/peakminer-2.13.0.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.14.0/peakminer-2.14.0.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -450,7 +459,7 @@ then import it into HiveOS (Flight Sheets → import) and set your wallet:
 - **CSD** → [`hiveos/csd.json`](hiveos/csd.json)
 - **Midstate (MDS)** → [`hiveos/midstate.json`](hiveos/midstate.json)
 - **Alphanumeric (ALP)** → [`hiveos/alphanumeric.json`](hiveos/alphanumeric.json)
-- **ParanO(1)d (NOID)** → [`hiveos/parano1d.json`](hiveos/parano1d.json) — set **Pool URL** to your own [peakpool](https://github.com/peakminer/peakpool) host
+- **ParanO(1)d (NOID)** → [`hiveos/parano1d.json`](hiveos/parano1d.json) — set **Pool URL** to a public NOID pool's RPC URL, or to your own [peakpool](https://github.com/peakminer/peakpool) host
 
 Update `install_url` in the JSON to the release you want.
 
@@ -511,10 +520,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.13.0
+docker pull peakminer/peakminer:2.14.0
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.13.0 \
+docker run --rm -t --gpus all peakminer/peakminer:2.14.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -523,7 +532,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.13.0 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.13.0 --build-arg PEAKMINER_VERSION=2.13.0 .
+docker build -t peakminer:2.14.0 --build-arg PEAKMINER_VERSION=2.14.0 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -534,19 +543,45 @@ Pass any miner flags after the image name. To reach the stats API from the host,
 loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.13.0 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.14.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
 Then `curl 127.0.0.1:4068/summary` on the host. Only expose it on a trusted network — the API has
 no authentication.
 
-## Solo mining ParanO(1)d (NOID)
+## Mining ParanO(1)d (NOID)
 
-NOID is not mined on a shared pool. You run your own **[peakpool](https://github.com/peakminer/peakpool)**
-— a parano1d full node and a Stratum V2 solo pool in one `docker compose` — and every block your
-farm finds pays your wallet directly out of the coinbase. No account, no balance held by anyone,
-no withdrawal.
+NOID can be mined two ways. Same binary, one flag apart — pick by what you would rather spend:
+setup time, or fee.
+
+| | Miner fee | What you run |
+|---|---|---|
+| **Public pool** | **3%** | nothing — point the miner at a pool and go |
+| **Solo, your own pool** | **0%** | a full node + Stratum V2 pool, one `docker compose` |
+
+### On a public pool
+
+Point the miner at a NOID pool's HTTP RPC endpoint:
+
+```bash
+peakminer --coin parano1d \
+  -o https://<pool-host>/noid-rpc/ \
+  -u <your-o1-address>.rig0
+```
+
+Here `-u` is **your payout address** — the pool credits what you mine to it. Generate it on your own
+machine with the official wallet and hand out only the public `o1…` address; mining never needs a
+seed phrase or a wallet file. The `.rig0` suffix labels this machine in the pool's worker list.
+
+PeakMiner charges **3%** on NOID mined this way. Whichever pool you choose sets its own terms
+separately — read them on the pool's own page.
+
+### Solo, against your own peakpool
+
+Run your own **[peakpool](https://github.com/peakminer/peakpool)** — a parano1d full node and a
+Stratum V2 solo pool in one `docker compose` — and every block your farm finds pays your wallet
+directly out of the coinbase. No account, no balance held by anyone, no withdrawal.
 
 Bring the stack up on a Linux box (see the
 [setup guide](https://github.com/peakminer/peakpool/blob/main/deployments/parano1d/README.md)),
@@ -560,16 +595,19 @@ peakminer --coin parano1d \
 
 - The pool speaks **Stratum V2 only**, on one Noise-encrypted port (`34254`). Use `127.0.0.1:34254`
   when the miner runs on the same machine as the pool, otherwise the pool host's LAN address.
-- `-u` is a **worker label, not a payout address** — blocks always pay the wallet configured in the
-  pool. It still has to be a valid `o1…` address, so reuse your own; the `.rig1` suffix names the
-  worker in the pool's status table.
+- `-u` here is a **worker label, not a payout address** — the opposite of the public-pool case above.
+  Blocks always pay the wallet configured in the pool. It still has to be a valid `o1…` address, so
+  reuse your own; the `.rig1` suffix names the worker in the pool's status table.
 - Difficulty auto-tunes per rig. There is nothing else to configure on the miner side.
 
-Fees: **PeakMiner takes 0% on NOID**; the pool build carries a 5% devfee, printed as `devfee 5%`
+Fees: **PeakMiner takes 0%** this way; the pool build carries a 5% devfee, printed as `devfee 5%`
 in its banner on every start. That is the whole cost.
 
-On HiveOS, use the `parano1d` flight sheet in [`hiveos/`](hiveos/) and set **Pool URL** to your own
-pool host. On Windows, edit `peakminer-parano1d.bat` from the release zip.
+### HiveOS and Windows
+
+On HiveOS, use the `parano1d` flight sheet in [`hiveos/`](hiveos/) and set **Pool URL** to the pool
+you chose — a public pool's RPC URL, or your own peakpool host. On Windows, edit
+`peakminer-parano1d.bat` from the release zip.
 
 ## Mining CSD / Midstate / Alphanumeric (CLI)
 
@@ -587,7 +625,7 @@ peakminer --coin alphanumeric -u WALLET[.WORKER] -o sg.lproute.com:4260
 ```
 
 Replace `WALLET[.WORKER]` with your coin address (worker optional). Same flags work on Windows
-(`peakminer.exe …`) and Docker. TLS/SSL is auto-detected. Dev fee is **2%** on these coins (NOID is **0%**).
+(`peakminer.exe …`) and Docker. TLS/SSL is auto-detected. Dev fee is **2%** on these coins (NOID is **0%** solo, **3%** on a public pool).
 
 On Windows the zip ships a ready-made launcher per coin — `peakminer-csd.bat`,
 `peakminer-midstate.bat` and `peakminer-alphanumeric.bat`: edit the wallet / worker / pool lines,
@@ -620,6 +658,10 @@ PeakMiner can apply clock/power offsets, drive the fans (fixed duty or closed-lo
 --gpu-temp-start <°C>     Resume a paused GPU when its temperature drops to or below this
                           value (°C). Per-GPU: --gpu-temp-startN. Must be strictly less
                           than that GPU's stop
+--oc-profile <SPEC>       Apply a measured overclock profile at startup: a mode name (eco,
+                          balanced, max) or a profile id from https://oc.peakminer.org.
+                          Per-GPU: --oc-profile-gpuN, which wins over the global one.
+                          Off when not given
 ```
 
 Example — core +150 MHz, memory +1200 MHz, 70% power, pause at 70 °C (resume at 60 °C):
