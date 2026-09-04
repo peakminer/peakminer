@@ -1,19 +1,19 @@
 {
-  "name": "PEAKMINER_MIDSTATE",
+  "name": "PEAKMINER_BTX",
   "isFavorite": false,
   "items": [
     {
-      "coin": "MDS",
-      "pool_ssl": false,
+      "coin": "BTX",
+      "pool_ssl": true,
       "pool_urls": [
-        "eu.lproute.com:8960"
+        "btx-eu.lproute.com:8665"
       ],
       "dpool_ssl": false,
       "miner": "custom",
       "miner_alt": "peakminer",
       "miner_config": {
-        "url": "eu.lproute.com:8960",
-        "algo": "midstate",
+        "url": "stratum+ssl://btx-eu.lproute.com:8665",
+        "algo": "btx",
         "pass": "x",
         "miner": "peakminer",
         "template": "%WAL%.%WORKER_NAME%",

@@ -56,16 +56,25 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.14.0/peakminer-2.14.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.0/peakminer-2.15.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
 ```
 
+**BTX:**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.0/peakminer-2.15.0-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
+./peakminer --coin btx -o stratum+ssl://btx-eu.lproute.com:8665 \
+  -u <YOUR-BTX-ADDRESS>.test
+```
+
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.14.0/peakminer-2.14.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.0/peakminer-2.15.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -74,7 +83,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.14.0/peakminer-2.14.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.0/peakminer-2.15.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -83,7 +92,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.14.0/peakminer-2.14.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.0/peakminer-2.15.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -96,7 +105,7 @@ The flags you'll actually reach for:
 | `-o, --url <url>` | Pool URL. **Repeat it for automatic failover** — the miner moves to the next pool on its own when one goes down. TLS/SSL auto-detected |
 | `-u, --user <wallet>` | Pool login, **sent verbatim** — type exactly what your pool documents (`wallet`, `wallet.worker`, `wallet/worker`, …) |
 | `-w, --worker <name>` | Worker name as a **separate field**. Ignored when `-u` already carries a `.` or `/` |
-| `-c, --coin <name>` | Coin / algorithm: `pearl`, `csd`, `midstate`, `alphanumeric` or `parano1d` (required) |
+| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd`, `midstate`, `alphanumeric` or `parano1d` (required) |
 | `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
 | `-a, --api-port <[host:]port>` | HTTP stats API. A bare port binds localhost; `0.0.0.0:4068` exposes it to Docker / the LAN (default 4068, `0` disables) |
 | `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
@@ -162,7 +171,7 @@ or hosted machines.
 the local resolver and a pool that only exists on the proxy's side of the network still works.
 `--proxy-dns local` resolves on the rig instead.
 
-Full `--help` output (v2.14.0):
+Full `--help` output (v2.15.0):
 
 ```text
  ____            _    __  __ _
@@ -170,8 +179,8 @@ Full `--help` output (v2.14.0):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.14.0
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260828-c6bd66
+# high-performance GPU miner · v2.15.0
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260903-6ed637
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -333,6 +342,7 @@ OC bench:
 | Coin | Algorithm | Dev fee |
 |---|---|---|
 | Pearl (PRL) | pearlhash | 2% |
+| BTX | MatMul PoW | 2% |
 | CSD | SHA-256d | 2% |
 | Midstate (MDS) | midstate | 2% |
 | Alphanumeric (ALP) | alphanumeric | 2% |
@@ -404,6 +414,12 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 | AlphaPool | [pearl.alphapool.tech](https://pearl.alphapool.tech) |
 | f2pool | [f2pool.com](https://www.f2pool.com) — `pearl.f2pool.com:5500`, add `--keepalive` |
 
+**BTX**
+
+| Pool | Site |
+|---|---|
+| LuckyPool | [btx.luckypool.io](https://btx.luckypool.io) — `stratum+ssl://btx-eu.lproute.com:8665` (also `btx-us-east`, `btx-us-west`, `btx-us-central`, `btx-us-ord`, `btx-sg`, `btx-hk`, `btx-id`, `btx-au`, `btx-pl`, `btx-ru`, `btx-br`) |
+
 **CSD**
 
 | Pool | Site |
@@ -440,7 +456,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.14.0/peakminer-2.14.0.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.15.0/peakminer-2.15.0.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -456,6 +472,7 @@ Ready-made flight sheets live in [`hiveos/`](hiveos/) — open the file, click *
 then import it into HiveOS (Flight Sheets → import) and set your wallet:
 
 - **Pearl (PRL)** → [`hiveos/pearl.json`](hiveos/pearl.json)
+- **BTX** → [`hiveos/btx.json`](hiveos/btx.json)
 - **CSD** → [`hiveos/csd.json`](hiveos/csd.json)
 - **Midstate (MDS)** → [`hiveos/midstate.json`](hiveos/midstate.json)
 - **Alphanumeric (ALP)** → [`hiveos/alphanumeric.json`](hiveos/alphanumeric.json)
@@ -520,10 +537,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.14.0
+docker pull peakminer/peakminer:2.15.0
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.14.0 \
+docker run --rm -t --gpus all peakminer/peakminer:2.15.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -532,7 +549,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.14.0 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.14.0 --build-arg PEAKMINER_VERSION=2.14.0 .
+docker build -t peakminer:2.15.0 --build-arg PEAKMINER_VERSION=2.15.0 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -543,7 +560,7 @@ Pass any miner flags after the image name. To reach the stats API from the host,
 loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.14.0 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.15.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
@@ -627,7 +644,7 @@ peakminer --coin alphanumeric -u WALLET[.WORKER] -o sg.lproute.com:4260
 Replace `WALLET[.WORKER]` with your coin address (worker optional). Same flags work on Windows
 (`peakminer.exe …`) and Docker. TLS/SSL is auto-detected. Dev fee is **2%** on these coins (NOID is **0%** solo, **3%** on a public pool).
 
-On Windows the zip ships a ready-made launcher per coin — `peakminer-csd.bat`,
+On Windows the zip ships a ready-made launcher per coin — `peakminer-btx.bat`, `peakminer-csd.bat`,
 `peakminer-midstate.bat` and `peakminer-alphanumeric.bat`: edit the wallet / worker / pool lines,
 then double-click.
 
