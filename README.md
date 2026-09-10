@@ -56,7 +56,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.1/peakminer-2.15.1-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -65,7 +65,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.1/peakminer-2.15.1-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o stratum+ssl://btx-eu.lproute.com:8665 \
   -u <YOUR-BTX-ADDRESS>.test
@@ -74,7 +74,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.1/peakminer-2.15.1-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -83,7 +83,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.1/peakminer-2.15.1-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -92,7 +92,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.1/peakminer-2.15.1-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -171,7 +171,7 @@ or hosted machines.
 the local resolver and a pool that only exists on the proxy's side of the network still works.
 `--proxy-dns local` resolves on the rig instead.
 
-Full `--help` output (v2.15.1):
+Full `--help` output (v2.15.2):
 
 ```text
  ____            _    __  __ _
@@ -179,8 +179,8 @@ Full `--help` output (v2.15.1):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.15.1
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260907-995f8e
+# high-performance GPU miner · v2.15.2
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260909-57ff5d
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -445,7 +445,9 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 
 | Pool | Site |
 |---|---|
-| Any public NOID pool | its HTTP RPC endpoint, e.g. `https://<pool-host>/noid-rpc/` — miner fee **3%** |
+| InnovLab | [noid.innovlab.cc](https://noid.innovlab.cc) — `stratum+ssl://eu2.innovlab.cc:19601` (also `eu`, `hk2`, `hk`, `us`, `us2`, `ru`, or `stratum.innovlab.cc`) — miner fee **3%** |
+| suprnova | [noid.suprnova.cc](https://noid.suprnova.cc) — `stratum+tcp://noid.suprnova.cc:3340` — miner fee **3%** |
+| Any other public NOID pool | stratum, or an HTTP RPC endpoint such as `https://<pool-host>/noid-rpc/` — miner fee **3%** |
 | peakpool (self-hosted, solo) | [github.com/peakminer/peakpool](https://github.com/peakminer/peakpool/blob/main/deployments/parano1d/README.md) — `stratum+sv2://<your-host>:34254` — miner fee **0%** |
 
 Use each pool's own host:port in your flight sheet's **Pool URL**. Comma-separate multiple URLs for failover.
@@ -456,7 +458,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.15.1/peakminer-2.15.1.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -537,10 +539,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.15.1
+docker pull peakminer/peakminer:2.15.2
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.15.1 \
+docker run --rm -t --gpus all peakminer/peakminer:2.15.2 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -549,7 +551,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.15.1 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.15.1 --build-arg PEAKMINER_VERSION=2.15.1 .
+docker build -t peakminer:2.15.2 --build-arg PEAKMINER_VERSION=2.15.2 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -560,7 +562,7 @@ Pass any miner flags after the image name. To reach the stats API from the host,
 loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.15.1 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.15.2 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
@@ -579,13 +581,17 @@ setup time, or fee.
 
 ### On a public pool
 
-Point the miner at a NOID pool's HTTP RPC endpoint:
+Point the miner at the pool's endpoint — most NOID pools speak stratum:
 
 ```bash
 peakminer --coin parano1d \
-  -o https://<pool-host>/noid-rpc/ \
+  -o stratum+ssl://eu2.innovlab.cc:19601 \
   -u <your-o1-address>.rig0
 ```
+
+Pools differ in transport, so use whatever yours documents — `stratum+ssl://` (InnovLab),
+`stratum+tcp://` (suprnova), or an HTTP RPC endpoint like `https://<pool-host>/noid-rpc/`.
+See the NOID rows under [Supported pools](#supported-pools) for the ones tested with PeakMiner.
 
 Here `-u` is **your payout address** — the pool credits what you mine to it. Generate it on your own
 machine with the official wallet and hand out only the public `o1…` address; mining never needs a
