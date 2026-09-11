@@ -30,6 +30,7 @@ This repository hosts the official release packages. Download the latest build f
 - [Quick start (Windows)](#quick-start-windows)
 - [Run with Docker](#run-with-docker)
 - [Mining ParanO(1)d (NOID)](#mining-parano1d-noid)
+- [Mining Quantus (QUAN)](#mining-quantus-quan)
 - [Mining CSD / Midstate / Alphanumeric (CLI)](#mining-csd--midstate--alphanumeric-cli)
 - [Overclocking & temperature limits](#overclocking--temperature-limits)
 - [Stats & logs](#stats--logs)
@@ -56,7 +57,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.16.0/peakminer-2.16.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -65,7 +66,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.16.0/peakminer-2.16.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o stratum+ssl://btx-eu.lproute.com:8665 \
   -u <YOUR-BTX-ADDRESS>.test
@@ -74,7 +75,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.16.0/peakminer-2.16.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -83,7 +84,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.16.0/peakminer-2.16.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -92,10 +93,19 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.16.0/peakminer-2.16.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
+```
+
+**Quantus (QUAN):**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.16.0/peakminer-2.16.0-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
+./peakminer --coin quantus -o stratum+tcp://qtc.kryptex.network:7049 \
+  -u <YOUR-QUAN-ADDRESS>.test
 ```
 
 The flags you'll actually reach for:
@@ -105,7 +115,7 @@ The flags you'll actually reach for:
 | `-o, --url <url>` | Pool URL. **Repeat it for automatic failover** — the miner moves to the next pool on its own when one goes down. TLS/SSL auto-detected |
 | `-u, --user <wallet>` | Pool login, **sent verbatim** — type exactly what your pool documents (`wallet`, `wallet.worker`, `wallet/worker`, …) |
 | `-w, --worker <name>` | Worker name as a **separate field**. Ignored when `-u` already carries a `.` or `/` |
-| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd`, `midstate`, `alphanumeric` or `parano1d` (required) |
+| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd`, `midstate`, `alphanumeric`, `parano1d` or `quantus` (required) |
 | `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
 | `-a, --api-port <[host:]port>` | HTTP stats API. A bare port binds localhost; `0.0.0.0:4068` exposes it to Docker / the LAN (default 4068, `0` disables) |
 | `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
@@ -114,6 +124,8 @@ The flags you'll actually reach for:
 | `--dns-over-https <on\|off\|strict>` | Resolve pool hostnames over DoH — for ISPs that hijack/filter pool domains (default `off`) |
 | `--proxy <socks5://…>` | Send **all** outbound traffic through a SOCKS5 proxy — no silent direct fallback |
 | `--oc-profile <spec>` | Apply an overclock profile at startup: `eco`, `balanced`, `max`, or a profile id from [oc.peakminer.org](https://oc.peakminer.org). Per-GPU: `--oc-profile-gpu0 eco` (off by default) |
+| `--quantus-auth-token[-file] <v>` | **quantus only**, solo against your own node: the node's `miner-auth-token`. Not needed on a pool |
+| `--quantus-tls-cert-sha256[-file] <v>` | **quantus only**, required by `quic://`: SHA-256 of the node's self-signed TLS certificate. Not needed on a pool |
 
 Every flag also has a `PEAK_*` environment-variable equivalent (shown in the help text) — handy
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
@@ -171,7 +183,7 @@ or hosted machines.
 the local resolver and a pool that only exists on the proxy's side of the network still works.
 `--proxy-dns local` resolves on the rig instead.
 
-Full `--help` output (v2.15.2):
+Full `--help` output (v2.16.0):
 
 ```text
  ____            _    __  __ _
@@ -179,8 +191,8 @@ Full `--help` output (v2.15.2):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.15.2
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260909-57ff5d
+# high-performance GPU miner · v2.16.0
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260911-9592eb
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -190,21 +202,43 @@ Options:
   -V, --version  Print version
 
 Connection:
-  -o, --url <url>        Pool URL. Repeatable for failover (tried in order). stratum+tcp://host:port
-                         or stratum+ssl://host:port (the PEAK_POOL env form takes a comma-separated
-                         list). With more than one pool, press 'l' / 'h' in the console to switch to
-                         the next / previous pool without restarting [env: PEAK_POOL]
-  -u, --user <wallet>    Pool login, sent VERBATIM — never split. Type exactly what your pool
-                         documents (bare address, wallet.worker, wallet/worker, wallet=diff...). Use
-                         --worker to fill the separate worker field instead [env: PEAK_WALLET]
-  -p, --password <pass>  Password (passed verbatim to the pool, e.g. "x" or "x;d=524288") [env:
-                         PEAK_PASSWORD] [default: x]
-  -w, --worker <name>    Worker name. A separate field, NOT an edit of -u: pools with a worker slot
-                         get it there, single-string logins get ".<name>" appended. Ignored when -u
-                         already carries a "." or "/" — one separator only, and the -u spelling
-                         always wins [env: PEAK_WORKER]
-  -c, --coin <name>      Coin / algorithm to mine, e.g. pearl or midstate (required) [env:
-                         PEAK_COIN]
+  -o, --url <url>
+          Pool URL. Repeatable for failover (tried in order). stratum+tcp://host:port or
+          stratum+ssl://host:port (the PEAK_POOL env form takes a comma-separated list). With more
+          than one pool, press 'l' / 'h' in the console to switch to the next / previous pool
+          without restarting [env: PEAK_POOL]
+  -u, --user <wallet>
+          Pool login, sent VERBATIM — never split. Type exactly what your pool documents (bare
+          address, wallet.worker, wallet/worker, wallet=diff...). Use --worker to fill the separate
+          worker field instead [env: PEAK_WALLET]
+  -p, --password <pass>
+          Password (passed verbatim to the pool, e.g. "x" or "x;d=524288") [env: PEAK_PASSWORD]
+          [default: x]
+  -w, --worker <name>
+          Worker name. A separate field, NOT an edit of -u: pools with a worker slot get it there,
+          single-string logins get ".<name>" appended. Ignored when -u already carries a "." or "/"
+          — one separator only, and the -u spelling always wins [env: PEAK_WORKER]
+  -c, --coin <name>
+          Coin / algorithm to mine, e.g. pearl or midstate (required) [env: PEAK_COIN]
+      --quantus-auth-token <token>
+          quantus only: the `Ready { token }` secret for a `quic://` node or pool endpoint. For a
+          solo node it is the contents of the node's `miner-auth-token` file; a public pool reuses
+          the field as `<payout-address>.<worker>`. Prefer --quantus-auth-token-file: a secret on
+          the command line is visible in `ps`. Unset ⇒ the -u/-w login identity is sent, which is
+          what a pool wants [env: PEAK_QUANTUS_AUTH_TOKEN]
+      --quantus-auth-token-file <path>
+          quantus only: read --quantus-auth-token from this file (trailing newline trimmed). This is
+          the spelling to use for a solo node — point it straight at
+          `<base-path>/chains/<chain>/miner-auth-token` [env: PEAK_QUANTUS_AUTH_TOKEN_FILE]
+      --quantus-tls-cert-sha256 <hex>
+          quantus only: SHA-256 of the node's self-signed TLS certificate, 64 hex characters.
+          Required by `quic://` — the certificate has no CA to check it against, so pinning is the
+          whole authentication. The node logs this value and writes it to `miner-tls-cert-sha256`
+          [env: PEAK_QUANTUS_TLS_CERT_SHA256]
+      --quantus-tls-cert-sha256-file <path>
+          quantus only: read --quantus-tls-cert-sha256 from this file. Point it at the node's own
+          `<base-path>/chains/<chain>/miner-tls-cert-sha256` [env:
+          PEAK_QUANTUS_TLS_CERT_SHA256_FILE]
 
 Mining:
   -d, --devices <list>  GPU device indices: all or comma-separated list [env: PEAK_DEVICES]
@@ -347,6 +381,7 @@ OC bench:
 | Midstate (MDS) | midstate | 2% |
 | Alphanumeric (ALP) | alphanumeric | 2% |
 | ParanO(1)d (NOID) | parano1d | **0%** solo · **3%** public pool |
+| Quantus (QUAN) | quantus | 2% |
 
 NOID can be mined two ways — see [Mining ParanO(1)d](#mining-parano1d-noid). **Solo** against your own [peakpool](https://github.com/peakminer/peakpool) instance, where PeakMiner charges **nothing** and the pool build carries a 5% devfee; or on a **public NOID pool**, where PeakMiner charges **3%** and the pool sets its own terms.
 
@@ -441,6 +476,16 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 | LProute | [lproute.com](https://lproute.com) — `sg.lproute.com:4260` |
 | LuckyPool | [alp.luckypool.io](https://alp.luckypool.io) |
 
+**Quantus (QUAN)**
+
+| Pool | Site |
+|---|---|
+| Kryptex | [pool.kryptex.com](https://pool.kryptex.com) — `stratum+tcp://qtc.kryptex.network:7049` |
+| QuanPool | [quanpool.com](https://quanpool.com) — `quic-insecure://mine.quanpool.com:9834` |
+| LuckyPool | [quantus.luckypool.io](https://quantus.luckypool.io) — `eu.lproute.com:3361` |
+
+Any other pool that speaks QUIC or stratum works too — use whatever endpoint yours documents.
+
 **ParanO(1)d (NOID)**
 
 | Pool | Site |
@@ -458,7 +503,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.15.2/peakminer-2.15.2.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.16.0/peakminer-2.16.0.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -479,6 +524,7 @@ then import it into HiveOS (Flight Sheets → import) and set your wallet:
 - **Midstate (MDS)** → [`hiveos/midstate.json`](hiveos/midstate.json)
 - **Alphanumeric (ALP)** → [`hiveos/alphanumeric.json`](hiveos/alphanumeric.json)
 - **ParanO(1)d (NOID)** → [`hiveos/parano1d.json`](hiveos/parano1d.json) — set **Pool URL** to a public NOID pool's RPC URL, or to your own [peakpool](https://github.com/peakminer/peakpool) host
+- **Quantus (QUAN)** → [`hiveos/quantus.json`](hiveos/quantus.json)
 
 Update `install_url` in the JSON to the release you want.
 
@@ -539,10 +585,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.15.2
+docker pull peakminer/peakminer:2.16.0
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.15.2 \
+docker run --rm -t --gpus all peakminer/peakminer:2.16.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -551,7 +597,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.15.2 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.15.2 --build-arg PEAKMINER_VERSION=2.15.2 .
+docker build -t peakminer:2.16.0 --build-arg PEAKMINER_VERSION=2.16.0 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -562,7 +608,7 @@ Pass any miner flags after the image name. To reach the stats API from the host,
 loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.15.2 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.16.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
@@ -632,6 +678,51 @@ On HiveOS, use the `parano1d` flight sheet in [`hiveos/`](hiveos/) and set **Poo
 you chose — a public pool's RPC URL, or your own peakpool host. On Windows, edit
 `peakminer-parano1d.bat` from the release zip.
 
+## Mining Quantus (QUAN)
+
+Quantus is mined on a pool like any other coin — dev fee is **2%**:
+
+```bash
+peakminer --coin quantus \
+  -o stratum+tcp://qtc.kryptex.network:7049 \
+  -u <YOUR-QUAN-ADDRESS>.rig1
+```
+
+`-u` is your payout address; the `.rig1` suffix names the worker. Keep the `stratum+tcp://` prefix —
+it picks the wire explicitly, independent of the pool's port number.
+
+### Pools and transports
+
+Pools differ in how they accept miners, so use the endpoint yours documents:
+
+| Pool | Endpoint |
+|---|---|
+| [Kryptex](https://pool.kryptex.com) | `stratum+tcp://qtc.kryptex.network:7049` |
+| [QuanPool](https://quanpool.com) | `quic-insecure://mine.quanpool.com:9834` |
+| [LuckyPool](https://quantus.luckypool.io) | `eu.lproute.com:3361` |
+
+Any other pool speaking QUIC or stratum works the same way.
+
+### Solo against your own node
+
+A Quantus node exposes a `quic://` endpoint whose TLS certificate is self-signed, so there is no CA
+to check it against — the certificate hash is the authentication. Point the miner at the two files
+the node writes rather than pasting secrets on the command line, where they would show up in `ps`:
+
+```bash
+peakminer --coin quantus \
+  -o quic://<node-host>:9833 \
+  --quantus-auth-token-file  <base-path>/chains/<chain>/miner-auth-token \
+  --quantus-tls-cert-sha256-file <base-path>/chains/<chain>/miner-tls-cert-sha256
+```
+
+`--quantus-auth-token` and `--quantus-tls-cert-sha256` take the same values inline if you would
+rather not use files. On a **pool** you need neither: leave them unset and the `-u` / `-w` login is
+sent instead, which is what a pool expects.
+
+On HiveOS, use the `quantus` flight sheet in [`hiveos/`](hiveos/). On Windows, edit
+`peakminer-quantus.bat` from the release zip.
+
 ## Mining CSD / Midstate / Alphanumeric (CLI)
 
 Set `--coin` and point at the matching pool (see [Supported pools](#supported-pools)):
@@ -651,6 +742,7 @@ Replace `WALLET[.WORKER]` with your coin address (worker optional). Same flags w
 (`peakminer.exe …`) and Docker. TLS/SSL is auto-detected. Dev fee is **2%** on these coins (NOID is **0%** solo, **3%** on a public pool).
 
 On Windows the zip ships a ready-made launcher per coin — `peakminer-btx.bat`, `peakminer-csd.bat`,
+`peakminer-quantus.bat`,
 `peakminer-midstate.bat` and `peakminer-alphanumeric.bat`: edit the wallet / worker / pool lines,
 then double-click.
 

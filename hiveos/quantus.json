@@ -1,19 +1,19 @@
 {
-  "name": "PEAKMINER_CSD",
+  "name": "PEAKMINER_QUANTUS",
   "isFavorite": false,
   "items": [
     {
-      "coin": "CSD",
+      "coin": "QUAN",
       "pool_ssl": false,
       "pool_urls": [
-        "csd-ca.lproute.com:8760"
+        "qtc.kryptex.network:7049"
       ],
       "dpool_ssl": false,
       "miner": "custom",
       "miner_alt": "peakminer",
       "miner_config": {
-        "url": "csd-ca.lproute.com:8760",
-        "algo": "csd",
+        "url": "stratum+tcp://qtc.kryptex.network:7049",
+        "algo": "quantus",
         "pass": "x",
         "miner": "peakminer",
         "template": "%WAL%.%WORKER_NAME%",
