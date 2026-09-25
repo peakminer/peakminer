@@ -193,7 +193,7 @@ Full `--help` output (v2.17.1):
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
 # high-performance GPU miner · v2.17.1
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260925-2ca0eb
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260925-ef248d
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
