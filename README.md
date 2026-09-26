@@ -105,7 +105,7 @@ chmod +x peakminer && \
 wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.1/peakminer-2.17.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin quantus -o stratum+tcp://qtc.kryptex.network:7049 \
-  -u qzqAmSX6uwGKUE8qsRgab7PqD7B9Kw6rcSK8qcM6MNYKazi95.test
+  -u qznMoMtokC91War6x8jHTiSqNYxFUe6RxmLCG9QxWiyayRR9j.test
 ```
 
 The flags you'll actually reach for:
