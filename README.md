@@ -57,7 +57,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.2/peakminer-2.17.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.3/peakminer-2.17.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -66,7 +66,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.2/peakminer-2.17.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.3/peakminer-2.17.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o stratum+ssl://btx-eu.lproute.com:8665 \
   -u <YOUR-BTX-ADDRESS>.test
@@ -75,7 +75,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.2/peakminer-2.17.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.3/peakminer-2.17.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -84,7 +84,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.2/peakminer-2.17.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.3/peakminer-2.17.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -93,7 +93,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.2/peakminer-2.17.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.3/peakminer-2.17.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -102,7 +102,7 @@ chmod +x peakminer && \
 **Quantus (QUAN):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.2/peakminer-2.17.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.17.3/peakminer-2.17.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin quantus -o stratum+tcp://qtc.kryptex.network:7049 \
   -u qznMoMtokC91War6x8jHTiSqNYxFUe6RxmLCG9QxWiyayRR9j.test
@@ -121,6 +121,7 @@ The flags you'll actually reach for:
 | `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
 | `-L, --legacy-auth` | Pin standard Stratum V1 array authorize (auto-detected by default) |
 | `-f, --log-file <path>` | Also write logs to a file (`--log-append` to keep them across restarts) |
+| `--no-color` | Plain text output: no colour codes in the log lines, the status table or the banner. The standard `NO_COLOR` environment variable does the same. `--log-file` is always plain text |
 | `--dns-over-https <on\|off\|strict>` | Resolve pool hostnames over DoH — for ISPs that hijack/filter pool domains (default `off`) |
 | `--proxy <socks5://…>` | Send **all** outbound traffic through a SOCKS5 proxy — no silent direct fallback |
 | `--oc-profile <spec>` | Apply an overclock profile at startup: `eco`, `balanced`, `max`, or a profile id from [oc.peakminer.org](https://oc.peakminer.org). Per-GPU: `--oc-profile-gpu0 eco` (off by default) |
@@ -184,7 +185,7 @@ or hosted machines.
 the local resolver and a pool that only exists on the proxy's side of the network still works.
 `--proxy-dns local` resolves on the rig instead.
 
-Full `--help` output (v2.17.2):
+Full `--help` output (v2.17.3):
 
 ```text
  ____            _    __  __ _
@@ -192,8 +193,8 @@ Full `--help` output (v2.17.2):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.17.2
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260926-517d93
+# high-performance GPU miner · v2.17.3
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20260928-84d12a
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -327,6 +328,10 @@ Logging:
                            only ever mention flags you are NOT already using, never repeat within a
                            run, and stop once the catalogue is exhausted — but a log scraper that
                            wants nothing but the table can turn them off here [env: PEAK_NO_TIPS]
+      --no-color           Plain-text stderr: no ANSI colour codes in log lines, the status table or
+                           the banner. For launchers and log viewers that show raw escape codes. The
+                           standard NO_COLOR environment variable does the same. --log-file is
+                           always plain text [env: PEAK_NO_COLOR]
 
 GPU OC parameters:
       --gpu-core <MHz>         Core clock offset (MHz), applied to ALL GPUs. Per-GPU: --gpu-coreN,
@@ -408,7 +413,7 @@ New coins are added regularly — [follow announcements](https://t.me/peakminer_
 | sm_100 | b200 | B200 / B300 |
 | sm_120 | blackwell | **RTX 50xx (optimized)** |
 
-**AMD** — CSD and Alphanumeric (ALP) only, Linux only:
+**AMD for CSD and Alphanumeric (ALP)**, Linux only, over ROCm:
 
 | LLVM target | Architecture | Cards |
 |---|---|---|
@@ -431,9 +436,21 @@ New coins are added regularly — [follow announcements](https://t.me/peakminer_
 | gfx1200 | RDNA 4 | RX 9060 XT / 9060 |
 | gfx1201 | RDNA 4 | **RX 9070 XT / 9070 GRE / 9070** |
 
+**AMD for Quantus (QUAN)**, Windows & Linux, new in v2.17.3. This is a separate path from the
+ROCm table above: it needs only an AMD OpenCL runtime, which on Windows is the one the display
+driver installs.
+
+| Cards | Notes |
+|---|---|
+| **RX 570 / 580 / 590 / 470 / 480 / 460 / 560 / 550** | On Linux these need the legacy amdgpu-pro 22.40 OpenCL runtime |
+| **RX 5700 XT / 5700 / 5600 XT / 5600 / 5700M / 5600M** · Radeon Pro W5700 / 5700 XT / 5700 | |
+
+A card whose OpenCL runtime refuses to run the program reports an error and is skipped; the rest
+of the rig keeps mining. Mixed NVIDIA and AMD rigs run in a single process.
+
 **Pearl (PRL) requires RTX 20xx or newer.** Since v2.11.0 the Pearl network enforces rank-128 consensus rules, and the Maxwell / Pascal / Volta / GTX 16xx kernels cannot mine them — those cards keep working for CSD, Midstate and Alphanumeric.
 
-**Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled — no toolkit install needed). For AMD cards (CSD and Alphanumeric, Linux): a recent `amdgpu` driver with ROCm support, plus the AMD runtime — install it once before mining:
+**Requirements:** Windows or Linux, with an NVIDIA driver that supports the CUDA 12 runtime (the runtime is bundled, no toolkit install needed). For AMD cards on Quantus (Windows & Linux): the `amdgpu` driver plus an AMD OpenCL runtime, which the AMD display driver already provides on Windows. For AMD cards on CSD and Alphanumeric (Linux): a recent `amdgpu` driver with ROCm support, plus the AMD runtime, installed once before mining:
 
 ```bash
 curl -fsSL https://gist.githubusercontent.com/devpeakminer/9bfd2744a535a93a99ce1b078f778ff6/raw/be9732a5caed5d5c0a6a9614166d455e6e077506/install-csd-amd-runtime.sh | sudo bash
@@ -508,7 +525,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.17.2/peakminer-2.17.2.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.17.3/peakminer-2.17.3.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -590,10 +607,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.17.2
+docker pull peakminer/peakminer:2.17.3
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.17.2 \
+docker run --rm -t --gpus all peakminer/peakminer:2.17.3 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -602,7 +619,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.17.2 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.17.2 --build-arg PEAKMINER_VERSION=2.17.2 .
+docker build -t peakminer:2.17.3 --build-arg PEAKMINER_VERSION=2.17.3 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -613,7 +630,7 @@ Pass any miner flags after the image name. To reach the stats API from the host,
 loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.17.2 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.17.3 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
@@ -692,6 +709,8 @@ peakminer --coin quantus \
   -o stratum+tcp://qtc.kryptex.network:7049 \
   -u <YOUR-QUAN-ADDRESS>.rig1
 ```
+
+Quantus also runs on AMD cards since v2.17.3 (see [Supported GPUs](#supported-gpus)); the command is identical, with no extra flag.
 
 `-u` is your payout address; the `.rig1` suffix names the worker. Keep the `stratum+tcp://` prefix —
 it picks the wire explicitly, independent of the pool's port number.
