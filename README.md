@@ -27,6 +27,7 @@ This repository hosts the official release packages. Download the latest build f
 - [Supported GPUs](#supported-gpus)
 - [Supported pools](#supported-pools)
 - [Quick start (HiveOS)](#quick-start-hiveos)
+- [Quick start (mmpOS)](#quick-start-mmpos)
 - [Quick start (Windows)](#quick-start-windows)
 - [Run with Docker](#run-with-docker)
 - [Mining ParanO(1)d (NOID)](#mining-parano1d-noid)
@@ -58,7 +59,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.0/peakminer-2.18.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.1/peakminer-2.18.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -67,7 +68,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.0/peakminer-2.18.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.1/peakminer-2.18.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o stratum+ssl://btx-eu.lproute.com:8665 \
   -u <YOUR-BTX-ADDRESS>.test
@@ -76,7 +77,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.0/peakminer-2.18.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.1/peakminer-2.18.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -85,7 +86,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.0/peakminer-2.18.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.1/peakminer-2.18.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -94,7 +95,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.0/peakminer-2.18.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.1/peakminer-2.18.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -103,7 +104,7 @@ chmod +x peakminer && \
 **Quantus (QUAN):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.0/peakminer-2.18.0-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.18.1/peakminer-2.18.1-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin quantus -o stratum+tcp://qtc.kryptex.network:7049 \
   -u qznMoMtokC91War6x8jHTiSqNYxFUe6RxmLCG9QxWiyayRR9j.test
@@ -127,7 +128,8 @@ The flags you'll actually reach for:
 | `--proxy <socks5://…>` | Send **all** outbound traffic through a SOCKS5 proxy — no silent direct fallback |
 | `--oc-profile <spec>` | Apply an overclock profile at startup: `eco`, `balanced`, `max`, or a profile id from [oc.peakminer.org](https://oc.peakminer.org). Per-GPU: `--oc-profile-gpu0 eco` (off by default) |
 | `--cmp-unlock` | **Pearl, Linux, needs root.** Unlock compute performance on **CMP 40HX / 90HX / 170HX**. **Off by default** — it was automatic before v2.17.2, so add this flag if you relied on it. Takes an optional boolean (`--cmp-unlock=false` to disable explicitly) |
-| `--schedule <windows>` | UTC hours a GPU is allowed to mine, e.g. `22:00-18:00`. Several windows with `/`, one value per GPU with `,`, or `--scheduleN` for one card. See [Mining schedule](#mining-schedule) (off by default) |
+| `--schedule <windows>` | Hours a GPU is allowed to mine, e.g. `22:00-18:00`. Several windows with `/`, one value per GPU with `,`, or `--scheduleN` for one card. See [Mining schedule](#mining-schedule) (off by default) |
+| `--timezone <offset>` | Fixed UTC offset for log timestamps and `--schedule` windows, e.g. `+07:00` (default `0`, meaning UTC). Named zones and daylight-saving rules are not supported |
 | `--quantus-auth-token[-file] <v>` | **quantus only**, solo against your own node: the node's `miner-auth-token`. Not needed on a pool |
 | `--quantus-tls-cert-sha256[-file] <v>` | **quantus only**, required by `quic://`: SHA-256 of the node's self-signed TLS certificate. Not needed on a pool |
 
@@ -187,7 +189,7 @@ or hosted machines.
 the local resolver and a pool that only exists on the proxy's side of the network still works.
 `--proxy-dns local` resolves on the rig instead.
 
-Full `--help` output (v2.18.0):
+Full `--help` output (v2.18.1):
 
 ```text
  ____            _    __  __ _
@@ -195,8 +197,8 @@ Full `--help` output (v2.18.0):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.18.0
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20261006-f60352
+# high-performance GPU miner · v2.18.1
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20261007-682fe7
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -257,6 +259,10 @@ Behavior:
           leaving the GPU grinding a stale job whose shares all get rejected. Reconnecting makes the
           pool re-push a fresh job. Unset uses the coin's own default (180 s for Pearl and CSD); 0
           disables [env: PEAK_JOB_TIMEOUT]
+      --timezone <offset>
+          Fixed UTC offset for log timestamps and mining schedules. Use 0/UTC for UTC, or an offset
+          such as +02:00 or -07:00. Named timezones and daylight-saving rules are not included [env:
+          PEAK_TIMEZONE] [default: 0]
   -n, --dry-run
           Mine without submitting proofs (dry run) [env: PEAK_DRY_RUN]
       --keepalive
@@ -381,12 +387,12 @@ GPU thermal parameters:
                              strictly less than that GPU's stop)
 
 GPU schedule:
-      --schedule <WINDOWS>  UTC windows a GPU is allowed to mine, e.g. --schedule "22:00-18:00"
-                            mines 22:00→18:00 and pauses 18:00–22:00. Several windows per GPU with
-                            '/': "00:00-06:00/22:00-24:00". One value per GPU index with ',':
-                            "00:00-06:00,,06:00-18:00" (empty slot = that GPU runs 24/7). Per-GPU
-                            override: --scheduleN, e.g. --schedule0. Times are UTC; start>end wraps
-                            past midnight [env: PEAK_SCHEDULE]
+      --schedule <WINDOWS>  Windows in the fixed offset selected by --timezone (UTC by default),
+                            e.g. --schedule "22:00-18:00" mines 22:00→18:00 and pauses 18:00–22:00.
+                            Several windows per GPU with '/': "00:00-06:00/22:00-24:00". One value
+                            per GPU index with ',': "00:00-06:00,,06:00-18:00" (empty slot = that
+                            GPU runs 24/7). Per-GPU override: --scheduleN, e.g. --schedule0.
+                            start>end wraps past midnight [env: PEAK_SCHEDULE]
 
 OC bench:
       --oc-profile <SPEC>  Apply an overclock profile from the OC bench. Takes a mode name (eco,
@@ -540,7 +546,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.18.0/peakminer-2.18.0.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.18.1/peakminer-2.18.1.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -578,6 +584,12 @@ The "Setup Miner Config" box accepts raw peakminer CLI flags, one per line or se
 ```
 
 The full flag list is in the [CLI reference](#cli-reference).
+
+## Quick start (mmpOS)
+
+The same `.tar.gz` is an mmpOS custom miner, so there is no separate download. Add a custom miner with the package URL above, and the mmpOS dashboard reports per-GPU hashrate and share counts.
+
+Each platform reads only its own files out of the one package: mmpOS uses `mmp-launch.sh`, `mmp-stats.sh` and `mmp-external.conf`, HiveOS uses the `h-*` files, and each ignores the other's. mmpOS passes the coin as a ticker (`PRL`, `QTC`, `BTX`, `MDS`, `ALP`, `NOID`, `CSD`) and the launcher maps it to the right `--coin` name. Anything you put in the profile's extra arguments is passed through to the miner unchanged.
 
 ## Quick start (Windows)
 
@@ -622,10 +634,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.18.0
+docker pull peakminer/peakminer:2.18.1
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.18.0 \
+docker run --rm -t --gpus all peakminer/peakminer:2.18.1 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -634,7 +646,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.18.0 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.18.0 --build-arg PEAKMINER_VERSION=2.18.0 .
+docker build -t peakminer:2.18.1 --build-arg PEAKMINER_VERSION=2.18.1 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -645,7 +657,7 @@ Pass any miner flags after the image name. To reach the stats API from the host,
 loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.18.0 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.18.1 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
@@ -843,15 +855,22 @@ peakminer --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> \
 `--schedule` sets the hours a GPU is allowed to mine, for rigs on a tariff where some hours cost more than the coin is worth. Outside its window a GPU sits idle, and once every GPU is paused the pool connection is closed until the next window opens.
 
 ```bash
---schedule "22:00-18:00"               # mine 22:00 to 18:00 UTC, paused 18:00 to 22:00
+--schedule "22:00-18:00"               # mine 22:00 to 18:00, paused 18:00 to 22:00
 --schedule "00:00-06:00/22:00-24:00"   # two windows for the same GPU, separated by /
 --schedule "00:00-06:00,,06:00-18:00"  # per GPU: GPU 0 and GPU 2 on their own hours
 --schedule0 "00:00-06:00"              # or one flag per card, same as the OC flags
 ```
 
-Three things to keep in mind:
+Times are read in the offset that `--timezone` sets, and the default is **UTC**. Give the rig its own clock with a fixed offset:
 
-- **Times are UTC**, not the rig's local time. Convert before you set a window.
+```bash
+--timezone +07:00 --schedule "22:00-06:00"   # 22:00 to 06:00 local, not UTC
+```
+
+`--timezone` also moves the log timestamps. It takes an offset such as `+02:00` or `-07:00`, or `0` / `UTC`. **Named zones like `Asia/Bangkok` are not accepted and there are no daylight-saving rules**, so if your clocks shift twice a year, change the offset yourself.
+
+Two more things to keep in mind:
+
 - **A start later than its end wraps past midnight**, so `22:00-18:00` is 20 hours of mining, not 4.
 - **In the comma list, an empty slot means that card mines 24/7.** This is the opposite of the OC flags above, where an empty slot means leave the card's setting alone.
 
