@@ -59,7 +59,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.2/peakminer-2.19.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -68,7 +68,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.2/peakminer-2.19.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o stratum+ssl://btx-eu.lproute.com:8665 \
   -u <YOUR-BTX-ADDRESS>.test
@@ -77,7 +77,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.2/peakminer-2.19.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -86,7 +86,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.2/peakminer-2.19.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -95,7 +95,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.2/peakminer-2.19.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -104,7 +104,7 @@ chmod +x peakminer && \
 **Quantus (QUAN):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.2/peakminer-2.19.2-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin quantus -o stratum+tcp://qtc.kryptex.network:7049 \
   -u qznMoMtokC91War6x8jHTiSqNYxFUe6RxmLCG9QxWiyayRR9j.test
@@ -118,7 +118,7 @@ The flags you'll actually reach for:
 | `-u, --user <wallet>` | Pool login, **sent verbatim** — type exactly what your pool documents (`wallet`, `wallet.worker`, `wallet/worker`, …) |
 | `-w, --worker <name>` | Worker name as a **separate field**. Ignored when `-u` already carries a `.` or `/` |
 | `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd`, `midstate`, `alphanumeric`, `parano1d` or `quantus` (required) |
-| `-d, --devices <list>` | GPU subset, e.g. `0,1` (default: all) |
+| `-d, --devices <list>` | GPU subset: indices (`0,1`) or PCI addresses (`01:00.0,03:00.0`), one form per list (default: all) |
 | `-a, --api-port <[host:]port>` | HTTP stats API. A bare port binds localhost; `0.0.0.0:4068` exposes it to Docker / the LAN (default 4068, `0` disables) |
 | `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
 | `-L, --legacy-auth` | Pin standard Stratum V1 array authorize (auto-detected by default) |
@@ -136,6 +136,14 @@ The flags you'll actually reach for:
 Every flag also has a `PEAK_*` environment-variable equivalent (shown in the help text) — handy
 for Docker and scripts. Overclocking, fan and thermal flags are covered in
 [Overclocking & temperature limits](#overclocking--temperature-limits).
+
+### Picking which GPUs mine
+
+`--devices` takes either GPU indices (`--devices 0,2`) or PCI bus addresses
+(`--devices 01:00.0,0000:03:00.0`). A PCI address pins a card by its slot, so the selection
+survives a reboot or a driver change that renumbers the indices. Indices behave exactly as
+before. Use one form for the whole list: a list mixing an index and a PCI address is rejected,
+since both can name the same card.
 
 ### Multiple pools & failover
 
@@ -189,7 +197,7 @@ or hosted machines.
 the local resolver and a pool that only exists on the proxy's side of the network still works.
 `--proxy-dns local` resolves on the rig instead.
 
-Full `--help` output (v2.19.2):
+Full `--help` output (v2.19.3):
 
 ```text
  ____            _    __  __ _
@@ -197,8 +205,8 @@ Full `--help` output (v2.19.2):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.19.2
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20261019-d9071a
+# high-performance GPU miner · v2.19.3
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20261020-4de8cc
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -247,8 +255,11 @@ Connection:
           PEAK_QUANTUS_TLS_CERT_SHA256_FILE]
 
 Mining:
-  -d, --devices <list>  GPU device indices: all or comma-separated list [env: PEAK_DEVICES]
-                        [default: all]
+  -d, --devices <list>  GPUs to mine: `all`, a list of indices (`0,2`), or a list of PCI addresses
+                        (`01:00.0,0000:03:00.0`). One form per list — do not mix indices and PCI
+                        addresses. PCI pins a card by its stable bus address, which indices don't
+                        guarantee across reboots or driver changes [env: PEAK_DEVICES] [default:
+                        all]
 
 Behavior:
   -i, --status-interval <secs>
@@ -546,7 +557,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.19.2/peakminer-2.19.2.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -577,6 +588,7 @@ The "Setup Miner Config" box accepts raw peakminer CLI flags, one per line or se
 
 ```text
 --devices 0,1          # mine on a GPU subset (default: all)
+--devices 01:00.0      # or pin cards by PCI address, which survives renumbering
 --legacy-auth          # standard Stratum V1 array authorize, for pools that need it
 --job-timeout 60       # reconnect sooner when the pool stops sending new jobs
 --api-port 4068        # stats API port (the stats script follows it automatically)
@@ -620,6 +632,7 @@ Common flags (full list in the [CLI reference](#cli-reference), or `peakminer.ex
 --url de.pearl.herominers.com:1200   # pool address (TLS/SSL auto-detected)
 --user WALLET.WORKER   # your Pearl wallet + worker name
 --devices 0,1          # mine on a GPU subset (default: all)
+--devices 01:00.0      # or pin cards by PCI address, which survives renumbering
 --api-port 4068        # built-in HTTP stats API (0.0.0.0:4068 to expose it on the LAN)
 ```
 
@@ -634,10 +647,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.19.2
+docker pull peakminer/peakminer:2.19.3
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.19.2 \
+docker run --rm -t --gpus all peakminer/peakminer:2.19.3 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -646,7 +659,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.19.2 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.19.2 --build-arg PEAKMINER_VERSION=2.19.2 .
+docker build -t peakminer:2.19.3 --build-arg PEAKMINER_VERSION=2.19.3 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -657,7 +670,7 @@ Pass any miner flags after the image name. To reach the stats API from the host,
 loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.19.2 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.19.3 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
