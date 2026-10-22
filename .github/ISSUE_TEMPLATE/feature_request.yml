@@ -1,0 +1,81 @@
+name: Feature Request
+description: Suggest a new coin, platform, option, or improvement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! Please search existing issues first so related requests stay in one place.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - New coin / algorithm
+        - GPU support / performance
+        - Pool / Stratum / connectivity
+        - Overclocking / thermal management
+        - Stats API / monitoring
+        - HiveOS / mmpOS / Docker integration
+        - CLI / configuration
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe your use case and what is hard or impossible today.
+      placeholder: I run a mixed farm and want to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: How would you like it to work? Include example flags, API routes or output if you have them in mind.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds you use now, or how other miners handle this.
+    validations:
+      required: false
+
+  - type: textarea
+    id: coin-details
+    attributes:
+      label: Coin details (for new coin requests)
+      description: Coin name, ticker, algorithm, website / explorer, and pools that support it.
+      placeholder: |
+        Name / ticker:
+        Algorithm:
+        Website:
+        Pools:
+    validations:
+      required: false
+
+  - type: input
+    id: hardware
+    attributes:
+      label: Your hardware / platform
+      description: Optional, but helps us prioritise.
+      placeholder: "8x RTX 3070 on HiveOS"
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Links, screenshots, or other context.
+    validations:
+      required: false

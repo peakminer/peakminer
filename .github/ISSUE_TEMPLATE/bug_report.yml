@@ -1,0 +1,150 @@
+name: Bug Report
+description: Report a crash, wrong hashrate, rejected shares, or anything else that isn't working.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a problem. Please check the
+        [Troubleshooting](https://github.com/peakminer/peakminer#troubleshooting) section and
+        existing issues first.
+
+        **Do not post private keys, API keys (`--api-key`), TLS key files or passwords.**
+        Wallet addresses are fine to mask.
+
+  - type: input
+    id: version
+    attributes:
+      label: PeakMiner version
+      description: Shown in the startup banner, or run `peakminer --version`.
+      placeholder: v2.20.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: coin
+    attributes:
+      label: Coin
+      options:
+        - pearl (PRL)
+        - btx (BTX)
+        - csd (CSD)
+        - midstate (MDS)
+        - alphanumeric (ALP)
+        - parano1d (NOID)
+        - quantus (QUAN)
+        - Not coin-specific
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - HiveOS
+        - mmpOS
+        - Linux (standalone)
+        - Windows
+        - Docker
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: OS and driver version
+      description: OS / distro version, plus NVIDIA driver + CUDA or AMD driver + ROCm version.
+      placeholder: "HiveOS 0.6-230, NVIDIA 570.86, CUDA 12.8"
+    validations:
+      required: true
+
+  - type: textarea
+    id: gpus
+    attributes:
+      label: GPU(s)
+      description: Model and count of each card, and any overclock settings (core/memory offset, power limit).
+      placeholder: |
+        4x RTX 4070 Ti — core +150, mem +1000, PL 200 W
+        2x RX 7900 XTX — stock
+    validations:
+      required: true
+
+  - type: input
+    id: pool
+    attributes:
+      label: Pool
+      description: Pool host and port (or "solo" with your node / peakpool setup).
+      placeholder: de.pearl.herominers.com:1200
+    validations:
+      required: false
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command line / flight sheet arguments
+      description: The full command or extra arguments you use. Mask your wallet and remove any secrets.
+      render: shell
+      placeholder: ./peakminer --coin pearl -o de.pearl.herominers.com:1200 -u <WALLET>.rig1
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the problem. Include what you expected to happen instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: How often does it happen? After how long? Does it happen on every card or only some?
+      placeholder: |
+        1. Start the miner with the command above
+        2. After ~30 minutes, GPU 2 drops to 0 H/s
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        Relevant log output, ideally from startup through the error. Use `--log-file <path>` to capture
+        it, or `--log-level debug` for more detail. This is rendered as code, so no backticks needed.
+      render: text
+    validations:
+      required: true
+
+  - type: dropdown
+    id: regression
+    attributes:
+      label: Did this work in an earlier version?
+      options:
+        - Not sure
+        - "No"
+        - "Yes"
+    validations:
+      required: false
+
+  - type: input
+    id: last-good
+    attributes:
+      label: Last working version
+      description: If this is a regression, which version last worked?
+      placeholder: v2.19.3
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots, stats API output (`curl 127.0.0.1:4068/summary`), or other context.
+    validations:
+      required: false

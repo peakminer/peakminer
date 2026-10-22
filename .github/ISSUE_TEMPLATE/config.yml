@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Discord
+    url: https://discord.gg/d5gVybewQ9
+    about: Ask questions and get help with setup from the community.
+  - name: Telegram
+    url: https://t.me/peakminer_official
+    about: Chat with other miners and the team.
+  - name: Announcements
+    url: https://t.me/peakminer_announcements
+    about: New releases and newly supported coins.
