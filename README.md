@@ -914,10 +914,12 @@ Two more things to keep in mind:
 
 ## Stats & logs
 
-- Stats API (all platforms): `GET http://127.0.0.1:4068/summary` — hashrate reported in kH/s.
+- Stats API (all platforms): `GET http://127.0.0.1:4068/summary`, hashrate in hashes per second
+  (the HiveOS and mmpOS stats scripts are what convert to kH/s for the dashboards).
   Bound to localhost by default; pass `--api-port 0.0.0.0:4068` to reach it from another machine,
   a Docker host or a monitoring box. With no `--api-key` it is open to anyone who can reach the
   port, so set a key before you expose it (see below)
+- Every endpoint, request body and status code: [API.md](API.md)
 - Miner log (HiveOS): `/var/log/miner/custom/peakminer/peakminer.log`
 - Generated command line (HiveOS): `/hive/miners/custom/peakminer/peakminer.conf`
 
@@ -976,6 +978,9 @@ the miner restarts itself: poll `/health` until the new process answers.
 
 Every write is serialised, logged with the address that sent it, and debounced. A debounced write
 gets `429` with `Retry-After` and changes nothing.
+
+The per-endpoint reference, with every request body, the overlay format and the full list of
+status codes, is in [API.md](API.md).
 
 ### Where the miner keeps its own files
 
