@@ -698,8 +698,9 @@ docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.20.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
-Then `curl 127.0.0.1:4068/summary` on the host. Only expose it on a trusted network — the API has
-no authentication.
+Then `curl 127.0.0.1:4068/summary` on the host. Published like that the API is reachable by
+anything that can route to the host, so add `--api-key <secret>` unless the network is fully
+trusted. See [Locking the API with a key](#locking-the-api-with-a-key).
 
 ## Mining ParanO(1)d (NOID)
 
