@@ -255,3 +255,4 @@ Rules:
 Error bodies are `{"error":"…"}`, and `400` adds `"field"`. The one exception is
 the `422` for an unknown JSON key, which answers with the deserializer's own
 plain-text line (`content-type: text/plain`) naming the key it did not expect.
+
