@@ -47,7 +47,7 @@ This repository hosts the official release packages. Download the latest build f
 - **Tuned CUDA kernels per GPU generation** — best efficiency on RTX 50xx, 40xx, 30xx and 20xx: high hash, low watt, low VRAM
 - **Overclocking & thermal limits** — per-GPU core/memory clocks, power limit, and automatic temperature pause/resume
 - **Windows, Linux & Docker** — standalone Windows build (`.zip`), a ready-to-go HiveOS package, and a prebuilt image (`peakminer/peakminer`)
-- **Built-in HTTP stats API** — per-GPU hashrate, temperature, fan, shares, and uptime on the HiveOS dashboard
+- **Built-in HTTP stats API** — per-GPU hashrate, temperature, fan, shares, and uptime on the HiveOS dashboard. Since v2.20.0 it can also take an API key and accept control requests: pause a card, switch pool, change the overclock, reconfigure
 
 ## CLI reference
 
@@ -59,7 +59,7 @@ the same `--coin` / `-o` / `-u` flags.
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.0/peakminer-2.20.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -68,7 +68,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.0/peakminer-2.20.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o stratum+ssl://btx-eu.lproute.com:8665 \
   -u <YOUR-BTX-ADDRESS>.test
@@ -77,7 +77,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.0/peakminer-2.20.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -86,7 +86,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.0/peakminer-2.20.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -95,7 +95,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.0/peakminer-2.20.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -104,7 +104,7 @@ chmod +x peakminer && \
 **Quantus (QUAN):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.0/peakminer-2.20.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin quantus -o stratum+tcp://qtc.kryptex.network:7049 \
   -u qznMoMtokC91War6x8jHTiSqNYxFUe6RxmLCG9QxWiyayRR9j.test
@@ -120,6 +120,9 @@ The flags you'll actually reach for:
 | `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd`, `midstate`, `alphanumeric`, `parano1d` or `quantus` (required) |
 | `-d, --devices <list>` | GPU subset: indices (`0,1`) or PCI addresses (`01:00.0,03:00.0`), one form per list (default: all) |
 | `-a, --api-port <[host:]port>` | HTTP stats API. A bare port binds localhost; `0.0.0.0:4068` exposes it to Docker / the LAN (default 4068, `0` disables) |
+| `--api-key <secret>` | Lock the stats API: every route except `GET /health` then needs the key in an `X-API-Key` or `Authorization: Bearer` header. Unset leaves the API open (off by default) |
+| `--api-control <levels>` | Allow write requests on the stats API: `pause`, `pool`, `config`, `oc`, or `all`. Requires `--api-key`. See [Stats & logs](#stats--logs) (off by default) |
+| `--state-dir <dir>` | Where the miner keeps its own files, today the API overlay written by `PUT /config` (default: the working directory) |
 | `-j, --job-timeout <secs>` | Reconnect if the pool pushes no new job for N seconds (default 180) |
 | `-L, --legacy-auth` | Pin standard Stratum V1 array authorize (auto-detected by default) |
 | `-f, --log-file <path>` | Also write logs to a file (`--log-append` to keep them across restarts) |
@@ -197,7 +200,7 @@ or hosted machines.
 the local resolver and a pool that only exists on the proxy's side of the network still works.
 `--proxy-dns local` resolves on the rig instead.
 
-Full `--help` output (v2.19.3):
+Full `--help` output (v2.20.0):
 
 ```text
  ____            _    __  __ _
@@ -205,8 +208,8 @@ Full `--help` output (v2.19.3):
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.19.3
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20261020-4de8cc
+# high-performance GPU miner · v2.20.0
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20261022-43ce52
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -325,6 +328,25 @@ Behavior:
           binds that address — use `0.0.0.0:4068` (or `[::]:4068`) to reach it from Docker
           containers / the LAN. 0 = disabled. Default 4068  →  GET http://127.0.0.1:4068/summary
           [env: PEAK_API_PORT] [default: 4068]
+      --api-key <secret>
+          Stats API key. When set, every API request (except GET /health) must carry `X-API-Key:
+          <secret>` or `Authorization: Bearer <secret>`; a missing or wrong key gets 401. Unset
+          keeps the API open, so set it before `-a 0.0.0.0:4068` exposes it to the LAN. An empty
+          value counts as unset (docker-compose `${API_KEY:-}` idiom) [env: PEAK_API_KEY]
+      --api-control <pause,pool,config,oc|all>
+          Control endpoints on the stats API, OFF by default. `pause` adds POST
+          /control/pause|resume (per-GPU API hold, ORed with thermal and --schedule); `pool` adds
+          POST /control/pool (same as the l/h hotkeys); `config` adds PUT /config and DELETE
+          /config/overlay (coin, pools, user, worker — written to the overlay file in --state-dir,
+          then the miner restarts itself); `oc` reserves the clock/fan endpoints. Any level also
+          adds GET /config and GET /control/state. `all` = every level. Requires --api-key and an
+          enabled -a: the miner refuses to start with control on and no key — a write surface is
+          never merely warned about [env: PEAK_API_CONTROL]
+      --state-dir <dir>
+          Directory for the files the miner keeps about itself — today the API overlay
+          `peakminer.overlay.json` that PUT /config writes (mode 0600). Default: the working
+          directory. In Docker point it at a mounted volume so a reconfiguration survives the
+          container being recreated [env: PEAK_STATE_DIR]
       --report-stats
           Report rig telemetry to the pool via a periodic `mining.stats` push (total/per-GPU
           hashrate, uptime, GPU model/temp/power) for its dashboard. Sent over the EXISTING stratum
@@ -557,7 +579,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.19.3/peakminer-2.19.3.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.20.0/peakminer-2.20.0.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -593,6 +615,8 @@ The "Setup Miner Config" box accepts raw peakminer CLI flags, one per line or se
 --job-timeout 60       # reconnect sooner when the pool stops sending new jobs
 --api-port 4068        # stats API port (the stats script follows it automatically)
                        # use 0.0.0.0:4068 to expose it beyond localhost
+--api-key SECRET       # lock the API: every route but GET /health then needs the key
+--api-control pause    # allow control requests, off by default (needs --api-key)
 ```
 
 The full flag list is in the [CLI reference](#cli-reference).
@@ -647,10 +671,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 ### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.19.3
+docker pull peakminer/peakminer:2.20.0
 
 # Run — -t shows the live miner output
-docker run --rm -t --gpus all peakminer/peakminer:2.19.3 \
+docker run --rm -t --gpus all peakminer/peakminer:2.20.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -659,7 +683,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.19.3 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.19.3 --build-arg PEAKMINER_VERSION=2.19.3 .
+docker build -t peakminer:2.20.0 --build-arg PEAKMINER_VERSION=2.20.0 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -670,7 +694,7 @@ Pass any miner flags after the image name. To reach the stats API from the host,
 loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.19.3 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.20.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
@@ -891,14 +915,82 @@ Two more things to keep in mind:
 
 - Stats API (all platforms): `GET http://127.0.0.1:4068/summary` — hashrate reported in kH/s.
   Bound to localhost by default; pass `--api-port 0.0.0.0:4068` to reach it from another machine,
-  a Docker host or a monitoring box (no authentication — keep it on a trusted network)
+  a Docker host or a monitoring box. With no `--api-key` it is open to anyone who can reach the
+  port, so set a key before you expose it (see below)
 - Miner log (HiveOS): `/var/log/miner/custom/peakminer/peakminer.log`
 - Generated command line (HiveOS): `/hive/miners/custom/peakminer/peakminer.conf`
+
+### Locking the API with a key
+
+`--api-key <secret>` (or `PEAK_API_KEY`) closes the API. Every route except `GET /health` then
+needs the secret in a header, either one:
+
+```bash
+curl -H 'X-API-Key: <secret>'            http://127.0.0.1:4068/summary
+curl -H 'Authorization: Bearer <secret>' http://127.0.0.1:4068/summary
+```
+
+A missing or wrong key gets `401`. Put the key in a header, never in the URL, where it would end
+up in proxy and shell logs. An empty value counts as unset, so the docker-compose
+`${API_KEY:-}` idiom keeps working, and with no key at all the API behaves exactly as it did
+before v2.20.0. Binding it off-host without a key logs a warning at startup.
+
+`GET /health` stays open and unauthenticated, so an orchestrator probe does not need the secret:
+
+```json
+{"ok":true,"version":"2.20.0"}
+```
+
+### Control endpoints
+
+`--api-control <levels>` (or `PEAK_API_CONTROL`) turns on write access: a comma separated list of
+levels, or `all`. It needs `--api-key` and an enabled `-a`, and with a level on and no key the
+miner refuses to start rather than serve an unauthenticated write surface. A level that is off
+answers `404`.
+
+| Level | What it adds |
+|---|---|
+| any level | `GET /config`, `GET /control/state` |
+| `pause` | `POST /control/pause` and `/control/resume`, body `{"gpus":[1]}` or `{}` for every card |
+| `pool` | `POST /control/pool`, body `{"index":1}` or `{"action":"next"}`, the same move as the `l` and `h` hotkeys |
+| `config` | `PUT /config` for coin, pools, user and worker, plus `DELETE /config/overlay` to drop back to the flags |
+| `oc` | `GET` / `PUT` / `PATCH` / `DELETE /control/oc/{gpu}` for core, memory, power limit and fan |
+
+```bash
+peakminer -c pearl -o stratum+tcp://pool:3333 -u <wallet> \
+  -a 0.0.0.0:4068 --api-key <secret> --api-control pause,pool
+
+# park GPU 1, then put it back to work
+curl -X POST -H 'X-API-Key: <secret>' -H 'content-type: application/json' \
+  -d '{"gpus":[1]}' http://127.0.0.1:4068/control/pause
+curl -X POST -H 'X-API-Key: <secret>' -H 'content-type: application/json' \
+  -d '{}' http://127.0.0.1:4068/control/resume
+```
+
+A parked card reports `status: "paused"` and `hashrate: 0` in `/summary`, and `GET /control/state`
+names every reason currently holding it. That matters because an API resume will not restart a
+card that a temperature limit or `--schedule` is holding as well. Overclock changes apply in
+place. The `config` level cannot hot-swap a coin or a pool list, so it writes the overlay file and
+the miner restarts itself: poll `/health` until the new process answers.
+
+Every write is serialised, logged with the address that sent it, and debounced. A debounced write
+gets `429` with `Retry-After` and changes nothing.
+
+### Where the miner keeps its own files
+
+`--state-dir <dir>` (or `PEAK_STATE_DIR`) is the directory for files the miner keeps about itself,
+today just `peakminer.overlay.json`, the overlay `PUT /config` writes (mode 0600). It defaults to
+the working directory. Under Docker point it at a mounted volume, or a reconfiguration is lost the
+moment the container is recreated. `DELETE /config/overlay` removes the overlay and the miner goes
+back to the flags it was started with.
 
 ## Troubleshooting
 
 - **Mining stops right after adding `--proxy`** — that is by design: there is no fallback to a direct connection. Check the proxy is reachable from the rig (`curl --socks5 <host>:<port> https://example.com`), and try `--proxy-dns local` if the proxy cannot resolve your pool.
 - **Stats API unreachable from another machine or from the Docker host** — by default it binds `127.0.0.1` inside the miner (or inside the container), so `-p` has nothing to forward. Start the miner with `--api-port 0.0.0.0:4068`.
+- **Stats API answers `401`**: an `--api-key` is set, so every route except `GET /health` needs `X-API-Key: <secret>` or `Authorization: Bearer <secret>`. Check that a reverse proxy is not stripping the header, and that the key is not sitting in the URL instead.
+- **A control request answers `404`**: that level is not in `--api-control`. An off level is a `404`, not a `403`. The one exception is `PUT /config`, which answers `405` when the `config` level is off, because `GET /config` keeps that path routed at every level.
+- **A control request answers `429`**: writes are debounced. Wait the `Retry-After` seconds and send it again. Nothing changed.
 - **Miner runs but dashboard stats are blank (HiveOS)** — run `curl 127.0.0.1:4068/summary` on the rig. If it answers, verify `/run/hive/MINER_RUN` exists (the HiveOS agent skips stats collection without it).
 - **All shares rejected after a pool hiccup** — the built-in job watchdog (`--job-timeout`, default 180 s) reconnects automatically; lower it if your pool wedges often.
 - **Connection keeps dropping on f2pool** — f2pool hangs up after ~20 s of silence. Add `--keepalive` so the miner pings it periodically.
