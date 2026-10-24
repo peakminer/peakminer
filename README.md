@@ -65,6 +65,15 @@ chmod +x peakminer && \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
 ```
 
+**Quantus (QUAN):**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.0/peakminer-2.20.0-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
+./peakminer --coin quantus -o stratum+tcp://qtc.kryptex.network:7049 \
+  -u qznMoMtokC91War6x8jHTiSqNYxFUe6RxmLCG9QxWiyayRR9j.test
+```
+
 **BTX:**
 
 ```bash
@@ -101,14 +110,17 @@ chmod +x peakminer && \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
 ```
 
-**Quantus (QUAN):**
+**ParanO(1)d (NOID):**
 
 ```bash
 wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.0/peakminer-2.20.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
-./peakminer --coin quantus -o stratum+tcp://qtc.kryptex.network:7049 \
-  -u qznMoMtokC91War6x8jHTiSqNYxFUe6RxmLCG9QxWiyayRR9j.test
+./peakminer --coin parano1d -o stratum+ssl://eu2.innovlab.cc:19601 \
+  -u <YOUR-O1-ADDRESS>.test
 ```
+
+On a public pool `-u` is your own `o1…` payout address, and the miner fee is 3%. Solo against your
+own pool it is 0% and `-u` is only a worker label: see [Mining ParanO(1)d](#mining-parano1d-noid).
 
 The flags you'll actually reach for:
 
@@ -117,7 +129,7 @@ The flags you'll actually reach for:
 | `-o, --url <url>` | Pool URL. **Repeat it for automatic failover** — the miner moves to the next pool on its own when one goes down. TLS/SSL auto-detected |
 | `-u, --user <wallet>` | Pool login, **sent verbatim** — type exactly what your pool documents (`wallet`, `wallet.worker`, `wallet/worker`, …) |
 | `-w, --worker <name>` | Worker name as a **separate field**. Ignored when `-u` already carries a `.` or `/` |
-| `-c, --coin <name>` | Coin / algorithm: `pearl`, `btx`, `csd`, `midstate`, `alphanumeric`, `parano1d` or `quantus` (required) |
+| `-c, --coin <name>` | Coin / algorithm: `pearl`, `quantus`, `btx`, `csd`, `midstate`, `alphanumeric` or `parano1d` (required) |
 | `-d, --devices <list>` | GPU subset: indices (`0,1`) or PCI addresses (`01:00.0,03:00.0`), one form per list (default: all) |
 | `-a, --api-port <[host:]port>` | HTTP stats API. A bare port binds localhost; `0.0.0.0:4068` exposes it to Docker / the LAN (default 4068, `0` disables) |
 | `--api-key <secret>` | Lock the stats API: every route except `GET /health` then needs the key in an `X-API-Key` or `Authorization: Bearer` header. Unset leaves the API open (off by default) |
