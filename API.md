@@ -37,7 +37,7 @@ Never authenticated, so a container `HEALTHCHECK` or a "miner reachable" sensor
 does not need the secret:
 
 ```json
-{"ok": true, "version": "2.20.2"}
+{"ok": true, "version": "2.20.3"}
 ```
 
 ### `GET /summary`
@@ -50,7 +50,7 @@ emits; the values are illustrative:
 
 ```jsonc
 {
-  "version": "2.20.2", "algo": "pearl", "uptime": 3600, "dev_fee_percent": 2.0,
+  "version": "2.20.3", "algo": "pearl", "uptime": 3600, "dev_fee_percent": 2.0,
   "hashrate": 356959884.5, "power_w": 230, "hashrate_per_watt": 1551999.4,
   "accepted_shares": 12, "invalid_shares": 0, "efficiency_pct": 100.0,
   "last_share_at": 1792666769, "eta_share_secs": 51.1, "effort_pct": 4.4,
