@@ -45,40 +45,71 @@ This repository hosts the official release packages. Download the latest build f
 
 ## Try it in one command
 
-Download the binary once, then start it on the coin you want. These lines mine to our test wallets,
-so swap in your own address to keep the proceeds. On Windows, grab the zip from
-[Releases](../../releases) and run `peakminer.exe` with the same `--coin` / `-o` / `-u` flags.
+One block per coin, and each one is a single command: it downloads the binary, makes it
+executable and starts mining right away. Copy the block, paste it into a terminal, done. These
+lines mine to our test wallets, so swap in your own address to keep the proceeds. On Windows,
+grab the zip from [Releases](../../releases) and run `peakminer.exe` with the same `--coin` /
+`-o` / `-u` flags.
+
+**Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.5/peakminer-2.20.5-linux-x86_64 -O peakminer && chmod +x peakminer
-```
-
-```bash
-# Pearl (PRL)
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.5/peakminer-2.20.5-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
+```
 
-# Quantus (QUAN)
+**Quantus (QUAN):**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.5/peakminer-2.20.5-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
 ./peakminer --coin quantus -o stratum+tcp://qtc.kryptex.network:7049 \
   -u qznMoMtokC91War6x8jHTiSqNYxFUe6RxmLCG9QxWiyayRR9j.test
+```
 
-# BTX
+**BTX:**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.5/peakminer-2.20.5-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
 ./peakminer --coin btx -o stratum+ssl://btx-eu.lproute.com:8665 \
   -u <YOUR-BTX-ADDRESS>.test
+```
 
-# CSD
+**CSD:**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.5/peakminer-2.20.5-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
+```
 
-# Midstate (MDS)
+**Midstate (MDS):**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.5/peakminer-2.20.5-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
+```
 
-# Alphanumeric (ALP)
+**Alphanumeric (ALP):**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.5/peakminer-2.20.5-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
+```
 
-# ParanO(1)d (NOID)
+**ParanO(1)d (NOID):**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.5/peakminer-2.20.5-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
 ./peakminer --coin parano1d -o stratum+ssl://eu2.innovlab.cc:19601 \
   -u <YOUR-O1-ADDRESS>.test
 ```
