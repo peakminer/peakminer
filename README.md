@@ -36,7 +36,7 @@ This repository hosts the official release packages. Download the latest build f
 ## Highlights
 
 - **Multi-coin**: mine **Pearl (PRL)**, **Quantus (QUAN)**, **BTX**, **CSD**, **Midstate (MDS)**, **Alphanumeric (ALP)** or **ParanO(1)d (NOID)** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
-- **ParanO(1)d (NOID), your way**: mine it on a **public pool** with nothing to set up (**3%** miner fee), or **solo** against your own node plus Stratum V2 pool from [peakpool](https://github.com/peakminer/peakpool), where every block your farm finds pays **your** wallet in full and the miner fee is **0%**
+- **ParanO(1)d (NOID), your way**: mine it on a **public pool** with nothing to set up (**2%** miner fee), or **solo** against your own node plus Stratum V2 pool from [peakpool](https://github.com/peakminer/peakpool), where every block your farm finds pays **your** wallet in full and the miner fee is **0%**
 - **Luck & effort stats**: see the % of expected effort used to find each share, plus running luck
 - **Kernels tuned per GPU generation**: best efficiency on RTX 50xx, 40xx, 30xx and 20xx (high hash, low watt, low VRAM), and AMD cards are supported on CSD, Alphanumeric and Quantus
 - **Overclocking & thermal limits**: per-GPU core/memory clocks, power limit, and automatic temperature pause/resume
@@ -114,7 +114,7 @@ chmod +x peakminer && \
   -u <YOUR-O1-ADDRESS>.test
 ```
 
-On a public NOID pool `-u` is your own `o1...` payout address and the miner fee is 3%. Solo against
+On a public NOID pool `-u` is your own `o1...` payout address and the miner fee is 2%. Solo against
 your own pool it is 0% and `-u` is only a worker label.
 
 ## Supported coins & dev fees
@@ -126,10 +126,10 @@ your own pool it is 0% and `-u` is only a worker label.
 | CSD | SHA-256d | 2% |
 | Midstate (MDS) | midstate | 2% |
 | Alphanumeric (ALP) | alphanumeric | 2% |
-| ParanO(1)d (NOID) | parano1d | **0%** solo · **3%** public pool |
+| ParanO(1)d (NOID) | parano1d | **0%** solo · **2%** public pool |
 | Quantus (QUAN) | quantus | 2% |
 
-NOID can be mined two ways. **Solo** against your own [peakpool](https://github.com/peakminer/peakpool) instance, where PeakMiner charges **nothing** and the pool build carries a 5% devfee; or on a **public NOID pool**, where PeakMiner charges **3%** and the pool sets its own terms.
+NOID can be mined two ways. **Solo** against your own [peakpool](https://github.com/peakminer/peakpool) instance, where PeakMiner charges **nothing** and the pool build carries a 5% devfee; or on a **public NOID pool**, where PeakMiner charges **2%** and the pool sets its own terms.
 
 New coins are added regularly, so [follow announcements](https://t.me/peakminer_announcements).
 
@@ -199,9 +199,9 @@ Any other pool that speaks QUIC or stratum works too: use whatever endpoint your
 
 | Pool | Site |
 |---|---|
-| InnovLab | [noid.innovlab.cc](https://noid.innovlab.cc), `stratum+ssl://eu2.innovlab.cc:19601` (also `eu`, `hk2`, `hk`, `us`, `us2`, `ru`, or `stratum.innovlab.cc`), miner fee **3%** |
-| suprnova | [noid.suprnova.cc](https://noid.suprnova.cc), `stratum+tcp://noid.suprnova.cc:3340`, miner fee **3%** |
-| Any other public NOID pool | stratum, or an HTTP RPC endpoint such as `https://<pool-host>/noid-rpc/`, miner fee **3%** |
+| InnovLab | [noid.innovlab.cc](https://noid.innovlab.cc), `stratum+ssl://eu2.innovlab.cc:19601` (also `eu`, `hk2`, `hk`, `us`, `us2`, `ru`, or `stratum.innovlab.cc`), miner fee **2%** |
+| suprnova | [noid.suprnova.cc](https://noid.suprnova.cc), `stratum+tcp://noid.suprnova.cc:3340`, miner fee **2%** |
+| Any other public NOID pool | stratum, or an HTTP RPC endpoint such as `https://<pool-host>/noid-rpc/`, miner fee **2%** |
 | peakpool (self-hosted, solo) | [github.com/peakminer/peakpool](https://github.com/peakminer/peakpool/blob/main/deployments/parano1d/README.md), `stratum+sv2://<your-host>:34254`, miner fee **0%** |
 
 Use each pool's own host:port in your flight sheet's **Pool URL**. Comma-separate multiple URLs for failover.
