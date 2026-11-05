@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/banner-dark.png">
+    <img src=".github/assets/banner-light.png" alt="PeakMiner: Peak hashrate. Smarter power. Multi-Coin GPU Miner" width="100%">
+  </picture>
+</p>
+
 # PeakMiner: Multi-Coin GPU Miner for NVIDIA & AMD
 
 [![Latest release](https://img.shields.io/github/v/release/peakminer/peakminer)](https://github.com/peakminer/peakminer/releases)
