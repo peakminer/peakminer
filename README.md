@@ -29,6 +29,7 @@ This repository hosts the official release packages. Download the latest build f
 
 - [Highlights](#highlights)
 - [Try it in one command](#try-it-in-one-command)
+- [Download mirror](#download-mirror)
 - [Supported coins & dev fees](#supported-coins--dev-fees)
 - [Supported pools](#supported-pools)
 - [Quick start](#quick-start)
@@ -123,6 +124,29 @@ chmod +x peakminer && \
 
 On a public NOID pool `-u` is your own `o1...` payout address and the miner fee is 2%. Solo against
 your own pool it is 0% and `-u` is only a worker label.
+
+## Download mirror
+
+Every release is also served from `assets.peakminer.org`, so a GitHub outage does not stop you
+from installing or updating. The path is the same as on GitHub: keep everything after the host and
+swap `github.com/peakminer/peakminer` for `assets.peakminer.org`.
+
+| | URL |
+|---|---|
+| GitHub | `https://github.com/peakminer/peakminer/releases/download/v2.20.7/peakminer-2.20.7.tar.gz` |
+| Mirror | `https://assets.peakminer.org/releases/download/v2.20.7/peakminer-2.20.7.tar.gz` |
+
+The mirror serves the same files, byte for byte, and supports range requests so an interrupted
+download resumes. Each version also carries a checksum file you can verify against:
+
+```bash
+curl -fsSLO https://assets.peakminer.org/releases/download/v2.20.7/peakminer-2.20.7.tar.gz
+curl -fsSL https://assets.peakminer.org/releases/download/v2.20.7/SHA256SUMS.txt | sha256sum -c --ignore-missing
+```
+
+Anywhere this README asks for a download URL you can use the mirror instead, including the HiveOS
+Installation URL and the mmpOS package URL. The mirror keeps the current release and the one
+before it, so use GitHub for anything older.
 
 ## Supported coins & dev fees
 
