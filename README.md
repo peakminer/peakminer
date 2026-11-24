@@ -198,6 +198,7 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 | unMineable | [unmineable.com](https://www.unmineable.com/?mode=advanced&algorithm=pearlpow) |
 | AlphaPool | [pearl.alphapool.tech](https://pearl.alphapool.tech) |
 | f2pool | [f2pool.com](https://www.f2pool.com), `pearl.f2pool.com:5500`, add `--keepalive` |
+| VeinPool | [veinpool.fr](https://veinpool.fr/en/coin/prl), `veinpool.fr:3740` (PPLNS), `veinpool.fr:3742` (solo) |
 
 **BTX**
 
@@ -233,6 +234,7 @@ PeakMiner works with any Stratum V1 pool. Tested and supported:
 | Kryptex | [pool.kryptex.com](https://pool.kryptex.com), `stratum+tcp://qtc.kryptex.network:7049` |
 | QuanPool | [quanpool.com](https://quanpool.com), `quic-insecure://mine.quanpool.com:9834` |
 | LuckyPool | [quantus.luckypool.io](https://quantus.luckypool.io), `eu.lproute.com:3361` |
+| VeinPool | [veinpool.fr](https://veinpool.fr/en/coin/qtc), `stratum+tcp://veinpool.fr:3040` (PPLNS), `veinpool.fr:3042` (solo) |
 
 Any other pool that speaks QUIC or stratum works too: use whatever endpoint yours documents.
 
