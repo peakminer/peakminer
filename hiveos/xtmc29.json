@@ -1,0 +1,26 @@
+{
+  "name": "PEAKMINER_XTMC29",
+  "isFavorite": false,
+  "items": [
+    {
+      "coin": "XTM",
+      "pool_ssl": false,
+      "pool_urls": [
+        "xtm-c29.kryptex.network:8040"
+      ],
+      "dpool_ssl": false,
+      "miner": "custom",
+      "miner_alt": "peakminer",
+      "miner_config": {
+        "url": "stratum+tcp://xtm-c29.kryptex.network:8040",
+        "algo": "xtmc29",
+        "pass": "x",
+        "miner": "peakminer",
+        "template": "%WAL%.%WORKER_NAME%",
+        "install_url": "https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0.tar.gz",
+        "user_config": ""
+      },
+      "pool_geo": []
+    }
+  ]
+}

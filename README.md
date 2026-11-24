@@ -43,7 +43,7 @@ This repository hosts the official release packages. Download the latest build f
 
 ## Highlights
 
-- **Multi-coin**: mine **Pearl (PRL)**, **Quantus (QUAN)**, **BTX**, **CSD**, **Midstate (MDS)**, **Alphanumeric (ALP)** or **ParanO(1)d (NOID)** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
+- **Multi-coin**: mine **Pearl (PRL)**, **Quantus (QUAN)**, **BTX**, **CSD**, **Midstate (MDS)**, **Alphanumeric (ALP)**, **ParanO(1)d (NOID)** or **Tari (XTM)** over Stratum V1, with **auto-detected TLS/SSL** and failover pools
 - **ParanO(1)d (NOID), your way**: mine it on a **public pool** with nothing to set up (**2%** miner fee), or **solo** against your own node plus Stratum V2 pool from [peakpool](https://github.com/peakminer/peakpool), where every block your farm finds pays **your** wallet in full and the miner fee is **0%**
 - **Luck & effort stats**: see the % of expected effort used to find each share, plus running luck
 - **Kernels tuned per GPU generation**: best efficiency on RTX 50xx, 40xx, 30xx and 20xx (high hash, low watt, low VRAM), and AMD cards are supported on CSD, Alphanumeric and Quantus
@@ -62,7 +62,7 @@ grab the zip from [Releases](../../releases) and run `peakminer.exe` with the sa
 **Pearl (PRL):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.9/peakminer-2.20.9-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin pearl -o de.pearl.herominers.com:1200 \
   -u prl1p8z8xpum3f8hahwhtcqq5xsk7t3n39g9uefheapcgvcexy4gcg35sdl0kcl.test
@@ -71,7 +71,7 @@ chmod +x peakminer && \
 **Quantus (QUAN):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.9/peakminer-2.20.9-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin quantus -o stratum+tcp://qtc.kryptex.network:7049 \
   -u qznMoMtokC91War6x8jHTiSqNYxFUe6RxmLCG9QxWiyayRR9j.test
@@ -80,7 +80,7 @@ chmod +x peakminer && \
 **BTX:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.9/peakminer-2.20.9-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin btx -o stratum+ssl://btx-eu.lproute.com:8665 \
   -u <YOUR-BTX-ADDRESS>.test
@@ -89,7 +89,7 @@ chmod +x peakminer && \
 **CSD:**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.9/peakminer-2.20.9-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin csd -o csd-ca.lproute.com:8760 \
   -u 0x288aaabf2169f644b7126d8efcf641a18843a70e.test
@@ -98,7 +98,7 @@ chmod +x peakminer && \
 **Midstate (MDS):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.9/peakminer-2.20.9-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin midstate -o eu.lproute.com:8960 \
   -u 3a665ea3b2371272b7462354211d891b3a9ce8d7316eb3c9a9ca1133e422eb1e8bc6643d.test
@@ -107,7 +107,7 @@ chmod +x peakminer && \
 **Alphanumeric (ALP):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.9/peakminer-2.20.9-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin alphanumeric -o sg.lproute.com:4260 \
   -u 573e560a3e1324b4413a5cbd983f3e668b22218d.test
@@ -116,7 +116,7 @@ chmod +x peakminer && \
 **ParanO(1)d (NOID):**
 
 ```bash
-wget -q https://github.com/peakminer/peakminer/releases/download/v2.20.9/peakminer-2.20.9-linux-x86_64 -O peakminer && \
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0-linux-x86_64 -O peakminer && \
 chmod +x peakminer && \
 ./peakminer --coin parano1d -o stratum+ssl://eu2.innovlab.cc:19601 \
   -u <YOUR-O1-ADDRESS>.test
@@ -124,6 +124,15 @@ chmod +x peakminer && \
 
 On a public NOID pool `-u` is your own `o1...` payout address and the miner fee is 2%. Solo against
 your own pool it is 0% and `-u` is only a worker label.
+
+**Tari (XTM):**
+
+```bash
+wget -q https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0-linux-x86_64 -O peakminer && \
+chmod +x peakminer && \
+./peakminer --coin xtmc29 -o xtm-c29.kryptex.network:8040 \
+  -u <YOUR-XTM-ADDRESS>.test
+```
 
 ## Download mirror
 
@@ -133,15 +142,15 @@ swap `github.com/peakminer/peakminer` for `assets.peakminer.org`.
 
 | | URL |
 |---|---|
-| GitHub | `https://github.com/peakminer/peakminer/releases/download/v2.20.9/peakminer-2.20.9.tar.gz` |
-| Mirror | `https://assets.peakminer.org/releases/download/v2.20.9/peakminer-2.20.9.tar.gz` |
+| GitHub | `https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0.tar.gz` |
+| Mirror | `https://assets.peakminer.org/releases/download/v2.21.0/peakminer-2.21.0.tar.gz` |
 
 The mirror serves the same files, byte for byte, and supports range requests so an interrupted
 download resumes. Each version also carries a checksum file you can verify against:
 
 ```bash
-curl -fsSLO https://assets.peakminer.org/releases/download/v2.20.9/peakminer-2.20.9.tar.gz
-curl -fsSL https://assets.peakminer.org/releases/download/v2.20.9/SHA256SUMS.txt | sha256sum -c --ignore-missing
+curl -fsSLO https://assets.peakminer.org/releases/download/v2.21.0/peakminer-2.21.0.tar.gz
+curl -fsSL https://assets.peakminer.org/releases/download/v2.21.0/SHA256SUMS.txt | sha256sum -c --ignore-missing
 ```
 
 Anywhere this README asks for a download URL you can use the mirror instead, including the HiveOS
@@ -159,6 +168,7 @@ before it, so use GitHub for anything older.
 | Alphanumeric (ALP) | alphanumeric | 2% |
 | ParanO(1)d (NOID) | parano1d | **0%** solo · **2%** public pool |
 | Quantus (QUAN) | quantus | 2% |
+| Tari (XTM) | Cuckaroo29 (CR29) | 2% |
 
 NOID can be mined two ways. **Solo** against your own [peakpool](https://github.com/peakminer/peakpool) instance, where PeakMiner charges **nothing** and the pool build carries a 5% devfee; or on a **public NOID pool**, where PeakMiner charges **2%** and the pool sets its own terms.
 
@@ -235,6 +245,12 @@ Any other pool that speaks QUIC or stratum works too: use whatever endpoint your
 | Any other public NOID pool | stratum, or an HTTP RPC endpoint such as `https://<pool-host>/noid-rpc/`, miner fee **2%** |
 | peakpool (self-hosted, solo) | [github.com/peakminer/peakpool](https://github.com/peakminer/peakpool/blob/main/deployments/parano1d/README.md), `stratum+sv2://<your-host>:34254`, miner fee **0%** |
 
+**Tari (XTM)**
+
+| Pool | Site |
+|---|---|
+| Kryptex | [pool.kryptex.com](https://pool.kryptex.com), `stratum+tcp://xtm-c29.kryptex.network:8040` |
+
 Use each pool's own host:port in your flight sheet's **Pool URL**. Comma-separate multiple URLs for failover.
 
 ## Quick start
@@ -247,7 +263,7 @@ Create a flight sheet with a **Custom** miner and point the Installation URL at 
 
 | Field | Value |
 |---|---|
-| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.20.9/peakminer-2.20.9.tar.gz` |
+| Installation URL | `https://github.com/peakminer/peakminer/releases/download/v2.21.0/peakminer-2.21.0.tar.gz` |
 | Miner | Custom → `peakminer` |
 | Coin | `pearl` |
 | Wallet | your Pearl address |
@@ -269,6 +285,7 @@ then import it into HiveOS (Flight Sheets → import) and set your wallet:
 - **Alphanumeric (ALP)** → [`hiveos/alphanumeric.json`](hiveos/alphanumeric.json)
 - **ParanO(1)d (NOID)** → [`hiveos/parano1d.json`](hiveos/parano1d.json): set **Pool URL** to a public NOID pool's RPC URL, or to your own [peakpool](https://github.com/peakminer/peakpool) host
 - **Quantus (QUAN)** → [`hiveos/quantus.json`](hiveos/quantus.json)
+- **Tari (XTM)** → [`hiveos/xtmc29.json`](hiveos/xtmc29.json)
 
 Update `install_url` in the JSON to the release you want.
 
@@ -293,7 +310,7 @@ The full flag list is in the [CLI reference](#cli-reference), and every flag ver
 
 The same `.tar.gz` is an mmpOS custom miner, so there is no separate download. Add a custom miner with the package URL above, and the mmpOS dashboard reports per-GPU hashrate and share counts.
 
-Each platform reads only its own files out of the one package: mmpOS uses `mmp-launch.sh`, `mmp-stats.sh` and `mmp-external.conf`, HiveOS uses the `h-*` files, and each ignores the other's. mmpOS passes the coin as a ticker (`PRL`, `QTC`, `BTX`, `MDS`, `ALP`, `NOID`, `CSD`) and the launcher maps it to the right `--coin` name. Anything you put in the profile's extra arguments is passed through to the miner unchanged.
+Each platform reads only its own files out of the one package: mmpOS uses `mmp-launch.sh`, `mmp-stats.sh` and `mmp-external.conf`, HiveOS uses the `h-*` files, and each ignores the other's. mmpOS passes the coin as a ticker (`PRL`, `QTC`, `BTX`, `MDS`, `ALP`, `NOID`, `CSD`, `XTM`) and the launcher maps it to the right `--coin` name. Anything you put in the profile's extra arguments is passed through to the miner unchanged.
 
 ### Windows
 
@@ -339,10 +356,10 @@ GPU access requires the host's NVIDIA driver plus the [NVIDIA Container Toolkit]
 #### Use the prebuilt image (no build needed)
 
 ```bash
-docker pull peakminer/peakminer:2.20.9
+docker pull peakminer/peakminer:2.21.0
 
 # Run (-t shows the live miner output)
-docker run --rm -t --gpus all peakminer/peakminer:2.20.9 \
+docker run --rm -t --gpus all peakminer/peakminer:2.21.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
 ```
 
@@ -351,7 +368,7 @@ docker run --rm -t --gpus all peakminer/peakminer:2.20.9 \
 ```bash
 # Defaults to the latest version; override with --build-arg
 docker build -t peakminer .
-docker build -t peakminer:2.20.9 --build-arg PEAKMINER_VERSION=2.20.9 .
+docker build -t peakminer:2.21.0 --build-arg PEAKMINER_VERSION=2.21.0 .
 
 docker run --rm -t --gpus all peakminer \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER>
@@ -362,7 +379,7 @@ Pass any miner flags after the image name. To reach the stats API from the host,
 loopback, which `-p` cannot forward to:
 
 ```bash
-docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.20.9 \
+docker run --rm -t --gpus all -p 4068:4068 peakminer/peakminer:2.21.0 \
   --url de.pearl.herominers.com:1200 --user <WALLET>.<WORKER> --api-port 0.0.0.0:4068
 ```
 
@@ -464,19 +481,20 @@ the local resolver and a pool that only exists on the proxy's side of the networ
 
 ### Every flag, straight from the binary
 
-Full `--help` output (v2.20.9):
+Full `--help` output (v2.21.0):
 
 ```text
+
  ____            _    __  __ _
 |  _ \ ___  __ _| | _|  \/  (_)_ __   ___ _ __
 | |_) / _ \/ _` | |/ / |\/| | | '_ \ / _ \ '__|
 |  __/  __/ (_| |   <| |  | | | | | |  __/ |
 |_|   \___|\__,_|_|\_\_|  |_|_|_| |_|\___|_|
-# high-performance GPU miner · v2.20.9
+# high-performance GPU miner · v2.21.0
 Need help or have questions? Join our community for fast support:
   Discord:   https://peakminer.org/join-our-discord
   Telegram:  https://peakminer.org/join-our-telegram
-(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20261114-b93fb3
+(c) 2026 PeakMiner — proprietary, all rights reserved; no reverse engineering / redistribution (see LICENSE). build=20261123-e4900b
 Multi-algorithm Stratum V1 miner
 
 Usage: peakminer [OPTIONS] --url <url> --user <wallet> --coin <name>
@@ -661,6 +679,14 @@ GPU OC parameters:
       --gpu-power <W|%>        Power limit: watts (e.g. 230) or percent of default (e.g. 80%),
                                applied to ALL GPUs. Per-GPU: --gpu-powerN, e.g. --gpu-power0 80%
                                caps only GPU 0
+      --gpu-vdd <mV>           Core voltage target (decimal mV), NVIDIA on Linux/Windows. Waits for
+                               a stable loaded baseline, then selects and verifies a V/F anchor. 0
+                               or * skips. Comma lists use GPU indices; per-GPU: --gpu-vddN. Cannot
+                               combine with --gpu-vddoff on the same GPU
+      --gpu-vddoff <mV>        Negative core voltage offset (decimal mV) from the stable loaded
+                               baseline, NVIDIA on Linux/Windows. 0 or * skips; per-GPU:
+                               --gpu-vddoffN. Uses available V/F anchors and confirms actual loaded
+                               voltage
       --gpu-fan <%>            Fan speed (0–100%), held fixed, applied to ALL GPUs. Without
                                --gpu-fan-target it pins the fan; with it, it's the starting duty.
                                Per-GPU: --gpu-fanN, e.g. --gpu-fan0 70 sets only GPU 0
@@ -724,6 +750,11 @@ The comma list is accepted by every `--gpu-*` flag below.
                           offers it, CMP cards included
 --gpu-power <W|%>         Power limit: watts (e.g. 230) or percent of default (e.g. 80%).
                           Per-GPU: --gpu-powerN
+--gpu-vdd <mV>            Core voltage target in decimal mV (new in v2.21.0), NVIDIA on
+                          Linux and Windows. Per-GPU: --gpu-vddN. 0 or * skips a card.
+                          Cannot be combined with --gpu-vddoff on the same GPU
+--gpu-vddoff <mV>         Negative core voltage offset in decimal mV (new in v2.21.0),
+                          measured from the loaded baseline. Per-GPU: --gpu-vddoffN
 --gpu-fan <%>             Fan speed (0-100%), held fixed. With --gpu-fan-target it's the
                           starting duty instead. Per-GPU: --gpu-fanN
 --gpu-fan-target <°C>     Closed-loop fan control: the fan steps ±3% every 10 s to hold this
@@ -808,7 +839,7 @@ before v2.20.0. Binding it off-host without a key logs a warning at startup.
 `GET /health` stays open and unauthenticated, so an orchestrator probe does not need the secret:
 
 ```json
-{"ok":true,"version":"2.20.9"}
+{"ok":true,"version":"2.21.0"}
 ```
 
 ### Control endpoints
