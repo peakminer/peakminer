@@ -1,0 +1,26 @@
+{
+  "name": "PEAKMINER_NEB",
+  "isFavorite": false,
+  "items": [
+    {
+      "coin": "NEB",
+      "pool_ssl": false,
+      "pool_urls": [
+        "sg.lproute.com:3370"
+      ],
+      "dpool_ssl": false,
+      "miner": "custom",
+      "miner_alt": "peakminer",
+      "miner_config": {
+        "url": "stratum+tcp://sg.lproute.com:3370",
+        "algo": "neb",
+        "pass": "x",
+        "miner": "peakminer",
+        "template": "%WAL%.%WORKER_NAME%",
+        "install_url": "https://github.com/peakminer/peakminer/releases/download/v2.22.0/peakminer-2.22.0.tar.gz",
+        "user_config": ""
+      },
+      "pool_geo": []
+    }
+  ]
+}
